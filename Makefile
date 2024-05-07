@@ -19,8 +19,4 @@ OUTPUTDIR     = ./build/html
 #%: Makefile
 #	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 build:
-	@$(SPHINXBUILD) $(SOURCEDIR) $(OUTPUTDIR) $(SPHINXOPTS) --host $(HOST) --port $(PORT) & \
-	echo "Sphinx is running at http://$(HOST):$(PORT)"
-	$(shell chmod +x ./autsync.sh)
-	sh ./autsync.sh & \
-	echo "Auto sync is running"
+	@$(SPHINXBUILD) $(SOURCEDIR) $(OUTPUTDIR) $(SPHINXOPTS) --host $(HOST) --port $(PORT)
