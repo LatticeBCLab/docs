@@ -1,5 +1,5 @@
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 5
    :caption: Contents:
 
    合约内部管理操作指令说明.md
