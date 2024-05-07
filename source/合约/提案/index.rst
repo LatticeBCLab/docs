@@ -4,5 +4,5 @@
    :maxdepth: 5
    :caption: Contents:
 
-   合约内部管理操作指令说明.md
-   提案说明文档.md
+   合约内部管理操作指令说明
+   提案说明文档
