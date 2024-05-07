@@ -18,6 +18,8 @@ OUTPUTDIR     = ./build/html
 ## "make mode" option.  $(O) is meant as a shortcut for $(SPHINXOPTS).
 #%: Makefile
 #	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
-
 build:
-	@$(SPHINXBUILD) $(SOURCEDIR) $(OUTPUTDIR) $(SPHINXOPTS) --host $(HOST) --port $(PORT)
+	@$(SPHINXBUILD) $(SOURCEDIR) $(OUTPUTDIR) $(SPHINXOPTS) --host $(HOST) --port $(PORT) & \
+	echo "Sphinx is running at http://$(HOST):$(PORT)"
+	sh ./autsync.sh & \
+	echo "Auto sync is running"
