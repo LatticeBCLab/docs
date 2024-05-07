@@ -21,5 +21,6 @@ OUTPUTDIR     = ./build/html
 build:
 	@$(SPHINXBUILD) $(SOURCEDIR) $(OUTPUTDIR) $(SPHINXOPTS) --host $(HOST) --port $(PORT) & \
 	echo "Sphinx is running at http://$(HOST):$(PORT)"
+	$(shell chmod +x ./autsync.sh)
 	sh ./autsync.sh & \
 	echo "Auto sync is running"
