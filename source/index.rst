@@ -7,7 +7,6 @@
 ======================================
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
 
    合约/index
    共识/index
