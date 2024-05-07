@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-晶格链文档 11
+晶格链文档
 ======================================
 
 .. toctree::
