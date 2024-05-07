@@ -1,7 +1,5 @@
-合约
+账本
 ======================================
 .. toctree::
    :maxdepth: 1
    :caption: Contents:
-
-   提案/index
