@@ -11,9 +11,9 @@
 pip3 install -U Sphinx
 pip3 install sphinx-autobuild
 pip3 install sphinx_rtd_theme
-pip3 install recommonmark
-pip3 install sphinx_markdown_tables
-pip3 install sphinx-markdown-builder
+pip3 install recommonmark # markdown支持
+pip3 install sphinx_markdown_tables # markdown表格支持
+pip3 install sphinx-markdown-builder 
 ```
 ## 开始
 启动文档服务平台

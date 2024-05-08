@@ -11,6 +11,7 @@
    合约/index
    共识/index
    账本/index
+   轻节点/index
    chainbychain/index
    about
    test/index
