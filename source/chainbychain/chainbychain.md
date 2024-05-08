@@ -2,7 +2,7 @@
 
 如果你正在运行一条2.0版本以上的晶格区块链，现有业务产生的数据较多，但与主体业务无关，或需要与其他业务数据隔离。那么你就可以通过**以链建链**新建一个账本来为这类业务提供区块链支持。
 
-![image-20240508102428780](.\chainbychain.assets\image-20240508102428780.png)
+![image-20240508102428780](./chainbychain.assets/image-20240508102428780.png)
 
 # 功能介绍
 
@@ -48,7 +48,7 @@
 
  建链的时序图：
 
-![image-20240508102817461](.\chainbychain.assets\image-20240508102817461.png)
+![image-20240508102817461](./chainbychain.assets/image-20240508102817461.png)
 
 ## 加入链
 
@@ -63,7 +63,7 @@
 
 加入其他链的时序图：
 
-![image-20240508102830735](.\chainbychain.assets\image-20240508102830735.png)
+![image-20240508102830735](./chainbychain.assets/image-20240508102830735.png)
 
 ## 停止链
 
@@ -83,7 +83,7 @@
 
 ## 链的生命周期
 
-![image-20240508112552120](.\chainbychain.assets\image-20240508112552120.png)
+![image-20240508112552120](./chainbychain.assets/image-20240508112552120.png)
 
 # 附件
 
