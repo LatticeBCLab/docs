@@ -17,8 +17,7 @@ release = '1.0'
 extensions = [
     'recommonmark',
     'sphinx_markdown_tables'
-    'sphinx.ext.autodoc',
-    'rst2pdf.pdfbuilder',
+    'sphinx.ext.autodoc'
 ]
 
 templates_path = ['_templates']
