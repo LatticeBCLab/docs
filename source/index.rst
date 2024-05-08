@@ -11,3 +11,4 @@
    合约/index
    共识/index
    账本/index
+   about
