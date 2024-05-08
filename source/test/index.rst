@@ -3,6 +3,6 @@
 .. toctree::
    :maxdepth: 1
 
+   secdir3/index
    二级目录1
    二级目录2
-   secdir3/index
