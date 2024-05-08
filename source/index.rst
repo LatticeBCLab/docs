@@ -11,6 +11,6 @@
    合约/index
    共识/index
    账本/index
-   chainbychain/chainbychain
-   test/index
+   chainbychain/index
    about
+   test/index
