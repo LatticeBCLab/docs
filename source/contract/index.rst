@@ -3,4 +3,4 @@
 .. toctree::
    :maxdepth: 1
 
-   提案/index
+   proposal/index

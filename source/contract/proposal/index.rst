@@ -3,5 +3,5 @@
 .. toctree::
    :maxdepth: 1
 
-   提案说明文档/index
-   合约内部管理操作指令说明
+   proposalDetail/index
+   contractInnerManCommand

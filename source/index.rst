@@ -8,10 +8,10 @@
 .. toctree::
    :maxdepth: 2
 
-   合约/index
-   共识/index
-   账本/index
-   轻节点/index
+   contract/index
+   consensus/index
+   ledger/index
+   spv/index
    chainbychain/index
    about
    test/index
