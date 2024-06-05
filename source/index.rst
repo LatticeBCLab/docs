@@ -6,7 +6,7 @@
 晶格链文档
 ======================================
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
 
    合约/index
    共识/index
