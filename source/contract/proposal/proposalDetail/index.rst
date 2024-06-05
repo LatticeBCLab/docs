@@ -3,4 +3,4 @@
 .. toctree::
    :maxdepth: 1
 
-   提案说明文档
+   proposalDetail
