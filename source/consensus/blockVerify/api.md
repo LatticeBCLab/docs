@@ -1,4 +1,4 @@
-# 新增接口
+# 接口说明
 
 ### latc_getDBlockProof
 

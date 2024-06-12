@@ -15,4 +15,4 @@
    chainbychain/index
    about
    test/index
-   version/nezha
+   version/index
