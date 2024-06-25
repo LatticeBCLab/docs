@@ -26,25 +26,23 @@
 
 发起新建链时的参数如下：
 
-有默认的参数可以不传递，默认值为继承父链的相关配置。没有备注“有默认”即为必填项
-
-| 参数名               | 类型       | 备注                                | 默认值                                |                |      |
-| -------------------- | ---------- | ----------------------------------- | ------------------------------------- | -------------- | ---- |
-| consensus            | uint8      | 0:继承主链1: poa 2:pbft 3:raft 默认 | 0                                     | >0             |      |
-| tokenless            | bool       | 是否有币                            | 继承主链                              | 必填           |      |
-| godAmount            | uint256    | 盟主初始余额                        |                                       |                |      |
-| period               | uint64     | 出块间隔                            |                                       |                |      |
-| noEmptyAnchor        | bool       | 不允许快速出空块                    |                                       |                |      |
-| emptyAnchorPeriodMul | uint64     | 空块等待次数                        |                                       |                |      |
-| isContractVote       | bool       | 开启生命周期                        |                                       |                |      |
-| isDictatorship       | bool       | 开启盟主独裁                        |                                       |                |      |
-| deployRule           | uint8      | 合约部署规则                        |                                       |                |      |
-| name                 | string     | 链名称                              | 主链”_child_”子链id                   |                |      |
-| chainId              | string     | 链Id 有默认                         | 1000->100011001->10002主链id ->子链id |                |      |
-| chainMemberGroup     | Member     | []chainMemberGroup                  | Address                               | 节点地址       | 必填 |
-|                      | MemberType |                                     | uint8                                 | 0: 见证1：共识 |      |
-| preacher             | Address    | 创世节点地址                        |                                       |                |      |
-| bootStrap            | string     | 创世节点nodeinfo                    |                                       |                |      |
+| 参数名               | 类型       | 备注                                |         |                | 默认值                  |
+| -------------------- | ---------- | ----------------------------------- | ------- | -------------- | ----------------------- |
+| consensus            | uint8      | 0:继承主链1: poa 2:pbft 3:raft 默认 |         | >0             | 继承主链                |
+| tokenless            | bool       | 是否有币                            |         |                | 继承主链                |
+| godAmount            | uint256    | 盟主初始余额                        |         |                | 继承主链                |
+| period               | uint64     | 出块间隔                            |         |                | 继承主链                |
+| noEmptyAnchor        | bool       | 不允许快速出空块                    |         |                | 继承主链                |
+| emptyAnchorPeriodMul | uint64     | 空块等待次数                        |         |                | 继承主链                |
+| isContractVote       | bool       | 开启生命周期                        |         |                | 继承主链                |
+| isDictatorship       | bool       | 开启盟主独裁                        |         |                | 继承主链                |
+| deployRule           | uint8      | 合约部署规则                        |         |                | 继承主链                |
+| name                 | string     | 链名称                              |         |                | 主链name\_child\_子链id |
+| chainId              | string     | 链Id                                |         |                | 1000->10001             |
+| chainMemberGroup     | Member     | []chainMemberGroup                  | Address | 节点地址       | 必填                    |
+|                      | MemberType |                                     | uint8   | 0: 见证1：共识 |                         |
+| preacher             | Address    | 创世节点地址                        |         |                | 必填                    |
+| bootStrap            | string     | 创世节点Inode                       |         |                | 可为空                  |
 
  建链的时序图：
 
