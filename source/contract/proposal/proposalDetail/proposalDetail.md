@@ -1480,14 +1480,15 @@ contractPermission
 
 提案状态字典 <span id="dcProposalState"> ProposalState </span>
 
-| key  | value                  |                  |
-| ---- | ---------------------- | ---------------- |
-| 0    | *None*                 | 空值             |
+| key  | value                  |          |
+| ---- |------------------------|----------|
+| 0    | *None*                 | 空值       |
 | 1    | *ProposalStateInit*    | 提案正在进行投票 |
-| 2    | *ProposalStateSuccess* | 提案投票通过     |
-| 3    | *ProposalStateFail*    | 提案投票未通过   |
-| 4    | *ProposalExpired*      | 提案已过期       |
-| 5    | *ProposalStateErr*     | 提案执行错误     |
+| 2    | *ProposalStateSuccess* | 提案投票通过   |
+| 3    | *ProposalStateFail*    | 提案投票未通过  |
+| 4    | *ProposalExpired*      | 提案已过期    |
+| 5    | *ProposalStateErr*     | 提案执行错误   |
+| 5    | *ProposalCancel*       | 提案已取消    |
 
 提案类型字典 <span id="dcProposalType"> ProposalType </span>
 
