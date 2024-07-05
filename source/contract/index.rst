@@ -4,4 +4,5 @@
    :maxdepth: 1
 
    proposal/index
+   precompile/contractsTable
    genesisIntroduce
