@@ -4,15 +4,12 @@
 {
   "config": {
     "latcId": 117,
-    "latcGod": "zltc_RTUbadrrZ9tGSnKtP74JeFHwJ8sWWkBik",
     "latcSaints": [
       "zltc_g2L1GFdBZW6wHRBs1uZNDWeHjvMErzwri",
       "zltc_Xmk6g2Lgxitrx4xEPUZgF4hHdnHwDcBuU"
     ],
-    "consensus": "Raft"
-    "witnessSuccRate": 0.66,
+    "consensus": "Raft",
     "tokenless": true,
-    "difficulty": 1,
     "period": 1000,
     "NoEmptyAnchor": false,
     "EmptyAnchorPeriodMul": 5,
@@ -33,26 +30,28 @@
 }
 ```
 
-|                      |      |      |
-| -------------------- | ---- | ---- |
-| latcId               |      |      |
-| latcGod              |      |      |
-| latcSaints           |      |      |
-| consensus            |      |      |
-| witnessSuccRate      |      |      |
-| tokenless            |      |      |
-| difficulty           |      |      |
-| period               |      |      |
-| NoEmptyAnchor        |      |      |
-| EmptyAnchorPeriodMul |      |      |
-| GM                   |      |      |
-| isContractVote       |      |      |
-| isDictatorship       |      |      |
-| deployRule           |      |      |
-| contractPermission   |      |      |
-| chainVote            |      |      |
-| rootPublicKey        |      |      |
-|                      |      |      |
+|             |                      |                            | 类型     | 可选值                        |
+| ----------- | -------------------- | -------------------------- | -------- | ----------------------------- |
+| config      | latcId               | 链ID                       | int      |                               |
+|             | latcSaints           | 共识节点                   | address  |                               |
+|             | consensus            | 共识机制                   | string   | PoA，Raft，PBFT（区分大小写） |
+|             | tokenless            | 无币链                     | bool     |                               |
+|             | period               | 出块间隔                   | int      |                               |
+|             | NoEmptyAnchor        | 不出空块                   | bool     |                               |
+|             | EmptyAnchorPeriodMul | 不出空块的间隔             | int      |                               |
+|             | GM                   | 国密                       | bool     |                               |
+|             | isContractVote       | 合约生命周期               | bool     |                               |
+|             | isDictatorship       | 生命周期盟主独裁           | bool     |                               |
+|             | deployRule           | 合约部署规则               | int      | 0,1,2                         |
+|             | contractPermission   | 合约内部管理               | bool     |                               |
+|             | chainVote            | 以链建链投票               | bool     |                               |
+|             | rootPublicKey        | 根公钥                     | key      |                               |
+| parentHash  |                      | 创世区块的父hash           | hex hash |                               |
+| number      |                      | 创世区块高度               | int      |                               |
+| preacher    |                      | 联盟链盟主                 | address  |                               |
+| godAmount   |                      | 盟主初始余额               | int      |                               |
+| initVersion |                      | 链版本（区块有变动的版本） | int      | 1,2,3,（4 在测试中）          |
+| timestamp   |                      | 创世区块时间戳             | hex      |                               |
 
 
 

@@ -99,7 +99,7 @@
       "jsonrpc": "2.0",
       "method": "wallet_getProposalById",
       "params": [
-          "0x027eb68d749ce348b2be25d56cc6c48b625801f8420000000000000000"
+          "0x030000000070726f706f73616c5f616464726573736d000000000000003230323430373130"
       ],
       "id": 481
   }'
@@ -145,11 +145,10 @@
         "proposalId":  提案id，为空则按后续规则查询
         "proposalType": 提案类型，为空则返回所有类型 
         "proposalState": 提案状态，为空则返回所有状态 
-        "proposalAddress": 指定地址查询特定类型的提案，链相关：`zltc_QLbz7Kra9DeouYf7qgNyhZwqQEZkjyKsh`
-        "contractAddress": 提案中如有合约地址时，查询指定合约地址的提案，为空则返回所有合约的提案
+        "proposalAddress": 指定地址查询特定类型的提案
     }
     ```
-
+  
 - 返回值
 
   - 提案列表
@@ -196,7 +195,7 @@
                   "proposalId": "0x025d89a33667109e145cdcadcf33462d358d472d170000000000000000",
                   "proposalState": 1,
                   "Nonce": 0,
-                  "contractAddress": "zltc_neSYLZHEhjaUc7eQk2GTNAg6VkSsRuzh1",
+                  "contractAddress": "zltc_YsBiB4CrsFHXMmS9my5HZWswSR7jpaS6M",
                   "isRevoke": 3,
                   "period": 0
               },
@@ -835,6 +834,47 @@
       "method": "wallet_getCancelCode",
       "params": [
           "0x025d89a33667109e145cdcadcf33462d358d472d170000000000000000"
+      ],
+      "id": 481
+  }'
+  ```
+
+- 返回结果
+
+  ```json
+  {
+      "jsonRpc": "2.0",
+      "id": 481,
+      "result": "0x90ca27f30000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000093132333133323133310000000000000000000000000000000000000000000000"
+  }
+  ```
+
+- 错误码
+
+  - 无错误码
+
+### <span id="apiGetChangeProposalExpireTime">wallet_getChangeProposalExpireTime</span>
+
+#### 获取修改提案过期时间的code
+
+- 请求参数
+
+  - 过期时间 （单位：天）
+
+- 返回值
+
+  - code
+
+- 实例  
+
+  ```bash
+  curl --location --request GET 'http://192.168.31.26:5001' \
+  --header 'Content-Type: application/json' \
+  --data '{
+      "jsonrpc": "2.0",
+      "method": "wallet_getChangeProposalExpireTime",
+      "params": [
+          1
       ],
       "id": 481
   }'
