@@ -38,11 +38,15 @@
 | isDictatorship       | bool       | 开启盟主独裁                        |         |                | 继承主链                |
 | deployRule           | uint8      | 合约部署规则                        |         |                | 继承主链                |
 | name                 | string     | 链名称                              |         |                | 主链name\_child\_子链id |
-| chainId              | string     | 链Id                                |         |                | 1000->10001             |
+| chainId              | uint256    | 链Id                                |         |                | 1000->10001             |
 | chainMemberGroup     | Member     | []chainMemberGroup                  | Address | 节点地址       | 必填                    |
 |                      | MemberType |                                     | uint8   | 0: 见证1：共识 |                         |
 | preacher             | Address    | 创世节点地址                        |         |                | 必填                    |
-| bootStrap            | string     | 创世节点Inode                       |         |                | 可为空                  |
+| bootStrap            | string     | 创世节点Inode                       |         |                | 不可为空                |
+| contractPermission   | bool       | 合约内部管理开关                    |         |                | 继承主链                |
+| chainByChainVote     | uint8      | 以链建链投票开关                    |         |                | 继承主链                |
+| proposalExpireTime   | uint       | 提案过期时间（天）                  |         |                | 继承主链                |
+| desc                 | string     | 链描述                              |         |                | 可为空                  |
 
  建链的时序图：
 
