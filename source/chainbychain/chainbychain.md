@@ -100,9 +100,9 @@
 	{
 		"inputs": [
 			{
-				"internalType": "uint64",
+				"internalType": "uint256",
 				"name": "chainId",
-				"type": "uint64"
+				"type": "uint256"
 			}
 		],
 		"name": "delChain",
@@ -113,93 +113,9 @@
 	{
 		"inputs": [
 			{
-				"components": [
-					{
-						"internalType": "uint8",
-						"name": "consensus",
-						"type": "uint8"
-					},
-					{
-						"internalType": "bool",
-						"name": "tokenless",
-						"type": "bool"
-					},
-					{
-						"internalType": "uint256",
-						"name": "godAmount",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint64",
-						"name": "period",
-						"type": "uint64"
-					},
-					{
-						"internalType": "bool",
-						"name": "noEmptyAnchor",
-						"type": "bool"
-					},
-					{
-						"internalType": "uint64",
-						"name": "emptyAnchorPeriodMul",
-						"type": "uint64"
-					},
-					{
-						"internalType": "bool",
-						"name": "isContractVote",
-						"type": "bool"
-					},
-					{
-						"internalType": "bool",
-						"name": "isDictatorship",
-						"type": "bool"
-					},
-					{
-						"internalType": "uint8",
-						"name": "deployRule",
-						"type": "uint8"
-					},
-					{
-						"internalType": "string",
-						"name": "name",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "chainId",
-						"type": "string"
-					},
-					{
-						"internalType": "address",
-						"name": "preacher",
-						"type": "address"
-					},
-					{
-						"internalType": "string",
-						"name": "bootStrap",
-						"type": "string"
-					},
-					{
-						"components": [
-							{
-								"internalType": "address",
-								"name": "member",
-								"type": "address"
-							},
-							{
-								"internalType": "uint8",
-								"name": "memberType",
-								"type": "uint8"
-							}
-						],
-						"internalType": "struct chainbychain.ChainMember[]",
-						"name": "chainMemberGroup",
-						"type": "tuple[]"
-					}
-				],
-				"internalType": "struct chainbychain.Args",
-				"name": "args",
-				"type": "tuple"
+				"internalType": "string",
+				"name": "jsonMap",	
+				"type": "string"
 			}
 		],
 		"name": "newChain",
@@ -210,9 +126,9 @@
 	{
 		"inputs": [
 			{
-				"internalType": "uint64",
+				"internalType": "uint256",
 				"name": "chainId",
-				"type": "uint64"
+				"type": "uint256"
 			},
 			{
 				"internalType": "uint64",
@@ -238,9 +154,9 @@
 	{
 		"inputs": [
 			{
-				"internalType": "uint64",
+				"internalType": "uint256",
 				"name": "chainId",
-				"type": "uint64"
+				"type": "uint256"
 			}
 		],
 		"name": "stopChain",
@@ -251,9 +167,9 @@
 	{
 		"inputs": [
 			{
-				"internalType": "uint64",
+				"internalType": "uint256",
 				"name": "chainId",
-				"type": "uint64"
+				"type": "uint256"
 			}
 		],
 		"name": "startChain",
