@@ -236,7 +236,7 @@
 {
     "jsonrpc": "2.0",
     "method": "latc_getProtocols",
-    "params": [ 
+    "params": [
     ],
     "id": 1
 }
@@ -246,11 +246,20 @@
 
 #### 让当前节点加入某条链
 
+参数：
+
+- 链id
+- 网络id
+- 已知已经有该链的节点的Inode
+
 ```json
 {
     "jsonrpc": "2.0",
     "method": "cbyc_selfJoinChain",
     "params": [
+        1213,
+        12,
+        "xxxx"
     ],
     "id": 1
 }
