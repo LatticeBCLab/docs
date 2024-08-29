@@ -242,6 +242,22 @@
 }
 ```
 
+### cbyc_selfJoinChain
+
+#### 让当前节点加入某条链
+
+```json
+{
+    "jsonrpc": "2.0",
+    "method": "cbyc_selfJoinChain",
+    "params": [
+    ],
+    "id": 1
+}
+```
+
+返回值：成功或错误信息
+
 ### cbyc_stopSelfChain
 
 #### 停止当前节点的链服务
@@ -266,6 +282,22 @@
 {
     "jsonrpc": "2.0",
     "method": "cbyc_startSelfChain",
+    "params": [
+    ],
+    "id": 1
+}
+```
+
+返回值：成功或错误信息
+
+### cbyc_restartSelfChain
+
+#### 重启当前节点的链服务
+
+```json
+{
+    "jsonrpc": "2.0",
+    "method": "cbyc_restartSelfChain",
     "params": [
     ],
     "id": 1
