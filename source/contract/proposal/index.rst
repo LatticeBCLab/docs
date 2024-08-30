@@ -5,3 +5,4 @@
 
    proposalDetail/index
    contractInnerManCommand
+   proposalProtocol
