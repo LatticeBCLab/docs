@@ -1,24 +1,25 @@
 # 预编译合约地址查询
 
-| 预置合约                     | 作用                   | abi.json | 合约地址（zltc格式）                   | 合约地址（16进制格式）                     |
-| ---------------------------- | ---------------------- | -------- | -------------------------------------- | ------------------------------------------ |
-| ecRecover                    | 处理签名               | 无       | zltc_QLbz7JHiBTspS962RLKV8GndWFwvRkSQw | 0x0000000000000000000000000000000000000001 |
-| sha256hash                   | sha256有关             | 无       | zltc_QLbz7JHiBTspS962RLKV8GndWFwzymNiD | 0x0000000000000000000000000000000000000002 |
-| revokeCA                     | 吊销证书               | 无       | zltc_Zg7ABDjrPiwGuLxjJPyrJsXq4pEzjQWDc | 0x66696361746541757468656E7469636174696f6e |
-| Vote                         | 合约投票               | 无       | zltc_QLbz7JHiBTt54PGNLvRebZ5hpzzWfkPAj | 0x0000000000000000766f7465436F6E7472616374 |
+| 预置合约                         | 作用           | abi.json | 合约地址（zltc格式）                   | 合约地址（16进制格式）                     |
+|------------------------------|--------------| -------- | -------------------------------------- | ------------------------------------------ |
+| ecRecover                    | 处理签名         | 无       | zltc_QLbz7JHiBTspS962RLKV8GndWFwvRkSQw | 0x0000000000000000000000000000000000000001 |
+| sha256hash                   | sha256有关     | 无       | zltc_QLbz7JHiBTspS962RLKV8GndWFwzymNiD | 0x0000000000000000000000000000000000000002 |
+| revokeCA                     | 吊销证书         | 无       | zltc_Zg7ABDjrPiwGuLxjJPyrJsXq4pEzjQWDc | 0x66696361746541757468656E7469636174696f6e |
+| Vote                         | 合约投票         | 无       | zltc_QLbz7JHiBTt54PGNLvRebZ5hpzzWfkPAj | 0x0000000000000000766f7465436F6E7472616374 |
 | LaunchContractVote           | 发起合约冻结 解冻 吊销 | 无       | zltc_QLcLqfuBGSfrqt9kt8DHEVNFB4JSdQxhb | 0x00004C61756E6368436F6e7472616374566f7465 |
-| transGenesisNode             | 布道者节点转移         | 无       | zltc_QLbz7KuobbCCQQBBY7JMsXsvFZH7jDnd7 | 0x000000007472616e7347656E657369734E6f6465 |
-| Credibility                  | 存证溯源               | 有       | zltc_QLbz7JHiBTspUvTPzLHy5biDS9mu53mmv | 0x000000000000000000637265646962696C697479 |
-| BusinessId                   | 生成业务地址           | 无       | zltc_QLbz7JHiBTspS9WTWJUrbNsB5wbENMweQ | 0x00000000000000000000427573696e6573734964 |
-| Oracle                       | 预言机合约             | 有       | zltc_amPge82fy3fJsLD1eSerqCBEfgjpU43S4 | 0x7261636C65436f6E747261637441646472657373 |
-| Identity                     | 身份合约               | 有       | zltc_aQdmesGLjoJ5FJ65t2F7Nf9tTAT2C3dxA | 0x6e74697479436F6e747261637441646472657373 |
-| Peekaboo                     | 哈希隐藏               | 有       | zltc_a8Nx2gcs2XHye7MKVWykdanumqDkWXqRH | 0x6B61626f6f436f6E747261637441646472657373 |
-| BaseCrossContract            | 基础跨链业务合约       | 无       | zltc_WVEM51V8cbusa32mqQs2qABrt4KdQNToB | 0x43726f7373436F6E747261637441646472657373 |
-| ContractInnerManagerProposal | 合约内部管理提案       | 有       | zltc_ZDdPo8P72X7dtMNTxBeKU8pT7bDXb7NtV | 0x6167655f70726f706F73616C5F61646472657373 |
-| ContractLifecycleProposal    | 合约生命周期提案       | 有       | zltc_ZQJjaw74CKMjqYJFMKdEDaNTDMq5QKi3T | 0x636c655f70726F706f73616C5F61646472657373 |
-| ModifyConfigProposal         | 链配置更改提案         | 有       | zltc_ZwuhH4dudz2Md2h6NFgHc8yrFUhKy2UUZ | 0x6966795f70726F706f73616c5F61646472657373 |
-| ProposalVote                 | 提案投票               | 有       | zltc_amgWuhifLRUoZc3GSbv9wUUz6YUfTuWy5 | 0x726f706f73616c5F766f74655F61646472657373 |
-| ChainByChainProposal         | 以链建链提案           | 有       | zltc_ZDfqCd4ZbBi4WA7uG4cGpFWRyTFqzyHUn | 0x61696e5f62795f636861696E5f61646472657373 |
+| transGenesisNode             | 布道者节点转移      | 无       | zltc_QLbz7KuobbCCQQBBY7JMsXsvFZH7jDnd7 | 0x000000007472616e7347656E657369734E6f6465 |
+| Credibility                  | 存证溯源         | 有       | zltc_QLbz7JHiBTspUvTPzLHy5biDS9mu53mmv | 0x000000000000000000637265646962696C697479 |
+| BusinessId                   | 生成业务地址       | 无       | zltc_QLbz7JHiBTspS9WTWJUrbNsB5wbENMweQ | 0x00000000000000000000427573696e6573734964 |
+| Oracle                       | 预言机合约        | 有       | zltc_amPge82fy3fJsLD1eSerqCBEfgjpU43S4 | 0x7261636C65436f6E747261637441646472657373 |
+| Identity                     | 身份合约         | 有       | zltc_aQdmesGLjoJ5FJ65t2F7Nf9tTAT2C3dxA | 0x6e74697479436F6e747261637441646472657373 |
+| Peekaboo                     | 哈希隐藏         | 有       | zltc_a8Nx2gcs2XHye7MKVWykdanumqDkWXqRH | 0x6B61626f6f436f6E747261637441646472657373 |
+| BaseCrossContract            | 基础跨链业务合约     | 无       | zltc_WVEM51V8cbusa32mqQs2qABrt4KdQNToB | 0x43726f7373436F6E747261637441646472657373 |
+| ContractInnerManagerProposal | 合约内部管理提案     | 有       | zltc_ZDdPo8P72X7dtMNTxBeKU8pT7bDXb7NtV | 0x6167655f70726f706F73616C5F61646472657373 |
+| ContractLifecycleProposal    | 合约生命周期提案     | 有       | zltc_ZQJjaw74CKMjqYJFMKdEDaNTDMq5QKi3T | 0x636c655f70726F706f73616C5F61646472657373 |
+| ModifyConfigProposal         | 链配置更改提案      | 有       | zltc_ZwuhH4dudz2Md2h6NFgHc8yrFUhKy2UUZ | 0x6966795f70726F706f73616c5F61646472657373 |
+| ProposalVote                 | 提案投票         | 有       | zltc_amgWuhifLRUoZc3GSbv9wUUz6YUfTuWy5 | 0x726f706f73616c5F766f74655F61646472657373 |
+| ChainByChainProposal         | 以链建链提案       | 有       | zltc_ZDfqCd4ZbBi4WA7uG4cGpFWRyTFqzyHUn | 0x61696e5f62795f636861696E5f61646472657373 |
+| NodeCertContract             | 节点证书合约       | 有       | zltc_QLbz7JHxYJDL9LAguz9rKrwNtmfY2UoAZ | 0x00000000004e6f64654365727441646472657373 |
 
 ## Credibility合约
 
@@ -725,6 +726,75 @@
 		"stateMutability": "nonpayable",
 		"type": "function"
 	}
+]
+```
+
+## NodeCertContract合约
+
+```json
+[
+    {
+        "inputs": [
+			{
+            "components": [
+              {
+                "internalType": "address",
+                "name": "nodeAddress",
+                "type": "address"
+              },
+              {
+                "internalType": "uint8",
+                "name": "nodeType",
+                "type": "uint8"
+              }
+            ],
+            "internalType": "struct NodeCertParam[]",
+            "name": "nodes",
+            "type": "tuple[]"
+          }
+        ],
+        "name": "applyCert",
+        "outputs": [
+            {
+                "internalType": "bytes",
+                "name": "",
+                "type": "bytes"
+            }
+        ],
+        "stateMutability": "pure",
+        "type": "function"
+    },
+      {
+        "inputs": [
+			{
+            "components": [
+              {
+                "internalType": "address",
+                "name": "nodeAddress",
+                "type": "address"
+              },
+              {
+                "internalType": "uint8",
+                "name": "nodeType",
+                "type": "uint8"
+              }
+            ],
+            "internalType": "struct NodeCertParam[]",
+            "name": "nodes",
+            "type": "tuple[]"
+          }
+        ],
+        "name": "revokeCert",
+        "outputs": [
+            {
+                "internalType": "bytes",
+                "name": "",
+                "type": "bytes"
+            }
+        ],
+        "stateMutability": "pure",
+        "type": "function"
+    }
 ]
 ```
 
