@@ -477,87 +477,114 @@
 
 ```json
 [
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "ProposalId",
-				"type": "string"
-			},
-			{
-				"internalType": "uint8",
-				"name": "VoteSuggestion",
-				"type": "uint8"
-			}
-		],
-		"name": "vote",
-		"outputs": [
-			{
-				"internalType": "bytes",
-				"name": "",
-				"type": "bytes"
-			}
-		],
-		"stateMutability": "pure",
-		"type": "function"
-	},
-		{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "ProposalId",
-				"type": "string"
-			}
-		],
-		"name": "refresh",
-		"outputs": [
-			{
-				"internalType": "bytes",
-				"name": "",
-				"type": "bytes"
-			}
-		],
-		"stateMutability": "pure",
-		"type": "function"
-	},
-		{
-		"inputs": [
-			{
-				"internalType": "string[]",
-				"name": "proposalIds",
-				"type": "string[]"
-			}
-		],
-		"name": "batchRefresh",
-		"outputs": [
-			{
-				"internalType": "bytes",
-				"name": "",
-				"type": "bytes"
-			}
-		],
-		"stateMutability": "pure",
-		"type": "function"
-	},
-		{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "proposalId",
-				"type": "string"
-			}
-		],
-		"name": "cancel",
-		"outputs": [
-			{
-				"internalType": "bytes",
-				"name": "",
-				"type": "bytes"
-			}
-		],
-		"stateMutability": "pure",
-		"type": "function"
-	}
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "ProposalId",
+        "type": "string"
+      },
+      {
+        "internalType": "uint8",
+        "name": "VoteSuggestion",
+        "type": "uint8"
+      }
+    ],
+    "name": "vote",
+    "outputs": [
+      {
+        "internalType": "bytes",
+        "name": "",
+        "type": "bytes"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  },{
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "ProposalId",
+        "type": "string"
+      },
+      {
+        "internalType": "bytes",
+        "name": "sign",
+        "type": "bytes"
+      },
+      {
+        "internalType": "address",
+        "name": "from",
+        "type": "address"
+      }
+    ],
+    "name": "signVote",
+    "outputs": [
+      {
+        "internalType": "bytes",
+        "name": "",
+        "type": "bytes"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  },{
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "ProposalId",
+        "type": "string"
+      }
+    ],
+    "name": "refresh",
+    "outputs": [
+      {
+        "internalType": "bytes",
+        "name": "",
+        "type": "bytes"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string[]",
+        "name": "proposalIds",
+        "type": "string[]"
+      }
+    ],
+    "name": "batchRefresh",
+    "outputs": [
+      {
+        "internalType": "bytes",
+        "name": "",
+        "type": "bytes"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "proposalId",
+        "type": "string"
+      }
+    ],
+    "name": "cancel",
+    "outputs": [
+      {
+        "internalType": "bytes",
+        "name": "",
+        "type": "bytes"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  }
 ]
 ```
 
