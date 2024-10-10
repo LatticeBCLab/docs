@@ -736,68 +736,166 @@
 
 ```json
 [
-    {
-        "inputs": [
-			{
-            "components": [
-              {
-                "internalType": "address",
-                "name": "nodeAddress",
-                "type": "address"
-              },
-              {
-                "internalType": "uint8",
-                "name": "nodeType",
-                "type": "uint8"
-              }
-            ],
-            "internalType": "struct NodeCertParam[]",
-            "name": "nodes",
-            "type": "tuple[]"
-          }
-        ],
-        "name": "applyCert",
-        "outputs": [
-            {
-                "internalType": "bytes",
-                "name": "",
-                "type": "bytes"
-            }
-        ],
-        "stateMutability": "pure",
-        "type": "function"
-    },
+  {
+    "inputs": [
       {
-        "inputs": [
-			{
+        "internalType": "uint8",
+        "name": "certType",
+        "type": "uint8"
+      },
+      {
+        "internalType": "string",
+        "name": "orgName",
+        "type": "string"
+      },
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "address",
+            "type": "address"
+          }
+        ],
+        "internalType": "struct ApplyCert[]",
+        "name": "nodes",
+        "type": "tuple[]"
+      }
+    ],
+    "name": "apply",
+    "outputs": [
+      {
+        "internalType": "bytes",
+        "name": "",
+        "type": "bytes"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  },{
+    "inputs": [
+      {
+        "internalType": "uint8",
+        "name": "certType",
+        "type": "uint8"
+      },
+      {
+        "internalType": "string",
+        "name": "orgName",
+        "type": "string"
+      },
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "address",
+            "type": "address"
+          }
+        ],
+        "internalType": "struct ApplyCert[]",
+        "name": "nodes",
+        "type": "tuple[]"
+      }
+    ],
+    "name": "apply",
+    "outputs": [
+      {
+        "internalType": "bytes",
+        "name": "",
+        "type": "bytes"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "serialNumber",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct RevokeCertParam[]",
+        "name": "nodes",
+        "type": "tuple[]"
+      }
+    ],
+    "name": "revoke",
+    "outputs": [
+      {
+        "internalType": "bytes",
+        "name": "",
+        "type": "bytes"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "components": [
+          {
+            "internalType": "bytes",
+            "name": "publicKey",
+            "type": "bytes"
+          }
+        ],
+        "internalType": "struct UploadKeyParam[]",
+        "name": "nodes",
+        "type": "tuple[]"
+      }
+    ],
+    "name": "uploadKey",
+    "outputs": [
+      {
+        "internalType": "bytes",
+        "name": "",
+        "type": "bytes"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "components": [
+          {
+            "internalType": "string",
+            "name": "OrgName",
+            "type": "string"
+          },
+          {
+            "internalType": "uint8",
+            "name": "CertType",
+            "type": "uint8"
+          },
+          {
             "components": [
               {
-                "internalType": "address",
-                "name": "nodeAddress",
-                "type": "address"
-              },
-              {
-                "internalType": "uint8",
-                "name": "nodeType",
-                "type": "uint8"
+                "internalType": "bytes",
+                "name": "PublicKey",
+                "type": "bytes"
               }
             ],
-            "internalType": "struct NodeCertParam[]",
-            "name": "nodes",
+            "internalType": "struct nodeCert.UploadKeyParam[]",
+            "name": "Applies",
             "type": "tuple[]"
           }
         ],
-        "name": "revokeCert",
-        "outputs": [
-            {
-                "internalType": "bytes",
-                "name": "",
-                "type": "bytes"
-            }
-        ],
-        "stateMutability": "pure",
-        "type": "function"
-    }
+        "internalType": "struct nodeCert.UpAndApplyParam",
+        "name": "param",
+        "type": "tuple"
+      }
+    ],
+    "name": "upAndApply",
+    "outputs": [],
+    "stateMutability": "pure",
+    "type": "function"
+  }
 ]
 ```
 
