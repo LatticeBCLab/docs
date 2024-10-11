@@ -13,7 +13,7 @@
    ledger/index
    spv/index
    chainbychain/index
+   cert/index
    about
    test/index
    version/index
-   cert/index
