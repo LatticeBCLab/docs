@@ -16,3 +16,4 @@
    about
    test/index
    version/index
+   cert/index
