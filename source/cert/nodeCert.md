@@ -42,11 +42,11 @@
 
    1. 节点启动
 
-      ![image-20241010151350235](E:/0BBBBB/%E4%B8%AD%E7%A7%91%E6%99%B6%E6%A0%BC/doc/%E4%BA%A7%E5%93%81/%E8%8A%82%E7%82%B9%E8%AF%81%E4%B9%A6/%E8%8A%82%E7%82%B9%E8%AF%81%E4%B9%A6.assets/image-20241010151350235.png)
+      ![image-20241010151350235](nodeCert.assets/image-20241010151350235.png)
 
    2. 节点握手
 
-      ![image-20241010151135839](E:/0BBBBB/%E4%B8%AD%E7%A7%91%E6%99%B6%E6%A0%BC/doc/%E4%BA%A7%E5%93%81/%E8%8A%82%E7%82%B9%E8%AF%81%E4%B9%A6/%E8%8A%82%E7%82%B9%E8%AF%81%E4%B9%A6.assets/image-20241010151135839.png)
+      ![image-20241010151135839](nodeCert.assets/image-20241010151135839.png)
 
 3. 共识节点操作
 
@@ -54,7 +54,7 @@
 
    需要注意的是，在节点被成功加入共识后，节点证书需要手动获取并创建"cert.crt"文件放在节点的config目录下。
 
-   ![image-20241010151716428](E:/0BBBBB/%E4%B8%AD%E7%A7%91%E6%99%B6%E6%A0%BC/doc/%E4%BA%A7%E5%93%81/%E8%8A%82%E7%82%B9%E8%AF%81%E4%B9%A6/%E8%8A%82%E7%82%B9%E8%AF%81%E4%B9%A6.assets/image-20241010151716428.png)
+   ![image-20241010151716428](nodeCert.assets/image-20241010151716428.png)
 
 4. 节点证书合约
 
@@ -67,7 +67,7 @@
    > 3. 在申请证书之后，提案详细中会返回证书摘要信息，”审核员“对该概要进行签名投票；
    > 4. 证书的过期时间为1年，暂不支持指定
 
-   <img src="E:/0BBBBB/%E4%B8%AD%E7%A7%91%E6%99%B6%E6%A0%BC/doc/%E4%BA%A7%E5%93%81/%E8%8A%82%E7%82%B9%E8%AF%81%E4%B9%A6/%E8%8A%82%E7%82%B9%E8%AF%81%E4%B9%A6.assets/image-20241010153147945.png" alt="image-20241010153147945" style="zoom:200%;" />
+   <img src="nodeCert.assets/image-20241010153147945.png" alt="image-20241010153147945" style="zoom:200%;" />
 
 5. 签名投票
 
