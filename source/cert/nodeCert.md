@@ -129,8 +129,6 @@
          }
          ```
 
-         
-
       3. wallet_getSignVote，获取签名投票的code
 
          参数：proposalId, pwd 
@@ -142,7 +140,7 @@
          参数示例：
 
          ```json
-         {
+      {
              "jsonrpc": "2.0",
              "method": "wallet_getApplyNodeCertCode",
              "params": [
@@ -159,32 +157,28 @@
              "id": 485
          }
          ```
-
+      
          返回：code
 
-      5. wallet_getRevokeNodeCertCode 获取冻结节点证书的code
+      5. wallet_getRevokeNodeCertCode 获取吊销节点证书的code
 
          参数示例：
 
          ```json
-         {
+      {
              "jsonrpc": "2.0",
              "method": "wallet_getRevokeNodeCertCode",
              "params": [
-                 [
-                 {
-                     "serialNumber": "7eec9f05d5dc460ecceda8a56233942d"
-                 }
-                 ]
+              [64910389297,3869,289799096046914671177019247265221074243]
              ],
              "id": 485
          }
          ```
-
+         
          返回：code
-
+         
       6. wallet_getUploadPubkeyCode  获取上传公钥的code
-
+      
          参数：address, pwd 
 
          返回：code
@@ -208,38 +202,52 @@
          ```json
          {
              "jsonrpc": "2.0",
-             "method": "wallet_publishCert",
+             "method": "latc_publishCert",
              "params": [
                  [
-                 {
-                     "publiceKey": "0x"
-                 }
-                 ]
+                 "-----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoEcz1UBgi0DQgAEhkFnGizi/sHmX4hPAfK70Bjg1Wos\nfu+PPATJ3bOL7hL8pI2sqaxovu7AGP34yOCyzmCY8Myxr7Ktlpg3dNUhGQ==\n-----END PUBLIC KEY-----"
+                 ],
+                 "{{password}}"
              ],
              "id": 485
          }
          ```
-
+      
       2. latc_revokeCert: 吊销证书(只针对当前节点
-
+      
          参数：序列号“对象”数组，节点密码
-
+      
          参数示例
-
+      
          ```json
          {
              "jsonrpc": "2.0",
-             "method": "wallet_revokeCert",
+             "method": "latc_revokeCert",
              "params": [
                  [
-                 {
-                     "serialNumber": 154
-                 }
+                    "247422"
                  ],
-                 "123456"
+                 "{{password}}"
              ],
              "id": 485
          }
          ```
-
+      
+      3. latc_getCertByAddress: 根据账户地址获取其记录再当前节点的证书
+      
+         参数：账户地址
+      
+         参数示例
+      
+         ```json
+         {
+             "jsonrpc": "2.0",
+             "method": "latc_getCertByAddress",
+             "params": [
+                 "{{account2}}"
+             ],
+             "id": 485
+         }
+         ```
+      
          
