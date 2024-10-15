@@ -1570,15 +1570,21 @@ contractPermission
 
 链配置更改  <span id="dcModifyType">ModifyType</span>
 
-| key  | value               | 备注                   |
-| ---- | ------------------- | ---------------------- |
-| 0    | *ChangePeriod*      | 更改出块间隔           |
-| 1    | IsDictatorship      | 更改独裁               |
-| 2    | AddLatcSaint        | 添加共识节点           |
-| 3    | DelLatcSaint        | 删除共识节点           |
-| 4    | SwitchConsensus     | 更改共识  **暂不支持** |
-| 5    | SwitchDeployRule    | 更改部署规则           |
-| 6    | SwitchNoEmptyAnchor | 更改空交易时是否打包   |
+| key  | value                      | 备注                   |
+| ---- | -------------------------- | ---------------------- |
+| 0    | *ChangePeriod*             | 更改出块间隔           |
+| 1    | IsDictatorship             | 更改独裁               |
+| 2    | AddLatcSaint               | 添加共识节点           |
+| 3    | DelLatcSaint               | 删除共识节点           |
+| 4    | SwitchConsensus            | 更改共识  **暂不支持** |
+| 5    | SwitchDeployRule           | 更改部署规则           |
+| 6    | SwitchNoEmptyAnchor        | 更改空交易时是否打包   |
+| 7    | SwitchIsContractVote       | 合约生命周期开关       |
+| 8    | SwitchContractPermission   | 合约内部管理开关       |
+| 9    | ReplaceLatcSaint           | 替换共识节点           |
+| 10   | ChangeEmptyAnchorPeriodMul | 空交易不打包的乘数     |
+| 11   | ChangeProposalExpireTime   | 提案过期时间           |
+| 12   | ChangeChainByChainVote     | 以链建链投票           |
 
 链配置更改 <span id="dcDeployRule">DeployRule</span>
 
