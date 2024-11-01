@@ -1,3 +1,4 @@
+# 日志订阅
 ## 工作流订阅
 
 ![image-20241101145139143](./logSubscribe.assets/image-20241101145139143.png)
