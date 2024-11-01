@@ -14,6 +14,6 @@
    spv/index
    chainbychain/index
    cert/index
+   logsub/index
    about
-   test/index
    version/index
