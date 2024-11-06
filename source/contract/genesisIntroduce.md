@@ -44,7 +44,9 @@
 |             | isDictatorship       | 生命周期盟主独裁           | bool     |                               |
 |             | deployRule           | 合约部署规则               | int      | 0,1,2                         |
 |             | contractPermission   | 合约内部管理               | bool     |                               |
-|             | chainVote            | 以链建链投票               | bool     |                               |
+|             | chainByChainVote     | 以链建链投票               | int      | 0,1,2                         |
+|             | proposalExpireTime   | 提案过期时间               | int      |                               |
+|             | configModifyRule     | 链配置更改规则             | int      | 0,1,2                         |
 |             | rootPublicKey        | 根公钥                     | key      |                               |
 | parentHash  |                      | 创世区块的父hash           | hex hash |                               |
 | number      |                      | 创世区块高度               | int      |                               |

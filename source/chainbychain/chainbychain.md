@@ -48,7 +48,9 @@
 | proposalExpireTime   | uint       | 提案过期时间（天）                     |         |                | 继承主链                |
 | desc                 | string     | 链描述                           |         |                | 可为空                  |
 
- 建链的时序图：
+ 
+
+建链的时序图（如果有投票，这个过程在投票通过后才出发）：
 
 ![image-20240508102817461](./chainbychain.assets/image-20240508102817461.png)
 
