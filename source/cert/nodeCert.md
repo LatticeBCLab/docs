@@ -66,7 +66,7 @@
 
 
 
-#### 1.添加共识节点
+### 1.添加共识节点
 
 途径1： 先上传新的共识节点的公钥到节点证书合约（点击跳转[上传公钥的接口](#apiUploadPubKey)），然后执行后续加共识节点的逻辑
 
@@ -211,11 +211,9 @@ b. 节点证书提案。receipt字段为证书序列号列表（批量添加时�
 
 ## 新增接口
 
-### wallet_xxx:
+### wallet_getAddLatcSaintCodeNew
 
-#### wallet_getAddLatcSaintCodeNew
-
-#### 获取添加共识节点的code
+### 获取添加共识节点的code
 
 参数：[]Param
 
@@ -248,9 +246,9 @@ Param:
 
 返回值为16进制code
 
-#### wallet_getReplaceLatcSaintCodeNew
+### wallet_getReplaceLatcSaintCodeNew
 
-#### 获取添加替换节点的code
+### 获取添加替换节点的code
 
 参数：[]replaceSaint, pwd
 
@@ -293,9 +291,9 @@ Param:
 
 返回值为16进制code
 
-#### wallet_getSignVote <span id="apiSignVote"></span>
+### wallet_getSignVote <span id="apiSignVote"></span>
 
-#### 获取签名投票的code
+### 获取签名投票的code
 
 参数：
 
@@ -318,9 +316,9 @@ Param:
 
 返回：code
 
-#### wallet_getApplyNodeCertCode
+### wallet_getApplyNodeCertCode
 
-#### 获取申请节点证书的code
+### 获取申请节点证书的code
 
 参数：
 
@@ -353,9 +351,9 @@ Param:
 
 返回：code
 
-#### wallet_getRevokeNodeCertCode
+### wallet_getRevokeNodeCertCode
 
-#### 获取吊销节点证书的code
+### 获取吊销节点证书的code
 
 参数：
 
@@ -376,9 +374,9 @@ Param:
 
 返回：code
 
-#### wallet_getUploadPubkeyCode
+### wallet_getUploadPubkeyCode
 
-#### 获取上传公钥的code<span id="apiUploadPubKey"></span>>
+### 获取上传公钥的code<span id="apiUploadPubKey"></span>>
 
 参数：
 
@@ -403,7 +401,7 @@ Param:
 
 返回：code
 
-#### wallet_getUpAndApplyCode 获取上传公钥并申请证书的code
+### wallet_getUpAndApplyCode 获取上传公钥并申请证书的code
 
 参数：
 
@@ -429,11 +427,9 @@ Param:
 
 返回：code
 
-### latc_xxx
+###  latc_publishCert
 
-####  latc_publishCert
-
-#### 发布证书
+### 发布证书
 
 (发布完成后只能在当前节点查询到，但其他节点不影响验证)
 
@@ -471,9 +467,9 @@ Param:
 }
 ```
 
-#### latc_revokeCert
+### latc_revokeCert
 
-#### 吊销证书
+### 吊销证书
 
 (只在当前节点生效，在其他节点验证时非吊销状态)
 
@@ -512,9 +508,9 @@ Param:
 }
 ```
 
-#### latc_checkCert
+### latc_checkCert
 
-#### 检查证书状态
+### 检查证书状态
 
 参数
 
@@ -559,9 +555,9 @@ Param:
 }
 ```
 
-#### latc_getCert<span id="apiGetCert"></span>
+### latc_getCert<span id="apiGetCert"></span>
 
-#### 获取证书
+### 获取证书
 
 参数：
 
@@ -594,9 +590,9 @@ Param:
 }
 ```
 
-#### /getCertFile <span id="apiGetCertFile"></span>
+### /getCertFile <span id="apiGetCertFile"></span>
 
-#### 下载证书文件
+### 下载证书文件
 
 DFS 接口
 
