@@ -417,6 +417,7 @@ Param:
 参数：
 
 - address
+- orgName
 - pwd
 
 > 此方法要求 address的fileKey在节点的data/account目录下
