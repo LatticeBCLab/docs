@@ -99,7 +99,15 @@
 
 ![image_2024-11-19_16-20-03](nodeCert.assets/image_2024-11-19_16-20-03.png)
 
-#### 4.提案结构:
+#### 4. 删除见证节点
+
+在添加了节点证书之后，可以通过将某个见证节点的证书吊销的方式将其踢出网络。
+
+如果已知该节点所用的证书序列号，通过[合约吊销证书](#api_revokeCert)
+
+如果未知该节点的证书序列号，可通过[合约吊销客户端](#api_revokeClient)
+
+#### 5.提案结构:
 
 如下为添加共识节点的提案内容示例，nodeCertProposal字段为生成证书的提案。==**<u>为proposalId或nodeCertProposal投票皆可。</u>**==
 
@@ -194,7 +202,7 @@ b. 节点证书提案。receipt字段为证书序列号列表（批量添加时�
 | applyType            | string | 申请类型，apply/revoke                                       |
 | certType             | string | 证书类型                                                     |
 | orgName              | string | 组织名，预留                                                 |
-| nodeCertParam        | []list | {<br/> "address": "申请人地址 address",<br/> "serialNumber": 序列号,<br/> "certDigest":  "证书摘要，字符串类型  base64"<br/>"signs": "签名，字符串类型 base64"<br/>} |
+| nodeCertParam        | []list | {<br/> "address": "申请人地址 address",<br/> "serialNumber": 序列号,<br/> "certDigest":  "证书摘要，字符串类型  base64"<br/>"signs": "签名，字符串类型 base64"<br/>"revoked": 是否已经吊销，在批量吊销证书的时候可参考该字段<br/>} |
 | configModifyProposal | string | 相关链的链配置已更改提案ID                                   |
 
 
@@ -362,7 +370,7 @@ Param:
 
 返回：code
 
-### wallet_getRevokeNodeCertCode
+### wallet_getRevokeNodeCertCode<span id="api_revokeCert"></span>
 
 ### 获取吊销节点证书的code
 
@@ -385,7 +393,7 @@ Param:
 
 返回：code
 
-### wallet_getRevokeClientCode
+### wallet_getRevokeClientCode<span id="api_revokeClient"></span>
 
 ### 获取吊销见证节点所有证书的code
 
@@ -644,3 +652,35 @@ DFS 接口
 ![image-20241119163930454](nodeCert.assets/image-20241119163930454.png)
 
 ![image-20241119164032281](nodeCert.assets/image-20241119164032281.png)
+
+### latc_getCertTool
+
+### 获取当前节点的证书工具
+
+无参数
+
+请求示例
+
+```json
+{
+    "jsonrpc": "2.0",
+    "method": "latc_getCertTool",
+    "params": [
+    ],
+    "id": 485
+}
+```
+
+返回值
+
+```json
+{
+    "jsonRpc": "2.0",
+    "id": 485,
+    "result": {
+        "Cert": {}, //正在使用的证书
+        "BackupCert": {} // 可能存在的证书备份
+    }
+}
+```
+
