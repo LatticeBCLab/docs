@@ -385,6 +385,29 @@ Param:
 
 返回：code
 
+### wallet_getRevokeClientCode
+
+### 获取吊销见证节点所有证书的code
+
+参数：
+
+- []address: 想要吊销的节点地址
+
+示例：
+
+   ```json
+{
+    "jsonrpc": "2.0",
+    "method": "wallet_getRevokeNodeCertCode",
+    "params": [
+     ["zltc_xxx"]
+    ],
+    "id": 485
+}
+   ```
+
+返回：code
+
 ### wallet_getUploadPubkeyCode
 
 ### 获取上传公钥的code<span id="apiUploadPubKey"></span>>
@@ -521,6 +544,8 @@ Param:
     ]
 }
 ```
+
+
 
 ### latc_checkCert
 
