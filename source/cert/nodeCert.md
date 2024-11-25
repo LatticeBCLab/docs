@@ -39,6 +39,7 @@
 | ------------------------------------------------------------ | ------------------- | -------------------- |
 | [zltc_QLbz7JHxYJDL9LAguz9rKrwNtmfY2UoAZ](#desginNodeCert) 节点证书合约 | apply               | 申请证书             |
 |                                                              | revoke              | 申请吊销证书         |
+|                                                              | revokeClient        | 申请吊销节点         |
 |                                                              | uploadKey           | 上传公钥             |
 |                                                              | upAndApply          | 上传公钥并申请证书   |
 | [zltc_ZwuhH4dudz2Md2h6NFgHc8yrFUhKy2UUZ]()链配置更改合约     | addLatcSaintNew     | 通过公钥添加共识节点 |
@@ -103,7 +104,7 @@
 
 在添加了节点证书之后，可以通过将某个见证节点的证书吊销的方式将其踢出网络。
 
-如果已知该节点所用的证书序列号，通过[合约吊销证书](#api_revokeCert)
+如果已知该节点所用的证书序列号，通过[合约吊销证书](#api_revokeCert)，可以通过latc_peers 查看连
 
 如果未知该节点的证书序列号，可通过[合约吊销客户端](#api_revokeClient)
 
@@ -222,11 +223,15 @@ b. 节点证书提案。receipt字段为证书序列号列表（批量添加时�
 
 ### 异常情况
 
-上述需要申请证书的功能中，由于证书需要公钥，所以在申请之前必须保证账户公钥已经上传到链上，或使用新方法用公钥代替地址。
-
-在缺失公钥时会报如下错误：
+1. 上述需要申请证书的功能中，由于证书需要公钥，所以在申请之前必须保证账户公钥已经上传到链上，或使用新方法用公钥代替地址。在缺失公钥时会报如下错误：`申请证书需要上传公钥, 该地址的公钥还没上传`
 
 ![image-20241119165742698](nodeCert.assets/image-20241119165742698.png)
+
+2. 通过节点证书合约申请证书时，只能够申请client类型的证书，否则将报错：`只有客户端证书才能申请`
+
+3. 通过节点证书合约吊销节点时，只能吊销见证节点，如果尝试吊销的节点是共识节点，将会报错 `只有客户端地址可以吊销`
+
+   
 
 ## 新增接口
 
@@ -653,9 +658,9 @@ DFS 接口
 
 ![image-20241119164032281](nodeCert.assets/image-20241119164032281.png)
 
-### latc_getCertTool
+### latc_getOwnerCert
 
-### 获取当前节点的证书工具
+### 获取当前节点正在使用的证书
 
 无参数
 
@@ -664,7 +669,7 @@ DFS 接口
 ```json
 {
     "jsonrpc": "2.0",
-    "method": "latc_getCertTool",
+    "method": "latc_getOwnerCert",
     "params": [
     ],
     "id": 485
@@ -678,9 +683,45 @@ DFS 接口
     "jsonRpc": "2.0",
     "id": 485,
     "result": {
-        "Cert": {}, //正在使用的证书
-        "BackupCert": {} // 可能存在的证书备份
+        "Raw": "",
+        "RawTBSCertificate": "",
+        "RawSubjectPublicKeyInfo": "",
+        "RawSubject": "",
+        "RawIssuer": "",
+        "Signature": "",
+        "SignatureAlgorithm": 16,
+        "PublicKeyAlgorithm": 3,
+        "PublicKey": {
+        },
+        "Version": 3,
+        "SerialNumber": 26918829189071237074089968074946583618,
+        "Issuer": {},
+        "Subject": {
+            "Country": null,
+            "Organization": [
+                "zkjg.com"
+            ],
+            "OrganizationalUnit": null,
+            "Locality": [
+                "0",
+                "Client",
+                "zltc_Xmk6g2Lgxitrx4xEPUZgF4hHdnHwDcBuU"
+            ],
+            "Province": null,
+            "StreetAddress": null,
+            "PostalCode": null,
+            "SerialNumber": "",
+            "CommonName": "120",
+            "Names": [
+               
+            ],
+            "ExtraNames": null
+        },
+        "NotBefore": "2024-11-25T06:57:56Z",
+        "NotAfter": "2025-11-01T06:57:56Z",
     }
 }
 ```
+
+
 
