@@ -46,12 +46,14 @@
 |                                                              | replaceLatcSaintNew | 通过公钥替换共识节点 |
 | [zltc_amgWuhifLRUoZc3GSbv9wUUz6YUfTuWy5]()提案投票合约       | signVote            | 签名投票             |
 
-### 关于证书类型{#dict_certType}
+### 关于证书类型
 
 1. `InitConsensus`： 创世区块配置文件genesis.json中配置了共识节点信息，`latcSaints`，根据此配置信息即指定了哪些节点拥有`InitConsensus`证书
 2. `InitClient`: genesis.json中增加了配置项`observers`类型与 `latcSaint`一致，带配置项指定了哪些节点拥有`InitClient`证书
 3. `Consensus`: 获取该类型的证书的途径由两种，a. 通过添加共识节点和替换共识节点; ~~b. 向 节点证书合约 发起申请~~。方法b在节点证书合约的介绍中会做详细说明。
 4. `Client`: 获取该类型的证书有两种途径：a.通过向 节点证书合约 发起申请，由共识节点进行签名投票。b. 共识节点通过latc_publishCert直接发布证书。关于**签名投票**和**发布证书**分别会在**节点证书合约**和**新增接口**中详细说明
+
+<span id="dict_certType"></span>
 
 | 证书类型      | 对映int |      |
 | ------------- | ------- | ---- |
@@ -183,7 +185,7 @@ b. 节点证书提案。receipt字段为证书序列号列表（批量添加时�
 
 ![image-20241119172544469](nodeCert.assets/image-20241119172544469.png)
 
-### 节点证书合约{#desginNodeCert}
+### 节点证书合约<span id="desginNodeCert"></span>
 
 节点证书合约为新增合约，合约地址为：zltc_QLbz7JHxYJDL9LAguz9rKrwNtmfY2UoAZ；合约[ABI](http://192.168.1.185:8000/contract/precompile/contractsTable.html#nodecertcontract)：
 
@@ -313,7 +315,7 @@ Param:
 
 返回值为16进制code
 
-### wallet_getSignVote {#apiSignVote}
+### wallet_getSignVote <span id="apiSignVote"></span>
 
 ### 获取签名投票的code
 
@@ -373,7 +375,7 @@ Param:
 
 返回：code
 
-### wallet_getRevokeNodeCertCode{#api_revokeCert}
+### wallet_getRevokeNodeCertCode<span id="api_revokeCert"></span>
 
 ### 获取吊销节点证书的code
 
@@ -396,7 +398,7 @@ Param:
 
 返回：code
 
-### wallet_getRevokeClientCode{#api_revokeClient}
+### wallet_getRevokeClientCode<span id="api_revokeClient"></span>
 
 ### 获取吊销见证节点所有证书的code
 
@@ -421,7 +423,7 @@ Param:
 
 ### wallet_getUploadPubkeyCode
 
-### 获取上传公钥的code{#apiUploadPubKey}
+### 获取上传公钥的code<span id="apiUploadPubKey"></span>>
 
 参数：
 
@@ -605,7 +607,7 @@ Param:
 }
 ```
 
-### latc_getCert{#apiGetCert}
+### latc_getCert<span id="apiGetCert"></span>
 
 ### 获取证书
 
@@ -640,7 +642,7 @@ Param:
 }
 ```
 
-### /getCertFile {#apiGetCertFile}
+### /getCertFile <span id="apiGetCertFile"></span>
 
 ### 下载证书文件
 
