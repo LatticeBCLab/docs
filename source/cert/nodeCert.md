@@ -90,7 +90,7 @@
 >
 >[获取证书文件（下载）](#apiGetCertFile)
 
-![image_2024-11-19_16-10-57](nodeCert.assets/image_2024-11-19_16-10-57.png)
+![image-20241126084503895](nodeCert.assets/image-20241126084503895.png)
 
 #### 2. 删除共识节点
 
@@ -98,7 +98,7 @@
 
 #### 3. 替换共识节点
 
-![image_2024-11-19_16-20-03](nodeCert.assets/image_2024-11-19_16-20-03.png)
+![image-20241126084532454](nodeCert.assets/image-20241126084532454.png)
 
 #### 4. 删除见证节点
 
@@ -206,9 +206,9 @@ b. 节点证书提案。receipt字段为证书序列号列表（批量添加时�
 | nodeCertParam        | []list | {<br/> "address": "申请人地址 address",<br/> "serialNumber": 序列号,<br/> "certDigest":  "证书摘要，字符串类型  base64"<br/>"signs": "签名，字符串类型 base64"<br/>"revoked": 是否已经吊销，在批量吊销证书的时候可参考该字段<br/>} |
 | configModifyProposal | string | 相关链的链配置已更改提案ID                                   |
 
+#### 合约方法介绍
 
-
-![image-20241119165236579](nodeCert.assets/image-20241119165236579.png)
+![image-20241126084851831](nodeCert.assets/image-20241126084851831.png)
 
 ### 签名投票
 
