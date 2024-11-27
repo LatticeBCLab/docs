@@ -53,7 +53,7 @@
 3. `Consensus`: 获取该类型的证书的途径由两种，a. 通过添加共识节点和替换共识节点; ~~b. 向 节点证书合约 发起申请~~。方法b在节点证书合约的介绍中会做详细说明。
 4. `Client`: 获取该类型的证书有两种途径：a.通过向 节点证书合约 发起申请，由共识节点进行签名投票。b. 共识节点通过latc_publishCert直接发布证书。关于**签名投票**和**发布证书**分别会在**节点证书合约**和**新增接口**中详细说明
 
-<span id="dict_certType"></span>
+<span id="dict_certType">证书类型:</span>
 
 | 证书类型      | 对映int |      |
 | ------------- | ------- | ---- |
@@ -185,7 +185,7 @@ b. 节点证书提案。receipt字段为证书序列号列表（批量添加时�
 
 ![image-20241119172544469](nodeCert.assets/image-20241119172544469.png)
 
-### 节点证书合约<span id="desginNodeCert"></span>
+### <span id="desginNodeCert">节点证书合约</span>
 
 节点证书合约为新增合约，合约地址为：zltc_QLbz7JHxYJDL9LAguz9rKrwNtmfY2UoAZ；合约[ABI](http://192.168.1.185:8000/contract/precompile/contractsTable.html#nodecertcontract)：
 
@@ -315,7 +315,7 @@ Param:
 
 返回值为16进制code
 
-### wallet_getSignVote <span id="apiSignVote"></span>
+### <span id="apiSignVote">wallet_getSignVote </span>
 
 ### 获取签名投票的code
 
@@ -375,7 +375,7 @@ Param:
 
 返回：code
 
-### wallet_getRevokeNodeCertCode<span id="api_revokeCert"></span>
+### <span id="api_revokeCert">wallet_getRevokeNodeCertCode</span>
 
 ### 获取吊销节点证书的code
 
@@ -398,7 +398,7 @@ Param:
 
 返回：code
 
-### wallet_getRevokeClientCode<span id="api_revokeClient"></span>
+### <span id="api_revokeClient">wallet_getRevokeClientCode</span>
 
 ### 获取吊销见证节点所有证书的code
 
@@ -423,7 +423,7 @@ Param:
 
 ### wallet_getUploadPubkeyCode
 
-### 获取上传公钥的code<span id="apiUploadPubKey"></span>>
+### <span id="apiUploadPubKey">获取上传公钥的code</span>
 
 参数：
 
@@ -607,7 +607,7 @@ Param:
 }
 ```
 
-### latc_getCert<span id="apiGetCert"></span>
+### <span id="apiGetCert"> latc_getCert</span>
 
 ### 获取证书
 
@@ -642,7 +642,7 @@ Param:
 }
 ```
 
-### /getCertFile <span id="apiGetCertFile"></span>
+### <span id="apiGetCertFile">/getCertFile </span>
 
 ### 下载证书文件
 
