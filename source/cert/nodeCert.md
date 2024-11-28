@@ -50,8 +50,8 @@
 
 1. `InitConsensus`： 创世区块配置文件genesis.json中配置了共识节点信息，`latcSaints`，根据此配置信息即指定了哪些节点拥有`InitConsensus`证书
 2. `InitClient`: genesis.json中增加了配置项`observers`类型与 `latcSaint`一致，带配置项指定了哪些节点拥有`InitClient`证书
-3. `Consensus`: 获取该类型的证书的途径由两种，a. 通过添加共识节点和替换共识节点; ~~b. 向 节点证书合约 发起申请~~。方法b在节点证书合约的介绍中会做详细说明。
-4. `Client`: 获取该类型的证书有两种途径：a.通过向 节点证书合约 发起申请，由共识节点进行签名投票。b. 共识节点通过latc_publishCert直接发布证书。关于**签名投票**和**发布证书**分别会在**节点证书合约**和**新增接口**中详细说明
+3. `Consensus`: 获取该类型的证书的途径:  通过添加共识节点和替换共识节点;.
+4. `Client`: 获取该类型的证书有两种途径：a.通过向 节点证书合约 发起申请，由共识节点进行签名投票。b. 共识节点通过[latc_publishCert](#apiLatcPublishCert)直接发布证书。关于**签名投票**和**[发布证书](#apiLatcPublishCert)**分别会在**节点证书合约**和**新增接口**中详细说明
 
 <span id="dict_certType">证书类型:</span>
 
@@ -315,7 +315,7 @@ Param:
 
 返回值为16进制code
 
-### <span id="apiSignVote">wallet_getSignVote </span>
+### <span id="apiSignVote">wallet_getSignVote</span>
 
 ### 获取签名投票的code
 
@@ -477,7 +477,7 @@ Param:
 
 ### 
 
-###  latc_publishCert
+###  <span id="apiLatcPublishCert">latc_publishCert</span>
 
 ### 发布证书
 
@@ -496,9 +496,8 @@ Param:
     "method": "latc_publishCert",
     "params": [
         [
-        "-----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoEcz1UBgi0DQgAEhkFnGizi/sHmX4hPAfK70Bjg1Wos\nfu+PPATJ3bOL7hL8pI2sqaxovu7AGP34yOCyzmCY8Myxr7Ktlpg3dNUhGQ==\n-----END PUBLIC KEY-----"
-        ],
-        "{{password}}"
+        "04fcbde233790a99d150d364fc5dd59e759df2e825c5b130afe66099904c37913efef1b1713ca85f2dee4954e73f1a3ff0d33255dc1cab136a7eff3282ab66fb4f"
+        ]
     ],
     "id": 485
 }
