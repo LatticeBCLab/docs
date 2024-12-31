@@ -1636,6 +1636,7 @@ contractPermission
 | 10   | ChangeEmptyAnchorPeriodMul | 空交易不打包的乘数     |
 | 11   | ChangeProposalExpireTime   | 提案过期时间           |
 | 12   | ChangeChainByChainVote     | 以链建链投票           |
+| 13   | ReplacePreacher            | 更改盟主节点           |
 
 链配置更改 <span id="dcDeployRule">DeployRule</span>
 
