@@ -486,7 +486,7 @@
 
 ### <span id="apiGetReplaceLatcSaintCode">wallet_getReplaceLatcSaintCode</span>
 
-#### 获取删除共识节点的code
+#### 获取替换共识节点的code
 
 - 请求参数
 
@@ -507,6 +507,53 @@
   --data '{
       "jsonrpc": "2.0",
       "method": "wallet_getReplaceLatcSaintCode",
+      "params": [
+         {
+           "oldSaint": "zltc_g2L1GFdBZW6wHRBs1uZNDWeHjvMErzwri",
+           "newSaint": "zltc_Xmk6g2Lgxitrx4xEPUZgF4hHdnHwDcBuU"
+         }
+      ],
+      "id": 481
+  }'
+  ```
+
+- 返回结果
+
+  ```json
+  {
+      "jsonRpc": "2.0",
+      "id": 481,
+      "result": "0x08ce76a7000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000b9d798fe5a6df07f93a7a8a3e106b5ed5aa800a"
+  }
+  ```
+
+- 错误码
+
+  - 无错误码
+
+### <span id="apiGetReplaceLatcSaintCode">wallet_getReplacePreacherCode</span>
+
+#### 获取替换盟主的code
+
+- 请求参数
+
+  | 参数名   | 参数类型 |                    |
+  | -------- | -------- | ------------------ |
+  | oldSaint | 地址     | 原盟主节点地址     |
+  | newSaint | 地址     | 新的原盟主节点地址 |
+
+- 返回值
+
+  - code
+
+- 实例  
+
+  ```bash
+  curl --location --request GET 'http://192.168.2.12:5001' \
+  --header 'Content-Type: application/json' \
+  --data '{
+      "jsonrpc": "2.0",
+      "method": "wallet_getReplacePreacherCode",
       "params": [
          {
            "oldSaint": "zltc_g2L1GFdBZW6wHRBs1uZNDWeHjvMErzwri",
@@ -1387,6 +1434,10 @@ isContractVote
 contractPermission
 
 参数 `bool`, true关闭，false开启盟
+
+## 4.8 更改盟主节点
+
+[code接口](#apiGetReplaceLatcSaintCode)
 
 # 5. 提案投票
 

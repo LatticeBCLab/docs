@@ -256,309 +256,283 @@
 
 ```json
 [
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "Period",
-        "type": "uint256"
-      }
-    ],
-    "name": "changePeriod",
-    "outputs": [
-      {
-        "internalType": "bytes",
-        "name": "",
-        "type": "bytes"
-      }
-    ],
-    "stateMutability": "pure",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address[]",
-        "name": "LatcSaint",
-        "type": "address[]"
-      }
-    ],
-    "name": "addLatcSaint",
-    "outputs": [
-      {
-        "internalType": "bytes",
-        "name": "",
-        "type": "bytes"
-      }
-    ],
-    "stateMutability": "pure",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "components": [
-          {
-            "internalType": "bytes",
-            "name": "publicKey",
-            "type": "bytes"
-          }
+    {
+        "inputs": [
+            {
+                "internalType": "address[]",
+                "name": "LatcSaint",
+                "type": "address[]"
+            }
         ],
-        "internalType": "struct UploadKeyParam[]",
-        "name": "nodes",
-        "type": "tuple[]"
-      }
-    ],
-    "name": "addLatcSaintNew",
-    "outputs": [
-      {
-        "internalType": "bytes",
-        "name": "",
-        "type": "bytes"
-      }
-    ],
-    "stateMutability": "pure",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address[]",
-        "name": "LatcSaint",
-        "type": "address[]"
-      }
-    ],
-    "name": "delLatcSaint",
-    "outputs": [
-      {
-        "internalType": "bytes",
-        "name": "",
-        "type": "bytes"
-      }
-    ],
-    "stateMutability": "pure",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "oldSaint",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "newSaint",
-        "type": "address"
-      }
-    ],
-    "name": "replaceLatcSaint",
-    "outputs": [
-      {
-        "internalType": "bytes",
-        "name": "",
-        "type": "bytes"
-      }
-    ],
-    "stateMutability": "pure",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "oldSaint",
-        "type": "address"
-      },
-      {
-        "internalType": "bytes",
-        "name": "publicKey",
-        "type": "bytes"
-      }
-    ],
-    "name": "replaceLatcSaintNew",
-    "outputs": [
-      {
-        "internalType": "bytes",
-        "name": "",
-        "type": "bytes"
-      }
-    ],
-    "stateMutability": "pure",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "bool",
-        "name": "IsDictatorship",
-        "type": "bool"
-      }
-    ],
-    "name": "isDictatorship",
-    "outputs": [
-      {
-        "internalType": "bytes",
-        "name": "",
-        "type": "bytes"
-      }
-    ],
-    "stateMutability": "pure",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "bool",
-        "name": "isContractVote",
-        "type": "bool"
-      }
-    ],
-    "name": "switchIsContractVote",
-    "outputs": [
-      {
-        "internalType": "bytes",
-        "name": "",
-        "type": "bytes"
-      }
-    ],
-    "stateMutability": "pure",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "bool",
-        "name": "contractPermission",
-        "type": "bool"
-      }
-    ],
-    "name": "switchContractPermission",
-    "outputs": [
-      {
-        "internalType": "bytes",
-        "name": "",
-        "type": "bytes"
-      }
-    ],
-    "stateMutability": "pure",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "string",
-        "name": "Consensus",
-        "type": "string"
-      }
-    ],
-    "name": "switchConsensus",
-    "outputs": [
-      {
-        "internalType": "bytes",
-        "name": "",
-        "type": "bytes"
-      }
-    ],
-    "stateMutability": "pure",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint8",
-        "name": "deployRule",
-        "type": "uint8"
-      }
-    ],
-    "name": "switchDeployRule",
-    "outputs": [
-      {
-        "internalType": "bytes",
-        "name": "",
-        "type": "bytes"
-      }
-    ],
-    "stateMutability": "pure",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "bool",
-        "name": "noEmptyAnchor",
-        "type": "bool"
-      }
-    ],
-    "name": "switchNoEmptyAnchor",
-    "outputs": [
-      {
-        "internalType": "bytes",
-        "name": "",
-        "type": "bytes"
-      }
-    ],
-    "stateMutability": "pure",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "preacher",
-        "type": "address"
-      }
-    ],
-    "name": "changePreacher",
-    "outputs": [
-      {
-        "internalType": "bytes",
-        "name": "",
-        "type": "bytes"
-      }
-    ],
-    "stateMutability": "pure",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint64",
-        "name": "emptyAnchorPeriodMul",
-        "type": "uint64"
-      }
-    ],
-    "name": "changeEmptyAnchorPeriodMul",
-    "outputs": [],
-    "stateMutability": "pure",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint64",
-        "name": "proposalExpireTime",
-        "type": "uint64"
-      }
-    ],
-    "name": "changeProposalExpireTime",
-    "outputs": [],
-    "stateMutability": "pure",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint8",
-        "name": "chainByChainVote",
-        "type": "uint8"
-      }
-    ],
-    "name": "changeChainByChainVote",
-    "outputs": [],
-    "stateMutability": "pure",
-    "type": "function"
-  }
+        "name": "addLatcSaint",
+        "outputs": [
+            {
+                "internalType": "bytes",
+                "name": "",
+                "type": "bytes"
+            }
+        ],
+        "stateMutability": "pure",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "Period",
+                "type": "uint256"
+            }
+        ],
+        "name": "changePeriod",
+        "outputs": [
+            {
+                "internalType": "bytes",
+                "name": "",
+                "type": "bytes"
+            }
+        ],
+        "stateMutability": "pure",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address[]",
+                "name": "LatcSaint",
+                "type": "address[]"
+            }
+        ],
+        "name": "delLatcSaint",
+        "outputs": [
+            {
+                "internalType": "bytes",
+                "name": "",
+                "type": "bytes"
+            }
+        ],
+        "stateMutability": "pure",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "oldSaint",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "newSaint",
+                "type": "address"
+            }
+        ],
+        "name": "replaceLatcSaint",
+        "outputs": [
+            {
+                "internalType": "bytes",
+                "name": "",
+                "type": "bytes"
+            }
+        ],
+        "stateMutability": "pure",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "oldSaint",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "newSaint",
+                "type": "address"
+            }
+        ],
+        "name": "replacePreacher",
+        "outputs": [
+            {
+                "internalType": "bytes",
+                "name": "",
+                "type": "bytes"
+            }
+        ],
+        "stateMutability": "pure",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "bool",
+                "name": "IsDictatorship",
+                "type": "bool"
+            }
+        ],
+        "name": "isDictatorship",
+        "outputs": [
+            {
+                "internalType": "bytes",
+                "name": "",
+                "type": "bytes"
+            }
+        ],
+        "stateMutability": "pure",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "bool",
+                "name": "isContractVote",
+                "type": "bool"
+            }
+        ],
+        "name": "switchIsContractVote",
+        "outputs": [
+            {
+                "internalType": "bytes",
+                "name": "",
+                "type": "bytes"
+            }
+        ],
+        "stateMutability": "pure",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "bool",
+                "name": "contractPermission",
+                "type": "bool"
+            }
+        ],
+        "name": "switchContractPermission",
+        "outputs": [
+            {
+                "internalType": "bytes",
+                "name": "",
+                "type": "bytes"
+            }
+        ],
+        "stateMutability": "pure",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "Consensus",
+                "type": "string"
+            }
+        ],
+        "name": "switchConsensus",
+        "outputs": [
+            {
+                "internalType": "bytes",
+                "name": "",
+                "type": "bytes"
+            }
+        ],
+        "stateMutability": "pure",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint8",
+                "name": "deployRule",
+                "type": "uint8"
+            }
+        ],
+        "name": "switchDeployRule",
+        "outputs": [
+            {
+                "internalType": "bytes",
+                "name": "",
+                "type": "bytes"
+            }
+        ],
+        "stateMutability": "pure",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "bool",
+                "name": "noEmptyAnchor",
+                "type": "bool"
+            }
+        ],
+        "name": "switchNoEmptyAnchor",
+        "outputs": [
+            {
+                "internalType": "bytes",
+                "name": "",
+                "type": "bytes"
+            }
+        ],
+        "stateMutability": "pure",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "preacher",
+                "type": "address"
+            }
+        ],
+        "name": "changePreacher",
+        "outputs": [
+            {
+                "internalType": "bytes",
+                "name": "",
+                "type": "bytes"
+            }
+        ],
+        "stateMutability": "pure",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint64",
+                "name": "emptyAnchorPeriodMul",
+                "type": "uint64"
+            }
+        ],
+        "name": "changeEmptyAnchorPeriodMul",
+        "outputs": [],
+        "stateMutability": "pure",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint64",
+                "name": "proposalExpireTime",
+                "type": "uint64"
+            }
+        ],
+        "name": "changeProposalExpireTime",
+        "outputs": [],
+        "stateMutability": "pure",
+        "type": "function"
+    },
+    {
+		"inputs": [
+		  {
+			"internalType": "uint8",
+			"name": "chainByChainVote",
+			"type": "uint8"
+		  }
+		],
+		"name": "changeChainByChainVote",
+		"outputs": [],
+		"stateMutability": "pure",
+		"type": "function"
+	}
 ]
 ```
 
