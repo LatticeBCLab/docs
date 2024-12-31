@@ -26,27 +26,28 @@
 
 发起新建链时的参数如下：
 
-| 参数名               | 类型       | 备注                                            |         |                | 默认值                  |
-| -------------------- | ---------- | ----------------------------------------------- | ------- | -------------- | ----------------------- |
-| consensus            | uint8      | 0:继承主链1: poa 2:pbft 3:raft 默认             |         | >0             | 继承主链                |
-| tokenless            | bool       | 是否有币                                        |         |                | 继承主链                |
-| godAmount            | uint256    | 盟主初始余额                                    |         |                | 继承主链                |
-| period               | uint64     | 出块间隔，单位：ms                              |         |                | 继承主链                |
-| noEmptyAnchor        | bool       | 不允许快速出空块                                |         |                | 继承主链                |
-| emptyAnchorPeriodMul | uint64     | 空块等待次数                                    |         |                | 继承主链                |
-| isContractVote       | bool       | 开启生命周期                                    |         |                | 继承主链                |
-| isDictatorship       | bool       | 开启盟主独裁                                    |         |                | 继承主链                |
-| deployRule           | uint8      | 合约部署规则                                    |         |                | 继承主链                |
-| name                 | string     | 链名称                                          |         |                | 主链name\_child\_子链id |
-| chainId              | uint256    | 链Id                                            |         |                | 1000->10001             |
-| chainMemberGroup     | Member     | []chainMemberGroup                              | Address | 节点地址       | 必填                    |
-|                      | MemberType |                                                 | uint8   | 0: 见证1：共识 |                         |
-| preacher             | Address    | 创世节点地址,不做特殊指定时preacher也是共识节点 |         |                | 必填                    |
-| bootStrap            | string     | 创世节点Inode                                   |         |                | 不可为空                |
-| contractPermission   | bool       | 合约内部管理开关                                |         |                | 继承主链                |
-| chainByChainVote     | uint8      | 以链建链投票开关                                |         |                | 继承主链                |
-| proposalExpireTime   | uint       | 提案过期时间（天）                              |         |                | 继承主链                |
-| desc                 | string     | 链描述                                          |         |                | 可为空                  |
+| 参数名               | 类型       | 备注                                            |         |                          | 默认值                  |
+| -------------------- | ---------- | ----------------------------------------------- | ------- | ------------------------ | ----------------------- |
+| consensus            | uint8      | 0:继承主链1: poa 2:pbft 3:raft 默认             |         | >0                       | 继承主链                |
+| tokenless            | bool       | 是否有币                                        |         |                          | 继承主链                |
+| godAmount            | uint256    | 盟主初始余额                                    |         |                          | 继承主链                |
+| period               | uint64     | 出块间隔，单位：ms                              |         |                          | 继承主链                |
+| noEmptyAnchor        | bool       | 不允许快速出空块                                |         |                          | 继承主链                |
+| emptyAnchorPeriodMul | uint64     | 空块等待次数                                    |         |                          | 继承主链                |
+| isContractVote       | bool       | 开启生命周期                                    |         |                          | 继承主链                |
+| isDictatorship       | bool       | 开启盟主独裁                                    |         |                          | 继承主链                |
+| deployRule           | uint8      | 合约部署规则                                    |         |                          | 继承主链                |
+| name                 | string     | 链名称                                          |         |                          | 主链name\_child\_子链id |
+| chainId              | uint256    | 链Id                                            |         |                          | 1000->10001             |
+| chainMemberGroup     | Member     | []chainMemberGroup                              | Address | 节点地址                 | 必填                    |
+|                      | MemberType |                                                 | uint8   | 0: 见证1：共识           |                         |
+| preacher             | Address    | 创世节点地址,不做特殊指定时preacher也是共识节点 |         |                          | 必填                    |
+| bootStrap            | string     | 创世节点Inode                                   |         |                          | 不可为空                |
+| contractPermission   | bool       | 合约内部管理开关                                |         |                          | 继承主链                |
+| chainByChainVote     | uint8      | 以链建链投票开关                                |         |                          | 继承主链                |
+| proposalExpireTime   | uint       | 提案过期时间（天）                              |         |                          | 继承主链                |
+| desc                 | string     | 链描述                                          |         |                          | 空                      |
+| configModifyRule     | uint8      | 链配置更改规则                                  |         | 1: 盟主独裁；2：共识投票 | 继承主链                |
 
  
 
