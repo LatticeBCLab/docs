@@ -1,0 +1,26 @@
+variables:
+  CI_REGISTRY: "harbordev.zlattice.top"
+  IMAGE_TAG: "$CI_REGISTRY/lattice/doc:$CI_COMMIT_BRANCH"
+
+stages:
+  - docker
+  - deploy
+
+build-image:
+  stage: docker
+  image:
+    name: harbordev.zlattice.top/library/kaniko-executor
+    entrypoint: [""]
+  script:
+    - mkdir -p /kaniko/.docker
+    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
+    - >-
+      /kaniko/executor
+      --context $CI_PROJECT_DIR
+      --dockerfile ./Dockerfile
+      --destination $IMAGE_TAG
+
+deploy:
+  stage: deploy
+  script:
+    - docker run -d --name docs -p 8080:80 $IMAGE_TAG
