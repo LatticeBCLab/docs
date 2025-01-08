@@ -19,7 +19,6 @@ export default defineConfig({
         ]
       },
       {
-        text: '合约',
         items: [
           {
             text: '合约生命周期',
@@ -29,6 +28,23 @@ export default defineConfig({
             text: '预置合约索引',
             link: '/source/contract/precompile/contractsTable'
           }
+        ]
+      },
+      {
+        text: '共识',
+        link: '/source/consensus/consensus',
+        items: [
+          {
+            text: '区块验证',
+            link: '/source/consensus/blockVerify/blockVerify',
+            items: [
+              {
+                text: 'api',
+                link: '/source/consensus/blockVerify/api'
+              }
+            ]
+          }
+
         ]
       },
       {
