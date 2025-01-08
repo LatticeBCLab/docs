@@ -32,8 +32,11 @@ export default defineConfig({
       },
       {
         text: '共识',
-        link: '/source/consensus/consensus',
         items: [
+          {
+            text: '共识过程(交易是如果被确定的？)',
+            link: '/source/consensus/consensus',
+          },
           {
             text: '区块验证',
             link: '/source/consensus/blockVerify/blockVerify',
