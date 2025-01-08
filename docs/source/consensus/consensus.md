@@ -18,7 +18,7 @@
 
 下图为DBlock共识示意图，TBlock无需miner（前置共识）其余流程相同
 
-![image-20250108163755825](consensus.assets/image-20250108163755825.png)
+![image-20250108163755825](./consensus.assets/image-20250108163755825.png)
 
 ## 分叉
 
