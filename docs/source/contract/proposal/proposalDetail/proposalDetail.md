@@ -1549,7 +1549,7 @@ contractPermission
 
 # 投票流程
 
-![20240508102830736.jpg](./proposal.assets/image-20240508102830736.png)
+![20240508102830736.jpg](proposal.assets/image-20240508102830736.png)
 
 提案种类
 

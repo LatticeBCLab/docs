@@ -1,6 +1,0 @@
-test二级目录1
-======================================
-
-rst文件的二级目录1
-更多语法请参考：[reStructuredText](http://docutils.sourceforge.net/rst.html)
-...
