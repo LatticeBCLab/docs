@@ -12,7 +12,7 @@ hero:
   actions:
     - theme: brand
       text: 快速开始
-      link: /source/readme
+      link: /source/
 
 ---
 

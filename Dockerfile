@@ -9,5 +9,3 @@ COPY ./vite.config.js /app/vite.config.js
 
 
 RUN npm install
-
-ENTRYPOINT ["npm", "run", "docs:dev"]
