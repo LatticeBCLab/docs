@@ -4,7 +4,7 @@ services:
   docs:
     image: zlattice:docs
     volumes:
-      - ./:./app/
+      - ./docs:/
     ports:
       - 5173:5173
     working_dir: /app
