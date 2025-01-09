@@ -121,13 +121,18 @@ export default defineConfig({
               ]
             },
             {
-              text: '版本变更',
+              text: '版本',
               collapsed: true,
               items: [
                 {
+                  text: '区块版本',
+                  link: '/source/version/blockVersion'
+                },
+                {
                   text: 'v2.1',
                   link: '/source/version/v2.1'
-                }
+                },
+
               ]
             }
           ]
