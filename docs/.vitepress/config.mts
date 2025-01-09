@@ -1,13 +1,16 @@
 import { defineConfig } from 'vitepress'
 
+
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+
   lastUpdated: true,
   title: "ZLattice Docs",
   description: "晶格链文档",
   cleanUrls: true,
   outDir: './build',
   themeConfig: {
+
     // https://vitepress.dev/reference/default-theme-config
     logo: '/statics/logo.png',
     nav: [
@@ -15,15 +18,12 @@ export default defineConfig({
       { text: '晶格链', link: '/source/'},
       { text: '跨链', link: '/cross/'}
     ],
-    search: {
-      provider: 'local'
-    },
     editLink: {
       pattern: 'https://gitlab.zlattice.top/qilong/zlatticedoc/-/blob/master-vue/docs/:path'
     },
-    footer: {
-      message: 'Released under the MIT License.',
-      copyright: 'Copyright © 2025'
+    outline:{
+      level: 'deep',
+      label: '大纲'
     },
     sidebar: {
       '/source/': [
@@ -150,5 +150,44 @@ export default defineConfig({
     socialLinks: [
       { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
     ],
-  }
+    footer: {
+      message: 'Released under the MIT License.',
+      copyright: 'Copyright © 2025'
+    },
+    // 中文
+    search: {
+      provider: 'local',
+      options: {
+        translations: {
+          button: {
+            buttonText: "搜索",
+            buttonAriaLabel: "搜索文档",
+          },
+          modal: {
+            noResultsText: "无法找到相关结果",
+            resetButtonTitle: "清除查询结果",
+            footer: {
+              selectText: "选择",
+              navigateText: "切换",
+            },
+          },
+        },
+      },
+    },
+
+    // 文章翻页
+    docFooter: {
+      prev: '上一篇',
+      next: '下一篇'
+    },
+    // 移动端 - 外观
+    darkModeSwitchLabel: '外观',
+
+    // 移动端 - 返回顶部
+    returnToTopLabel: '返回顶部',
+
+    // 移动端 - menu
+    sidebarMenuLabel: '菜单',
+  },
+
 })

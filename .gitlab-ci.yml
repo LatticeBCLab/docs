@@ -19,7 +19,6 @@ build-image:
       --context $CI_PROJECT_DIR
       --dockerfile ./Dockerfile
       --destination zlattice:docs
-    - docker build 
 
 deploy:
   stage: deploy
