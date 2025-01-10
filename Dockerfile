@@ -1,7 +1,7 @@
 FROM harbordev.zlattice.top/library/node:22.13.0
 
 RUN apt update && \
-    apt install git-all
+    apt install -y git-all
 
 WORKDIR /app
 
