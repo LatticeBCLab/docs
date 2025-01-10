@@ -3,8 +3,9 @@ version: '3'
 services:
   docs:
     image: zlattice:docs
-    volumes: 
+    volumes:
       - ./node_modules:/app/node_modules
+      - ./docs:/app/docs
     network_mode: "host"
     working_dir: /app
     command: "npm run docs:dev"
