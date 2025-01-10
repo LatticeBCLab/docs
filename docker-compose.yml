@@ -3,9 +3,6 @@ version: '3'
 services:
   docs:
     image: zlattice:docs
-    volumes:
-      - ./docs:/
     ports:
       - 5173:5173
     working_dir: /app
-    entrypoint: npm run docs:dev

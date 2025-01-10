@@ -3,7 +3,11 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-
+  vite: {
+    server: {
+      port: 5173
+    },
+  },
   lastUpdated: true,
   title: "ZLattice Docs",
   description: "晶格链文档",
