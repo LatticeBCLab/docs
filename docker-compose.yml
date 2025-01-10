@@ -8,5 +8,4 @@ services:
       - ./docs:/app/docs
     network_mode: "host"
     working_dir: /app
-    command: "npm run docs:dev"
 
