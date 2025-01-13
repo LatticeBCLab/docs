@@ -1,6 +1,5 @@
 import { defineConfig } from 'vitepress'
 
-
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   vite: {
@@ -45,6 +44,16 @@ export default defineConfig({
                 {
                   text: '合约生命周期',
                   link: '/source/contract/contractLifecycle'
+                },
+                {
+                  text: '提案',
+                  link: '/source/contract/proposal/proposalDetail',
+                  items: [
+                    {
+                      text: '合约内部管理指令参考',
+                      link: '/source/contract/proposal/contractInnerManCommand.md'
+                    }
+                  ]
                 },
                 {
                   text: '预置合约索引',
