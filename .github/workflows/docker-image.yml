@@ -12,6 +12,9 @@ jobs:
 
     runs-on: ubuntu-22.04
 
+    outputs:
+      image-path: ${{ steps.save-image.outputs.image-path }}  # 输出保存的镜像路径，供 deploy 使用
+
     steps:
     - uses: actions/checkout@v4
     - name: Build the Docker image
