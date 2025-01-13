@@ -6,8 +6,8 @@ on:
   pull_request:
     branches: [ "master" ]
 env:
-  IMAGE_TAG=${{ vars.IMAGE }}:latest
-  IMAGE_PATH="${{ vars.IMAGE }}.tar"
+  IMAGE_TAG=${{ vars.github-pages.IMAGE }}:latest
+  IMAGE_PATH="${{ vars.github-pages.IMAGE }}.tar"
 jobs:
   build:
     runs-on: ubuntu-22.04
