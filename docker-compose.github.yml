@@ -2,7 +2,7 @@ version: '3'
 
 services:
   docs:
-    image: lattice_bc_lab/zlattice_docs
+    image: frankly98/zlattice_docs:latest
     volumes:
       - ./node_modules:/app/node_modules
       - ./docs:/app/docs

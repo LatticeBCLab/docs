@@ -63,4 +63,4 @@ jobs:
       # Step 3: 使用 docker-compose 启动容器
       - name: Deploy with Docker Compose
         run: |
-          docker-compose -f docker-compose.github.yml up -d
+          docker compose -f docker-compose.github.yml up -d
