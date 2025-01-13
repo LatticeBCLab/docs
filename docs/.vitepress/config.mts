@@ -7,6 +7,15 @@ export default defineConfig({
       port: 5173
     },
   },
+  head: [
+    [
+        'link',
+      {
+        rel: 'icon',
+        href: 'statics/logo.png'
+      }
+    ]
+  ],
   base: '/docs/',
   ignoreDeadLinks: true,
   lastUpdated: true,
