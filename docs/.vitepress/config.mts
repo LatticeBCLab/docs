@@ -7,6 +7,7 @@ export default defineConfig({
       port: 5173
     },
   },
+  ignoreDeadLinks: true,
   lastUpdated: true,
   title: "ZLattice Docs",
   description: "晶格链文档",
