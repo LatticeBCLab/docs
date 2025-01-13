@@ -23,7 +23,7 @@ jobs:
       - name: Build Docker image
         id: build-image
         run: |
-          docker build . --file Dockerfile_github --tag $IMAGE_TAG:lasted
+          docker build . --file Dockerfile_github --tag $IMAGE_TAG
 
       # Step 3: 保存镜像为 tar 文件
       - name: Save Docker image to tar
