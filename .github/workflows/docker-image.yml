@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag lattice_bc_lab/zlattice_docs:lasted
+      run: docker build . --file Dockerfile_github --tag lattice_bc_lab/zlattice_docs:lasted
   deploy:
     runs-on: ubuntu-22.04
     needs: build  # 确保在 build 工作完成后才执行 deploy
@@ -30,4 +30,4 @@ jobs:
     # Step 4: 启动 Docker Compose
     - name: Deploy with Docker Compose
       run: |
-        docker-compose -f docker-compose.yml up -d  # 使用 docker-compose 部署
+        docker compose -f docker-compose.github.yml up -d  # 使用 docker-compose 部署
