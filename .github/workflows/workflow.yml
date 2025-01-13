@@ -1,0 +1,51 @@
+name: Build and Deploy Documentation
+
+on:
+  push:
+    branches:
+      - main  # 监听推送到 master 分支的事件
+  pull_request:
+    branches:
+      - main  # 可选：监听对 master 分支的 PR
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: 检出代码
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: 设置 Node.js 环境
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'  # 可根据项目需求调整 Node.js 版本
+
+      # Step 3: 安装 npm 依赖
+      - name: Install dependencies
+        run: npm install
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build  # 确保在 build 工作完成后再执行 deploy
+
+    steps:
+      # Step 1: 检出代码（与 build 工作中的步骤相同）
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: 设置 Node.js 环境（与 build 工作中的步骤相同）
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'  # 可根据项目需求调整 Node.js 版本
+
+      # Step 3: 安装 npm 依赖
+      - name: Install dependencies
+        run: npm install
+
+      # Step 4: 运行 npm run docs:dev 部署命令
+      - name: Deploy Documentation
+        run: npm run docs:dev
