@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [ "master" ]
 env:
-  IMAGE_TAG: lattice_bc_lab:latest
+  IMAGE_TAG: frankly98/zlattice_docs:latest
   IMAGE_PATH: "lattice_bc_lab.tar"
 jobs:
   build:
