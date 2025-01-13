@@ -24,20 +24,18 @@ jobs:
         id: build-image
         run: |
           docker build . --file Dockerfile_github --tag $IMAGE_TAG
-
-      # Step 3: 保存镜像为 tar 文件
-      - name: Save Docker image to tar
-        id: save-image
-        run: |
-          docker save -o $IMAGE_PATH $IMAGE_TAG
-          echo "image-path=$IMAGE_PATH" >> $GITHUB_ENV  # 将路径设置为环境变量供后续步骤使用
-
-      # Step 4: 上传镜像为 Artifact（可供后续 job 使用）
-      - name: Upload Docker image as artifact
-        uses: actions/upload-artifact@v3
+          
+      # Step 3: 登录 Docker Hub
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
         with:
-          name: docker-image
-          path: ${{ env.IMAGE_PATH }}  # 使用环境变量引用镜像路径
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # Step 4: 推送镜像到 Docker Hub
+      - name: Push Docker image to Docker Hub
+        run: |
+          docker push $IMAGE_TAG
 
   deploy:
     runs-on: ubuntu-22.04
@@ -46,15 +44,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4  # 检出代码
 
-      # Step 1: 下载并加载镜像
-      - name: Download Docker image artifact
-        uses: actions/download-artifact@v3
+      # Step 1: 登录 Docker Hub
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
         with:
-          name: docker-image
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Load Docker image
+      # Step 2: 拉取 Docker 镜像
+      - name: Pull Docker image from Docker Hub
         run: |
-          docker load -i zlatticeDocs_latest.tar  # 加载下载的镜像
+          docker pull $IMAGE_TAG
 
       # Step 2: 设置 Docker 环境
       - name: Set up Docker Buildx
