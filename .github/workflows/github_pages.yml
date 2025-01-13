@@ -12,7 +12,6 @@ jobs:
     permissions:
       contents: write  # 必须显式设置为 write 以允许推送代码
       pages: write    # 启用推送到 gh-pages
-      id-token: read  # 可选，如果需要身份验证 token
 
     steps:
       # 步骤 1: 检出代码
