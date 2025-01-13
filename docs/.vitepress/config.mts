@@ -32,7 +32,7 @@ export default defineConfig({
       { text: '跨链', link: '/cross/'}
     ],
     editLink: {
-      pattern: 'https://gitlab.zlattice.top/qilong/zlatticedoc/-/blob/master-vue/docs/:path'
+      pattern: 'https://github.com/LatticeBCLab/docs/blob/master/docs/:path',
     },
     outline:{
       level: 'deep',
