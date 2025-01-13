@@ -7,7 +7,7 @@ hero:
   text: "晶格链文档"
   tagline: My great project tagline
   image:
-    src: /statics/logo.png
+    src: logo.png
     alt: VitePress
   actions:
     - theme: brand
