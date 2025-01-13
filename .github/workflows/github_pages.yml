@@ -27,9 +27,6 @@ jobs:
   # 构建工作
   build:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -54,6 +51,16 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: docs/build
+
+  # 部署工作
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    needs: build
+    runs-on: ubuntu-latest
+    name: Deploy
+    steps:
       # 步骤 5: 部署到 GitHub Pages
       - name: Deploy to GitHub Pages
         id: deployment
@@ -62,16 +69,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}  # 自动获取 GitHub token
           publish_dir: ./docs/build  # VitePress 构建输出目录
           publish_branch: gh-pages  # 发布到 gh-pages 分支
-#  # 部署工作
-#  deploy:
-#    environment:
-#      name: github-pages
-#      url: ${{ steps.deployment.outputs.page_url }}
-#    needs: build
-#    runs-on: ubuntu-latest
-#    name: Deploy
-#    steps:
-#      - name: Deploy to GitHub Pages
-#        id: deployment
-#        uses: actions/deploy-pages@v4
 
