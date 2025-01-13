@@ -1,0 +1,38 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - master  # 或者 master，根据你的默认分支名
+
+jobs:
+  deploy:
+    runs-on: ubuntu-22.04
+    steps:
+      # 步骤 1: 检出代码
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # 步骤 2: 设置 Node.js 环境
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'  # 选择你使用的 Node.js 版本
+
+      # 步骤 3: 安装依赖
+      - name: Install dependencies
+        run: |
+          npm install
+
+      # 步骤 4: 构建 VitePress 网站
+      - name: Build the VitePress site
+        run: |
+          npm run build
+
+      # 步骤 5: 部署到 GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}  # 自动获取 GitHub token
+          publish_dir: ./docs/build  # VitePress 构建输出目录
+          publish_branch: gh-pages  # 发布到 gh-pages 分支
