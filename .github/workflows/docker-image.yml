@@ -23,11 +23,6 @@ jobs:
     steps:
     - uses: actions/checkout@v4  # 检出代码
 
-    # Step 1: 设置 Docker 环境
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
-
-    # Step 4: 启动 Docker Compose
     - name: Deploy with Docker Compose
       run: |
         docker compose -f docker-compose.github.yml up -d  # 使用 docker-compose 部署
