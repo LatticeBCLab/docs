@@ -6,8 +6,8 @@ on:
   pull_request:
     branches: [ "master" ]
 env:
-  IMAGE_TAG=${{ vars.github-pages.IMAGE }}:latest
-  IMAGE_PATH="${{ vars.github-pages.IMAGE }}.tar"
+  IMAGE_TAG=lattice_bc_lab:latest
+  IMAGE_PATH="lattice_bc_lab.tar"
 jobs:
   build:
     runs-on: ubuntu-22.04
