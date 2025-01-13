@@ -5,7 +5,9 @@ on:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
-
+env:
+  IMAGE_TAG=${{ IMAGE }}:latest
+  IMAGE_PATH="${{ IMAGE }}.tar"
 jobs:
   build:
     runs-on: ubuntu-22.04
@@ -27,8 +29,6 @@ jobs:
       - name: Save Docker image to tar
         id: save-image
         run: |
-          IMAGE_TAG=$IMAGE_TAG:latest
-          IMAGE_PATH="zlatticeDocs_latest.tar"
           docker save -o $IMAGE_PATH $IMAGE_TAG
           echo "image-path=$IMAGE_PATH" >> $GITHUB_ENV  # 将路径设置为环境变量供后续步骤使用
 
