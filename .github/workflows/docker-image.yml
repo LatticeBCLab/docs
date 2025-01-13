@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag latticeBCLab/zlatticeDocs:lasted
+      run: docker build . --file Dockerfile --tag lattice_bc_lab/zlattice_docs:lasted
   deploy:
     runs-on: ubuntu-22.04
     needs: build  # 确保在 build 工作完成后才执行 deploy
