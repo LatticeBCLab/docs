@@ -1,39 +1,56 @@
-name: Deploy to GitHub Pages
+# 构建 VitePress 站点并将其部署到 GitHub Pages 的示例工作流程
+#
+name: Deploy VitePress site to Pages
 
 on:
+  # 在针对 `main` 分支的推送上运行。如果你
+  # 使用 `master` 分支作为默认分支，请将其更改为 `master`
   push:
-    branches:
-      - master  # 或者 master，根据你的默认分支名
+    branches: [main]
+
+  # 允许你从 Actions 选项卡手动运行此工作流程
+  workflow_dispatch:
+
+# 设置 GITHUB_TOKEN 的权限，以允许部署到 GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 只允许同时进行一次部署，跳过正在运行和最新队列之间的运行队列
+# 但是，不要取消正在进行的运行，因为我们希望允许这些生产部署完成
+concurrency:
+  group: pages
+  cancel-in-progress: false
 
 jobs:
-  deploy:
-    runs-on: ubuntu-22.04
-
-    permissions:
-      contents: write  # 必须显式设置为 write 以允许推送代码
-      pages: write    # 启用推送到 gh-pages
-
+  # 构建工作
+  build:
+    runs-on: ubuntu-latest
     steps:
-      # 步骤 1: 检出代码
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      # 步骤 2: 设置 Node.js 环境
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
-          node-version: '16'  # 选择你使用的 Node.js 版本
-
-      # 步骤 3: 安装依赖
+          fetch-depth: 0 # 如果未启用 lastUpdated，则不需要
+      # - uses: pnpm/action-setup@v3 # 如果使用 pnpm，请取消此区域注释
+      #   with:
+      #     version: 9
+      # - uses: oven-sh/setup-bun@v1 # 如果使用 Bun，请取消注释
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm # 或 pnpm / yarn
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
       - name: Install dependencies
-        run: |
-          npm install
-
-      # 步骤 4: 构建 VitePress 网站
-      - name: Build the VitePress site
-        run: |
-          npm run build
-
+        run: npm ci # 或 pnpm install / yarn install / bun install
+      - name: Build with VitePress
+        run: npm run build # 或 pnpm docs:build / yarn docs:build / bun run docs:build
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/.vitepress/build
       # 步骤 5: 部署到 GitHub Pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
@@ -41,3 +58,16 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}  # 自动获取 GitHub token
           publish_dir: ./docs/build  # VitePress 构建输出目录
           publish_branch: gh-pages  # 发布到 gh-pages 分支
+  # 部署工作
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    needs: build
+    runs-on: ubuntu-latest
+    name: Deploy
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+

@@ -7,6 +7,7 @@ export default defineConfig({
       port: 5173
     },
   },
+  base: '/docs/',
   ignoreDeadLinks: true,
   lastUpdated: true,
   title: "ZLattice Docs",
