@@ -1704,7 +1704,7 @@ contractPermission
 ```
 
 >ContractAddress        common.Address `json:"contractAddress"`        //合约地址
->[OperationCommandString](../contractInnerManCommand.md) string         `json:"operationCommandString"` //操作命令字符串 [C/R/U/D][W/B/M]AccountAddress
+>[OperationCommandString](contractInnerManCommand.md) string         `json:"operationCommandString"` //操作命令字符串 [C/R/U/D][W/B/M]AccountAddress
 
 #### 合约生命周期提案
 
