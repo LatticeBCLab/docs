@@ -1,11 +1,18 @@
 # 一步构建晶格链测试网络
 1. 下载最新的晶格链源码，你会得到如下目录结构的代码,这里只需要关注configs
+
    \- ...
+
    \- configs            # 配置文件目录,包含网络启动脚本
+
       \- firstNetwork.sh # 网络启动脚本
+
       \- config.yaml.example # 配置文件模板
+
       \- genesis.json.example # 创世区块模板
+
    \- ...
+
 
 2. 在执行脚本之前,请确保以下端口未被占用:
    \- 10331 (WebSocket 端口)
