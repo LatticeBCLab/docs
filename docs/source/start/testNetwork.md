@@ -5,11 +5,11 @@
 
    \- configs            # 配置文件目录,包含网络启动脚本
 
-      \- firstNetwork.sh # 网络启动脚本
+         - firstNetwork.sh # 网络启动脚本
 
-      \- config.yaml.example # 配置文件模板
+         - config.yaml.example # 配置文件模板
 
-      \- genesis.json.example # 创世区块模板
+         - genesis.json.example # 创世区块模板
 
    \- ...
 
