@@ -45,7 +45,17 @@ export default defineConfig({
           items: [
             {
               text: '快速开始',
-              link: '/source/' ,
+              collapsed: true,
+              items: [
+                {
+                  text: '测试网络',
+                  link: '/source/start/testNetwork'
+                },
+                {
+                  text: '建链',
+                  link: '/source/start/'
+                }
+              ]
             },
             {
               text: '合约',
@@ -125,8 +135,18 @@ export default defineConfig({
               collapsed: true,
               items: [
                 {
-                  text: '节点证书',
-                  link: '/source/cert/nodeCert'
+                  text: '证书',
+                  collapsed: true,
+                  items: [
+                    {
+                      text: '节点证书',
+                      link: '/source/auth/cert/nodeCert'
+                    },
+                    {
+                      text: '解决方案',
+                      link: '/source/auth/cert/solution'
+                    }
+                  ]
                 }
               ]
             },
@@ -157,6 +177,20 @@ export default defineConfig({
                 },
 
               ]
+            },
+            {
+              text: 'API',
+              collapsed: true,
+              items: [
+                {
+                  text: '网络API',
+                  link: '/source/api/netApi'
+                },
+                {
+                  text: '节点证书API',
+                  link: '/source/api/nodeCertApi'
+                }
+              ]
             }
           ]
         }
@@ -169,6 +203,7 @@ export default defineConfig({
           ]
         }
       ]
+
     },
     socialLinks: [
       { icon: 'github', link: 'https://github.com/LatticeBCLab' }
