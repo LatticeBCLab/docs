@@ -188,8 +188,20 @@ export default defineConfig({
                 },
                 {
                   text: '节点证书API',
-                  link: '/source/api/nodeCertApi'
-                }
+                  link: '/source/api/nodeCert'
+                },
+                {
+                  text: '合约API',
+                  link: '/source/api/contract'
+                },
+                {
+                  text: '以链建链API',
+                  link: '/source/api/cbyc'
+                },
+                {
+                  text: '提案API',
+                  link: '/source/api/proposal'
+                },
               ]
             }
           ]

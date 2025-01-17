@@ -1,945 +1,42 @@
-# 1. 提案管理
+# 1. 关于提案
 
-## 1.1 接口说明
+## 提案的公共字段
 
-### wallet_getPermissionList
+```json
+{
+    "proposalId": 提案id,
+    "proposalState": 提案状态,
+    "nonce": nonce,
+    "receipt": 提案回执，提案执行错误时会返回错误信息，
+    "launcher": 发起者地址,
+    "createAt": 提案创建时间戳,
+    "modifiedAt": 提案修改时间戳,
+    "txHash": 交易hash,
+    "dbNumber": 提案结束时的守护区块高度,
+}
+```
 
-#### 获取合约权限列表
+## 提案会过期
 
-- 获取指定合约的黑白名单管理员名单等信息
+1. 在genesis.json中的proposalExpireTime中配置提案过期时间，大于等于1，默认为7天。
 
-- 请求参数
+2. 在发起的提案过了一定时间后，在下次操作该提案时就会提示提案已过期。
 
-  - 合约地址
+## 针对提案的每次投票会生成一笔投票记录
 
-- 返回值
+1. 投票详情如[附件1](#attachVoteDetail)；
 
-  - 权限列表[PermissionList](#dcPermissionList)
+2. voteId包含的信息有：投票对应的提案类型，投票者地址，nonce，投票内容，投票时间
 
-- 实例
+## 提案Id和投票Id的生成规则
 
-  ```bash
-  curl --location --request GET '192.168.2.12:9001' \
-  --header 'Content-Type: text/plain' \
-  --data '{
-      "jsonrpc": "2.0",
-      "method": "wallet_getPermissionList",
-      "params": [
-          "zltc_V7WT2NE191FJf7rUjHoKPbTaKHbKCR8En"
-      ],
-      "id": 481
-  }'
-  ```
+ proposalId生成规则：
 
-- 返回结果
+ ![image-20240809142201684](proposalDetail.assets/image-20240809142201684.png)
 
-  ```json
-  {
-      "jsonRpc": "2.0",
-      "id": 481,
-      "result": {
-          "permissionMode": 1,
-          "threshold": 7,
-          "blackList": [],
-          "whiteList": [
-              "zltc_TbMJndAHmi4Z8WDnCEQX2uPzNctNFqPJd",
-              "zltc_cSGdEJWw5r17uvBe8MLGQHKY4QJsfodfg",
-              "zltc_j8XPWoakQzGRk4NPYheNeJFAiDBgQ25W8",
-              "zltc_X9mYCE7BPTw6VGmn2SsPnifZ6JqjroYww"
-          ],
-          "managerList": {
-              "zltc_fnvthyf8pcXeraTpqk4GM5Sa5E7TBC8ZR": 10,
-              "zltc_j8XPWoakQzGRk4NPYheNeJFAiDBgQ25W8": 10
-          }
-      }
-  }
-  ```
+ voteId生成规则：
 
-- 错误码
-
-  - 2571 提案状态错误，合约不存在, 请确认合约地址是否正确，或者合约是否已经部署
-
-### wallet_getProposalById
-
-#### 获取提案详细内容
-
-- 根据提案ID获取提案详细信息
-
-- 请求参数
-
-  - 提案ID
-
-- 返回值
-
-  - 提案内容和提案结果
-
-    ``` json
-    {
-        "proposalContent": {}, // proposal具体内容
-        "proposalResult": {
-           "agreeCollection": [
-               "",
-               ""
-           ],
-           "againstCollection": []
-        }
-    }
-    ```
-
-  - proposalContent 的结构参考具体提案介绍
-
-  - proposalResult中的agreeCollection和againstCollection的类型是 `地址字符串列表`
-
-- 实例
-
-  ```bash
-  curl --location --request GET 'http://192.168.2.12:5001' \
-  --header 'Content-Type: application/json' \
-  --data '{
-      "jsonrpc": "2.0",
-      "method": "wallet_getProposalById",
-      "params": [
-          "0x030000000070726f706f73616c5f616464726573736d000000000000003230323430373130"
-      ],
-      "id": 481
-  }'
-  ```
-
-- 返回结果
-
-  ```json
-  {
-      "jsonRpc": "2.0",
-      "id": 481,
-      "result": {
-          "proposalContent": {
-              "proposalId": "0x027eb68d749ce348b2be25d56cc6c48b625801f8420000000000000000",
-              "proposalState": 1,
-              "nonce": 0,
-              "contractAddress": "zltc_btbpFhmMV88ZakUDEK45KwvSzuoSHGU68",
-              "isRevoke": 3,
-              "period": 0
-          },
-          "proposalResult": {
-              "agreeCollection": [],
-              "againstCollection": []
-          }
-      }
-  }
-  ```
-  
-- 错误码
-
-  - 无错误码
-
-### wallet_getProposal
-
-#### 获取提案
-
-- 获取提案
-
-- 请求参数
-
-  - ```json
-    {
-        "proposalId":  提案id，为空则按后续规则查询
-        "proposalType": 提案类型，为空则返回所有类型 
-        "proposalState": 提案状态，为空则返回所有状态 
-        "proposalAddress": 指定地址查询特定类型的提案
-    }
-    ```
-  
-- 返回值
-
-  - 提案列表
-
-    ```json
-    [
-        {
-            "proposalContent": {}, // 提案具体内容 见附件2.2
-            "ProposalType":        // 提案类型，int类型
-        }
-    ]
-    ```
-
-    [proposalContent 见附件2.2](#dcProposalConent)
-
-- 实例
-
-  ```bash
-  curl --location --request GET 'http://192.168.2.12:5001' \
-  --header 'Content-Type: application/json' \
-  --data '{
-      "jsonrpc": "2.0",
-      "method": "wallet_getProposal",
-      "params": [
-          {
-              "proposalId": "",
-              "proposalType": 2,
-              "proposalAddress": "zltc_YsBiB4CrsFHXMmS9my5HZWswSR7jpaS6M"
-          }
-      ],
-      "id": 485
-  }'
-  ```
-  
-- 返回结果
-
-  ```json
-  {
-      "jsonRpc": "2.0",
-      "id": 485,
-      "result": [
-          {
-              "proposalContent": {
-                  "proposalId": "0x025d89a33667109e145cdcadcf33462d358d472d170000000000000000",
-                  "proposalState": 1,
-                  "Nonce": 0,
-                  "contractAddress": "zltc_YsBiB4CrsFHXMmS9my5HZWswSR7jpaS6M",
-                  "isRevoke": 3,
-                  "period": 0
-              },
-              "ProposalType": 2
-          }
-      ]
-  }
-  ```
-  
-- 错误码
-
-  - 无错误码
-
-### wallet_getAllProposalId
-
-#### 获取合约权限列表
-
-- 获取所有提案的ID
-
-- 请求参数
-
-  - 无
-
-- 返回值
-
-  - 提案ID列表
-
-- 实例
-
-  ```bash
-  curl --location --request GET '192.168.2.12:9001' \
-  --header 'Content-Type: text/plain' \
-  --data '{
-      "jsonrpc": "2.0",
-      "method": "wallet_getAllProposalId",
-      "params": [
-          
-      ],
-      "id": 481
-  }'
-  ```
-
-- 返回结果
-
-  ```json
-  {
-      "jsonRpc": "2.0",
-      "id": 481,
-      "result": 
-          [
-              "0xc066797d84c2ec41b6e5dfa114ca84b57e51b19b2908222ba40cfd3cad09b814",
-              "0xcf70c2238ab4bab2a1c83ee9ea31768d3070f5092f7019c650f3aac4e503bf68",
-              "0xb704557725e81ad068007fd1d37fab257794bad0223c3042b89eeef3886889cb",
-              "0xf6f697e652e0fbb3a4e405c44a53611799b58cce8fff8818459f4fb0ae486fda",
-              "0x560574d55b96fe50c919950b8d5dc91d35edc17b3e882a6512833f16104c794d",
-              "0x6076c5274ea4b13a61290bb579862ed3175e19d8cef91d7de35610cd1f8fbf3a",
-              "0x966afb8b564173c54a8a674e573b16e109ead0c642b7c7f7228ae9496c696e25",
-              "0x9d38707fba3328d6bbda44f6009310d2b3e4b6ee90441f50fb8687d33ab95d0b",
-              "0xb516e728eae5121ac1fd7df52c6d2ea793bb7a9d3b4a206bd7ac57b57f294ea2",
-              "0xf6184690a964067f28017287c7eb1503d476fa60a925a1d6f1efafdde41d9635"，
-              "0x698922b82faf3d6befaa610ecadb46d45acd160dc5a5dcf8087831d760222b37"，
-              "0x007e42cfc0e477e5af8f8e2841d13c5c9aa99d36e015e21fa96e19181c8cc3de"
-          ]
-      
-  }
-  ```
-
-- 错误码
-
-  - 无错误码
-
-## 1.2 接口说明（获取发起提案的code）
-
->通过下面这些接口获取Code后，通过code调用预置合约生产->提案ID
-
-### <span id="1">wallet_getContractInnerManagerCode</span>
-
-#### 获取发起合约内部管理决策的Code
-
-- 请求参数（顺序不能变）
-
-  - 合约地址
-  - 操作命令（3.2有详细说明操作命令）
-
-- 返回值
-
-  - code
-
-- 实例  
-
-  ```bash
-  curl --location --request GET '192.168.2.12:5001' \
-  --header 'Content-Type: application/json' \
-  --data '{
-      "jsonrpc": "2.0",
-      "method": "wallet_getContractInnerManagerCode",
-      "params": [
-          "zltc_RQ24mGatWkocpVEhWNS3Q6Q9xSBQ3Qkc6",
-          "CWzltc_TbMJndAHmi4Z8WDnCEQX2uPzNctNFqPJd"
-      ],
-      "id": 481
-  }'
-  ```
-
-- 返回结果
-
-  ```json
-  {
-      "jsonRpc": "2.0",
-      "id": 481,
-      "result": "0x65aba7570000000000000000000000000b9d798fe5a6df07f93a7a8a3e106b5ed5aa800a0000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000002843577a6c74635f54624d4a6e6441486d69345a3857446e434551583275507a4e63744e4671504a64000000000000000000000000000000000000000000000000"
-  }
-  ```
-  
-- 错误码
-
-  - 无错误码
-
-### <span id="2">wallet_getNewSuspendCode</span>
-
-#### 获取合约生命周期的相关code
-
-> eg. 吊销，解冻，冻结
-
-- 请求参数（顺序不能变）
-
-  - 合约地址
-  - 0/1/2（4.2有详细说明操作命令）
-
-- 返回值
-
-  - code
-
-- 实例  
-
-  ```bash
-  curl --location --request GET '192.168.2.12:5001' \
-  --header 'Content-Type: application/json' \
-  --data '{
-      "jsonrpc": "2.0",
-      "method": "wallet_getNewSuspendCode",
-      "params": [
-          "zltc_RQ24mGatWkocpVEhWNS3Q6Q9xSBQ3Qkc6",
-          1
-      ],
-      "id": 481
-  }'
-  ```
-
-- 返回结果
-
-  ```json
-  {
-      "jsonRpc": "2.0",
-      "id": 481,
-      "result": "0x65d4b8b50000000000000000000000000b9d798fe5a6df07f93a7a8a3e106b5ed5aa800a0000000000000000000000000000000000000000000000000000000000000001"
-  }
-  ```
-
-- 错误码
-
-  - 无错误码
-
-### 获取配置更改code的相关接口
-
-### <span id="3">wallet_getChangePeriodCode</span>
-
-#### 获取更改出块间隔的code
-
-- 请求参数
-
-  - 出块间隔（字符串）
-
-- 返回值
-
-  - code
-
-- 实例  
-
-  ```bash
-  curl --location --request GET '192.168.2.12:5001' \
-  --header 'Content-Type: application/json' \
-  --data '{
-      "jsonrpc": "2.0",
-      "method": "wallet_getChangePeriodCode",
-      "params": [
-          "3000"
-      ],
-      "id": 481
-  }'
-  ```
-
-- 返回结果
-
-  ```json
-  {
-      "jsonRpc": "2.0",
-      "id": 481,
-      "result": "0xa4bf13610000000000000000000000000000000000000000000000000000000000000bb8"
-  }
-  ```
-
-- 错误码
-
-  - 无错误码
-
-### <span id="4">wallet_getAddLatcSaintCode</span>
-
-#### 获取添加共识节点的code
-
-- 请求参数
-
-  - 合约地址的数组
-
-- 返回值
-
-  - code
-
-- 实例  
-
-  ```bash
-  curl --location --request GET '192.168.2.12:5001' \
-  --header 'Content-Type: application/json' \
-  --data '{
-      "jsonrpc": "2.0",
-      "method": "wallet_getAddLatcSaintCode",
-      "params": [
-          ["zltc_RQ24mGatWkocpVEhWNS3Q6Q9xSBQ3Qkc6"]
-      ],
-      "id": 481
-  }'
-  ```
-
-- 返回结果
-
-  ```json
-  {
-      "jsonRpc": "2.0",
-      "id": 481,
-      "result": "0x8bd24adc000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000b9d798fe5a6df07f93a7a8a3e106b5ed5aa800a"
-  }
-  ```
-
-- 错误码
-
-  - 无错误码
-
-### <span id="5">wallet_getDelLatcSaintCode</span>
-
-#### 获取删除共识节点的code
-
-- 请求参数
-
-  - 合约地址的数组
-
-- 返回值
-
-  - code
-
-- 实例  
-
-  ```bash
-  curl --location --request GET '192.168.2.12:5001' \
-  --header 'Content-Type: application/json' \
-  --data '{
-      "jsonrpc": "2.0",
-      "method": "wallet_getDelLatcSaintCode",
-      "params": [
-          ["zltc_RQ24mGatWkocpVEhWNS3Q6Q9xSBQ3Qkc6"]
-      ],
-      "id": 481
-  }'
-  ```
-
-- 返回结果
-
-  ```json
-  {
-      "jsonRpc": "2.0",
-      "id": 481,
-      "result": "0x08ce76a7000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000b9d798fe5a6df07f93a7a8a3e106b5ed5aa800a"
-  }
-  ```
-
-- 错误码
-
-  - 无错误码
-
-### <span id="apiGetReplaceLatcSaintCode">wallet_getReplaceLatcSaintCode</span>
-
-#### 获取替换共识节点的code
-
-- 请求参数
-
-  | 参数名   | 参数类型 |                  |
-  | -------- | -------- | ---------------- |
-  | oldSaint | 地址     | 原共识节点地址   |
-  | newSaint | 地址     | 新的共识节点地址 |
-
-- 返回值
-
-  - code
-
-- 实例  
-
-  ```bash
-  curl --location --request GET 'http://192.168.2.12:5001' \
-  --header 'Content-Type: application/json' \
-  --data '{
-      "jsonrpc": "2.0",
-      "method": "wallet_getReplaceLatcSaintCode",
-      "params": [
-         {
-           "oldSaint": "zltc_g2L1GFdBZW6wHRBs1uZNDWeHjvMErzwri",
-           "newSaint": "zltc_Xmk6g2Lgxitrx4xEPUZgF4hHdnHwDcBuU"
-         }
-      ],
-      "id": 481
-  }'
-  ```
-
-- 返回结果
-
-  ```json
-  {
-      "jsonRpc": "2.0",
-      "id": 481,
-      "result": "0x08ce76a7000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000b9d798fe5a6df07f93a7a8a3e106b5ed5aa800a"
-  }
-  ```
-
-- 错误码
-
-  - 无错误码
-
-### <span id="apiGetReplaceLatcSaintCode">wallet_getReplacePreacherCode</span>
-
-#### 获取替换盟主的code
-
-- 请求参数
-
-  | 参数名   | 参数类型 |                    |
-  | -------- | -------- | ------------------ |
-  | oldSaint | 地址     | 原盟主节点地址     |
-  | newSaint | 地址     | 新的原盟主节点地址 |
-
-- 返回值
-
-  - code
-
-- 实例  
-
-  ```bash
-  curl --location --request GET 'http://192.168.2.12:5001' \
-  --header 'Content-Type: application/json' \
-  --data '{
-      "jsonrpc": "2.0",
-      "method": "wallet_getReplacePreacherCode",
-      "params": [
-         {
-           "oldSaint": "zltc_g2L1GFdBZW6wHRBs1uZNDWeHjvMErzwri",
-           "newSaint": "zltc_Xmk6g2Lgxitrx4xEPUZgF4hHdnHwDcBuU"
-         }
-      ],
-      "id": 481
-  }'
-  ```
-
-- 返回结果
-
-  ```json
-  {
-      "jsonRpc": "2.0",
-      "id": 481,
-      "result": "0x08ce76a7000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000b9d798fe5a6df07f93a7a8a3e106b5ed5aa800a"
-  }
-  ```
-
-- 错误码
-
-  - 无错误码
-
-### <span id="6">wallet_getChangeIsDictatorshipCode</span>
-
-#### 获取更改合约生命周期投票通过策略的code
-
-- 请求参数
-
-  - true/false (是否是盟主独裁)
-
-- 返回值
-
-  - code
-
-- 实例  
-
-  ```bash
-  curl --location --request GET '192.168.2.12:5001' \
-  --header 'Content-Type: application/json' \
-  --data '{
-      "jsonrpc": "2.0",
-      "method": "wallet_getChangeIsDictatorshipCode",
-      "params": [
-          false
-      ],
-      "id": 481
-  }'
-  ```
-
-- 返回结果
-
-  ```json
-  {
-      "jsonRpc": "2.0",
-      "id": 481,
-      "result": "0x531770b30000000000000000000000000000000000000000000000000000000000000000"
-  }
-  ```
-
-- 错误码
-
-  - 无错误码
-
-### <span id="apiChangeDeployRule">wallet_getChangeDeployRuleCode</span>
-
-#### 获取更改合约生命周期部署阶段投票通过策略的code
-
-- 请求参数
-
-  - 0/1/2 [deployRule](#dcDeployRule)
-
-- 返回值
-
-  - code
-
-- 实例  
-
-  ```bash
-  {
-      "jsonrpc": "2.0",
-      "method": "wallet_getChangeDeployRuleCode",
-      "params": [
-          2
-      ],
-      "id": 481
-  }
-  ```
-
-- 返回结果
-
-  ```json
-  {
-      "jsonRpc": "2.0",
-      "id": 481,
-      "result": "0x3e719df00000000000000000000000000000000000000000000000000000000000000002"
-  }
-  ```
-
-- 错误码
-
-  - 无错误码
-
-### <span id="apiChangeNoEmptyAnchor">wallet_getChangeNoEmptyAnchor</span>
-
-#### 获取更改合约无交易增加出块时间开关的code
-
-- 请求参数
-
-  - true/false (开启或关闭无交易增加出块时间)
-
-- 返回值
-
-  - code
-
-- 实例  
-
-  ```bash
-  {
-      "jsonrpc": "2.0",
-      "method": "wallet_getChangeNoEmptyAnchor",
-      "params": [
-          true
-      ],
-      "id": 481
-  }
-  ```
-
-- 返回结果
-
-  ```json
-  {
-      "jsonRpc": "2.0",
-      "id": 481,
-      "result": "0x4864b6ef0000000000000000000000000000000000000000000000000000000000000001"
-  }
-  ```
-
-- 错误码
-
-  - 无错误码
-
-### <span id="apiGetSwitchIsContractVote">wallet_getSwitchIsContractVote</span>
-
-#### 获取开关合约生命周期的code
-
-- 请求参数
-
-  - true/false 
-
-- 返回值
-
-  - code
-
-- 实例  
-
-  ```bash
-  {
-      "jsonrpc": "2.0",
-      "method": "wallet_getSwitchIsContractVote",
-      "params": [
-          false
-      ],
-      "id": 481
-  }
-  ```
-
-- 返回结果
-
-  ```json
-  {
-      "jsonRpc": "2.0",
-      "id": 481,
-      "result": "0xb223a59b0000000000000000000000000000000000000000000000000000000000000000"
-  }
-  ```
-
-- 错误码
-
-  - 无错误码
-
-### <span id="apiGetSwitchContractPermission">wallet_getSwitchContractPermission</span>
-
-#### 获取开关合约内部管理的code
-
-- 请求参数
-
-  - true/false 
-
-- 返回值
-
-  - code
-
-- 实例  
-
-  ```bash
-  {
-      "jsonrpc": "2.0",
-      "method": "wallet_getSwitchContractPermission",
-      "params": [
-          true
-      ],
-      "id": 481
-  }
-  ```
-
-- 返回结果
-
-  ```json
-  {
-      "jsonRpc": "2.0",
-      "id": 481,
-      "result": "0x6bbb4f0a0000000000000000000000000000000000000000000000000000000000000001"
-  }
-  ```
-
-- 错误码
-
-  - 无错误码
-
-### <span id="7">wallet_getVoteCode</span>
-
-#### 获取提案投票code
-
-- 请求参数
-
-  - 提案ID（字符串）
-  - 0/1 （反对/同意）
-
-- 返回值
-
-  - code
-
-- 实例  
-
-  ```bash
-  curl --location --request GET '192.168.2.12:5001' \
-  --header 'Content-Type: application/json' \
-  --data '{
-      "jsonrpc": "2.0",
-      "method": "wallet_getVoteCode",
-      "params": [
-          "123132131",
-          1
-      ],
-      "id": 481
-  }'
-  ```
-
-- 返回结果
-
-  ```json
-  {
-      "jsonRpc": "2.0",
-      "id": 481,
-      "result": "0x90ca27f30000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000093132333133323133310000000000000000000000000000000000000000000000"
-  }
-  ```
-
-- 错误码
-
-  - 无错误码
-
-### <span id="8">wallet_getRefreshCode</span>
-
-#### 获取提案投票刷新的code，用来刷新提案的结果
-
-- 请求参数
-
-  - 提案ID（字符串）
-
-- 返回值
-
-  - code
-
-- 实例  
-
-  ```bash
-  curl --location --request GET '192.168.2.12:5001' \
-  --header 'Content-Type: application/json' \
-  --data '{
-      "jsonrpc": "2.0",
-      "method": "wallet_getVoteCode",
-      "params": [
-          "123132131"
-      ],
-      "id": 481
-  }'
-  ```
-
-- 返回结果
-
-  ```json
-  {
-      "jsonRpc": "2.0",
-      "id": 481,
-      "result": "0x90ca27f30000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000093132333133323133310000000000000000000000000000000000000000000000"
-  }
-  ```
-
-- 错误码
-
-  - 无错误码
-
-### <span id="apiGetCancelCode">wallet_getCancelCode</span>
-
-#### 获取取消提案的code
-
-- 请求参数
-
-  - 提案ID（字符串）
-
-- 返回值
-
-  - code
-
-- 实例  
-
-  ```bash
-  curl --location --request GET 'http://192.168.2.12:5001' \
-  --header 'Content-Type: application/json' \
-  --data '{
-      "jsonrpc": "2.0",
-      "method": "wallet_getCancelCode",
-      "params": [
-          "0x025d89a33667109e145cdcadcf33462d358d472d170000000000000000"
-      ],
-      "id": 481
-  }'
-  ```
-
-- 返回结果
-
-  ```json
-  {
-      "jsonRpc": "2.0",
-      "id": 481,
-      "result": "0x90ca27f30000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000093132333133323133310000000000000000000000000000000000000000000000"
-  }
-  ```
-
-- 错误码
-
-  - 无错误码
-
-### <span id="apiGetChangeProposalExpireTime">wallet_getChangeProposalExpireTime</span>
-
-#### 获取修改提案过期时间的code
-
-- 请求参数
-
-  - 过期时间 （单位：天）
-
-- 返回值
-
-  - code
-
-- 实例  
-
-  ```bash
-  curl --location --request GET 'http://192.168.31.26:5001' \
-  --header 'Content-Type: application/json' \
-  --data '{
-      "jsonrpc": "2.0",
-      "method": "wallet_getChangeProposalExpireTime",
-      "params": [
-          1
-      ],
-      "id": 481
-  }'
-  ```
-
-- 返回结果
-
-  ```json
-  {
-      "jsonRpc": "2.0",
-      "id": 481,
-      "result": "0x90ca27f30000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000093132333133323133310000000000000000000000000000000000000000000000"
-  }
-  ```
-
-- 错误码
-
-  - 无错误码
+ ![image-20250116170020287](proposalDetail.assets/image-20250116170020287.png)
 
 # 2. 合约内部管理
 
@@ -948,6 +45,8 @@
 > base58: zltc_ZDdPo8P72X7dtMNTxBeKU8pT7bDXb7NtV 
 >
 > hex: 0x6167655f70726f706F73616C5F61646472657373
+>
+> abi: 合约abi见 预编译合约地址列表
 
 ## 配置文件
 
@@ -1050,52 +149,16 @@ contractPermission： true 开启调用合约时的权限检查， false关闭�
 > base58: zltc_ZQJjaw74CKMjqYJFMKdEDaNTDMq5QKi3T  
 >
 > hex: 0x636c655f70726F706f73616C5F61646472657373
+>
+> abi: 合约abi见 预编译合约地址列表
 
-## 3.1 ABI
+## 3.1 吊销，冻结，解冻
 
-```json
-[
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "Address",
-				"type": "address"
-			},
-			{
-				"internalType": "uint8",
-				"name": "IsRevoke",
-				"type": "uint8"
-			}
-		],
-		"name": "launch",
-		"outputs": [
-			{
-				"internalType": "bytes",
-				"name": "",
-				"type": "bytes"
-			}
-		],
-		"stateMutability": "pure",
-		"type": "function"
-	}
-]
-```
+- 发起提案
 
-参数说明
+根据abi或开放的获取code的接口拿到交易code-> 根据code构造交易，填写`合约生命周期`的合约地址。
 
-| 参数名   | 类型    | 含义                            |
-| -------- | ------- | ------------------------------- |
-| Address  | Address | 合约地址                        |
-| IsRevoke | uint8   | 0代表吊销，1代表冻结，2代表解冻 |
-
-## 3.2 吊销，冻结，解冻
-
-这三类提案需要通过预制合约发起提案，发起方法以及参数见 ##4.1
-
-[相关获取code的接口](#2)
-
-## 3.3 部署，升级
+## 3.2 部署，升级
 
 ### 3.3.1 部署
 
@@ -1138,8 +201,6 @@ const unsignedTx = Object.assign(latest, {
   });
 ```
 
-之后的步骤与4.3.1一样
-
 # 4. 链配置更改
 
 ## 合约地址：
@@ -1147,229 +208,42 @@ const unsignedTx = Object.assign(latest, {
 > base58: zltc_ZwuhH4dudz2Md2h6NFgHc8yrFUhKy2UUZ  
 >
 > hex: 0x6966795f70726F706f73616c5F61646472657373
+>
+> abi: 合约abi见 预编译合约地址列表
 
-## 4.1 ABI
+## 提案详情
+
+除提案公有的字段外，配置修改提案的额外内容为：
 
 ```json
-[
-	{
-		"inputs": [
-			{
-				"internalType": "address[]",
-				"name": "LatcSaint",
-				"type": "address[]"
-			}
-		],
-		"name": "addLatcSaint",
-		"outputs": [
-			{
-				"internalType": "bytes",
-				"name": "",
-				"type": "bytes"
-			}
-		],
-		"stateMutability": "pure",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "Period",
-				"type": "uint256"
-			}
-		],
-		"name": "changePeriod",
-		"outputs": [
-			{
-				"internalType": "bytes",
-				"name": "",
-				"type": "bytes"
-			}
-		],
-		"stateMutability": "pure",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address[]",
-				"name": "LatcSaint",
-				"type": "address[]"
-			}
-		],
-		"name": "delLatcSaint",
-		"outputs": [
-			{
-				"internalType": "bytes",
-				"name": "",
-				"type": "bytes"
-			}
-		],
-		"stateMutability": "pure",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "oldSaint",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "newSaint",
-				"type": "address"
-			}
-        ],
-		"name": "replaceLatcSaint",
-		"outputs": [
-			{
-				"internalType": "bytes",
-				"name": "",
-				"type": "bytes"
-			}
-		],
-		"stateMutability": "pure",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "bool",
-				"name": "IsDictatorship",
-				"type": "bool"
-			}
-		],
-		"name": "isDictatorship",
-		"outputs": [
-			{
-				"internalType": "bytes",
-				"name": "",
-				"type": "bytes"
-			}
-		],
-		"stateMutability": "pure",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "bool",
-				"name": "isContractVote",
-				"type": "bool"
-			}
-		],
-		"name": "switchIsContractVote",
-		"outputs": [
-			{
-				"internalType": "bytes",
-				"name": "",
-				"type": "bytes"
-			}
-		],
-		"stateMutability": "pure",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "bool",
-				"name": "contractPermission",
-				"type": "bool"
-			}
-		],
-		"name": "switchContractPermission",
-		"outputs": [
-			{
-				"internalType": "bytes",
-				"name": "",
-				"type": "bytes"
-			}
-		],
-		"stateMutability": "pure",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "Consensus",
-				"type": "string"
-			}
-		],
-		"name": "switchConsensus",
-		"outputs": [
-			{
-				"internalType": "bytes",
-				"name": "",
-				"type": "bytes"
-			}
-		],
-		"stateMutability": "pure",
-		"type": "function"
-	},
-    {
-		"inputs": [
-			{
-				"internalType": "uint8",
-				"name": "deployRule",
-				"type": "uint8"
-			}
-		],
-		"name": "switchDeployRule",
-		"outputs": [
-			{
-				"internalType": "bytes",
-				"name": "",
-				"type": "bytes"
-			}
-		],
-		"stateMutability": "pure",
-		"type": "function"
-	},
-    {
-		"inputs": [
-			{
-				"internalType": "bool",
-				"name": "noEmptyAnchor",
-				"type": "bool"
-			}
-		],
-		"name": "switchNoEmptyAnchor",
-		"outputs": [
-			{
-				"internalType": "bytes",
-				"name": "",
-				"type": "bytes"
-			}
-		],
-		"stateMutability": "pure",
-		"type": "function"
-	},
-    {
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "preacher",
-				"type": "address"
-			}
-		],
-		"name": "changePreacher",
-		"outputs": [
-			{
-				"internalType": "bytes",
-				"name": "",
-				"type": "bytes"
-			}
-		],
-		"stateMutability": "pure",
-		"type": "function"
-	}
-]
+{
+    "modifyType": 0,
+    "configValue": [
+        "D6A=" // []byte数组的base64编码
+    ]
+}
 ```
 
-## 4.2 更改出块时间
+## 支持修改的配置及其解析方法
+
+| filed                | 介绍                 | 解析方法                            | modifyType |
+| -------------------- | -------------------- | ----------------------------------- | ---------- |
+| Period               | 出块间隔             | configValue[0]->hex->uint           | 0          |
+| IsDictatorship       | 合约生命周期盟主独裁 | configValue\[0][0]->hex->uint->bool | 1          |
+| AddLatcSaint         | 添加共识节点         | configValue\[][]->hex[]->address[]  | 2          |
+| DelLatcSaint         | 删除共识节点         | configValue\[][]->hex[]->address[]  | 3          |
+| *SwitchConsensus*    | 修改共识             |                                     | 4          |
+| DeployRule           | 合约生命周期部署规则 | configValue\[0][0]->hex->uint       | 5          |
+| NoEmptyuAnchor       | 不连续打包空块开关   | configValue\[0][0]->hex->uint->bool | 6          |
+| IsContractVote       | 合约生命周期开关     | configValue\[0][0]->hex->uint->bool | 7          |
+| ContractPermission   | 合约内部管理开关     | configValue\[0][0]->hex->uint->bool | 8          |
+| ReplaceSaint         | 替换共识节点         | configValue\[][]->hex[]->address[]  | 9          |
+| EmptyAnchorPeriodMul | 不连续打包空块的间隔 | configValue\[0][0]->hex->uint->bool | 10         |
+| ProposalExpireTime   | 提案过期时间         | configValue\[0][0]->hex->uint       | 11         |
+| ChainByChainVote     | 以链建链投票对则     | configValue\[0][0]->hex->uint       | 12         |
+|                      |                      |                                     |            |
+
+## 4.1 更改出块时间
 
 changePeriod 
 
@@ -1377,7 +251,7 @@ changePeriod
 
 [code接口](#3)
 
-## 4.3 更改共识节点
+## 4.2 更改共识节点
 
 "addLatcSaint", 
 
@@ -1397,7 +271,7 @@ changePeriod
 
 **对5.3 addLatcSaint生成的提案进行投票时，除需要满足共识节点投票规则之外，还需满足加入的共识节点必须先启动后才能加入，否则会造成链失活。**
 
-## 4.4 更改生命周期策略
+## 4.3 更改生命周期策略
 
 更改isDictatorship
 
@@ -1411,7 +285,7 @@ changePeriod
 
 [code接口](#6)
 
-## 4.5 更改无交易区块打包间隔
+## 4.4 更改无交易区块打包间隔
 
 [code接口](#apiGetChangeNoEmptyAnchor)
 
@@ -1419,7 +293,7 @@ NoEmptyAnchor
 
 参数 `bool`, true关闭，false开启盟
 
-## 4.6 开关合约生命周期
+## 4.5 开关合约生命周期
 
 [code接口](#apiGetSwitchIdContractVote)
 
@@ -1427,7 +301,7 @@ isContractVote
 
 参数 `bool`, true关闭，false开启盟
 
-## 4.7 开关合约内部管理
+## 4.6 开关合约内部管理
 
 [code接口](#apiGetSwitchContractPermission)
 
@@ -1435,9 +309,23 @@ contractPermission
 
 参数 `bool`, true关闭，false开启盟
 
-## 4.8 更改盟主节点
+## 4.7 更改盟主节点
 
 [code接口](#apiGetReplaceLatcSaintCode)
+
+preacher
+
+## 4.8 更改无交易不打包的间隔
+
+EmptyAnchorPeriodMul
+
+## 4.9 更改交易过期时间
+
+proposalExpireTime
+
+## 4.10 更改以链建链投票规则
+
+chainByChainVote
 
 # 5. 提案投票
 
@@ -1448,82 +336,6 @@ contractPermission
 > base58: zltc_amgWuhifLRUoZc3GSbv9wUUz6YUfTuWy5 
 >
 > hex: 0x726f706f73616c5F766f74655F61646472657373
-
-## 5.1 ABI
-
-``` json
-[
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "ProposalId",
-				"type": "string"
-			},
-			{
-				"internalType": "uint8",
-				"name": "VoteSuggestion",
-				"type": "uint8"
-			}
-		],
-		"name": "vote",
-		"outputs": [
-			{
-				"internalType": "bytes",
-				"name": "",
-				"type": "bytes"
-			}
-		],
-		"stateMutability": "pure",
-		"type": "function"
-	},
-		{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "ProposalId",
-				"type": "string"
-			}
-		],
-		"name": "refresh",
-		"outputs": [
-			{
-				"internalType": "bytes",
-				"name": "",
-				"type": "bytes"
-			}
-		],
-		"stateMutability": "pure",
-		"type": "function"
-	},
-		{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "proposalId",
-				"type": "string"
-			}
-		],
-		"name": "cancel",
-		"outputs": [
-			{
-				"internalType": "bytes",
-				"name": "",
-				"type": "bytes"
-			}
-		],
-		"stateMutability": "pure",
-		"type": "function"
-	}
-]
-```
-
-参数说明
-
-| 参数名         | 类型   | 含义             |
-| -------------- | ------ | ---------------- |
-| ProposalId     | string | 提案id           |
-| VoteSuggestion | uint8  | 0反对，1代表同意 |
 
 ## 5.2 投票
 
@@ -1759,3 +571,18 @@ contractPermission
 >AgreeCollection   []common.Address `json:"agreeCollection"`
 >AgainstCollection []common.Address `json:"againstCollection"`
 
+## 3 提案详情字段
+
+| 字段           | 含义                    |
+| -------------- | ----------------------- |
+| voteId         | 投票id                  |
+| proposalId     | 提案id                  |
+| voteSuggestion | 投票内容： 1同意、0反对 |
+| address        | 账户地址                |
+| proposalType   | 提案类型                |
+| nonce          | 随机值                  |
+| createAt       | 投票时间                |
+
+## 4 链数据目录调整
+
+![image-20250116173131194](proposalDetail.assets/image-20250116173131194.png)

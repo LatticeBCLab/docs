@@ -8,7 +8,7 @@
 
 ## 使用说明
 
-通过[附件的合约ABI](#attachmentABI)向你运行的晶格链发起相关交易
+通过[以链建链合约ABI](#attachmentABI)向你运行的晶格链发起相关交易
 
 以链建链合约提供的服务以及参数说明
 
@@ -49,7 +49,76 @@
 | desc                 | string     | 链描述                                          |         |                          | 空                      |
 | configModifyRule     | uint8      | 链配置更改规则                                  |         | 1: 盟主独裁；2：共识投票 | 继承主链                |
 
- 
+ 新建链时如果开启了投票，且建链参数`chainMemberGroup`包含了共识节点和见证节点，则会生成两份提案，提案1是建链的提案，在投票通过后会建立子链，`提案2`是加入链的提案，允许在`chainMemberGroup`中的见证节点投票，每投一票其对应的节点就会加入到子链中。
+
+新建链的提案内容如下。其中字段与晶格链genesis.json文件的字段内容与含义一致。
+
+其中需要特别注意的字段有 `consensus` `joinProposalId`
+
+consensus: 该字段为0时，表示建链（通道/子链/分区）时未传递的参数继承主链。
+
+joinProposalId：加入链的提案id，即上述`提案2`
+
+```json
+{
+    "jsonRpc": "2.0",
+    "id": 481,
+    "result": {
+        "proposalContent": {
+            "proposalId": "0x040000000070726f706f73616c5f616464726573731d000000000000003230323430383039",
+            "proposalState": 2,
+            "nonce": 29,
+            "launcher": "zltc_g2L1GFdBZW6wHRBs1uZNDWeHjvMErzwri",
+            "createAt": 1723195724,
+            "modifiedAt": 1723195724,
+            "txHash": "0xf36ef8dd9dd166df5fdca83c68ad471189219be1a646bf4e921bdf3e96e2d40b",
+            "dbNumber": 2,
+            "ChainByChainType": "newChain",
+            "ChainConfig": {
+                "newChain": {
+                    "consensus": 0, 该字段为0表示继承主链
+                    "tokenless": true,
+                    "godAmount": 0,
+                    "period": 1000,
+                    "noEmptyAnchor": true,
+                    "emptyAnchorPeriodMul": 5,
+                    "isContractVote": true,
+                    "isDictatorship": true,
+                    "deployRule": 1,
+                    "name": "aaa",
+                    "chainId": 90,
+                    "preacher": "zltc_g2L1GFdBZW6wHRBs1uZNDWeHjvMErzwri",
+                    "bootStrap": "/ip4/192.168.31.26/tcp/6002/p2p/16Uiu2HAm7x3KRbDVSFsBtwH8u7X3KUpQQNvWJUqhrV1kJVnWoSdx",
+                    "chainMemberGroup": [
+                        {
+                            "member": "zltc_g2L1GFdBZW6wHRBs1uZNDWeHjvMErzwri",
+                            "memberType": 1
+                        },
+                        {
+                            "member": "zltc_Xmk6g2Lgxitrx4xEPUZgF4hHdnHwDcBuU",
+                            "memberType": 0
+                        }
+                    ],
+                    "extra": null,
+                    "contractPermission": true,
+                    "proposalExpireTime": 3,
+                    "desc": "一个测试的分区"
+                },
+                "consensus": "",
+                "timestamp": 1723195724,
+                "parentHash": "0xfc2ac37832784c6a25730334e10e23b515ea44ec938f86df985f04f5f49b7e82",
+                "joinProposalId": "0x040000000070726f706f73616c5f6164647265737309000000000000003230323430383039"
+            }
+        },
+        "proposalResult": {
+            "agreeCollection": [],
+            "againstCollection": []
+        }
+    }
+}
+```
+
+
 
 建链的时序图（如果有投票，这个过程在投票通过后才出发）：
 
@@ -89,276 +158,4 @@
 ## 链的生命周期
 
 ![image-20240508112552120](chainbychain.assets/image-20240508112552120.png)
-
-# 附件
-
-## <span id="attachmentContract">以链建链合约</span>
-
-合约地址：zltc_ZDfqCd4ZbBi4WA7uG4cGpFWRyTFqzyHUn
-
-### <span id="attachmentABI"> 合约ABI </span>
-
-```
-[
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "chainId",
-				"type": "uint256"
-			}
-		],
-		"name": "delChain",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "jsonMap",	
-				"type": "string"
-			}
-		],
-		"name": "newChain",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "chainId",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint64",
-				"name": "networkId",
-				"type": "uint64"
-			},
-			{
-				"internalType": "string",
-				"name": "nodeInfo",
-				"type": "string"
-			},
-			{
-				"internalType": "address[]",
-				"name": "accessMembers",
-				"type": "address[]"
-			}
-		],
-		"name": "oldChain",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "chainId",
-				"type": "uint256"
-			}
-		],
-		"name": "stopChain",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "chainId",
-				"type": "uint256"
-			}
-		],
-		"name": "startChain",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	}
-]
-```
-
-## 晶格API
-
-### **cbyc_getChildChainId**
-
-#### 获取已有子链的ID
-
-示例
-
-`cbyc17_getChildChainId`, 查询链Id为17的所有子链
-
-``` 
-{
-
-  "jsonrpc": "2.0",
-
-  "method": "cbyc17_getChildChainId",
-
-  "params": [ 
-
-  ],
-
-  "id": 1
-
-}
-```
-
-### **cbyc_getChainStatus**
-
-#### 获取链运行状态 （running/stop）
-
-```json
-{
-
-  "jsonrpc": "2.0",
-
-  "method": "cbyc17_getChainStatus",
-
-  "params": [ 
-
-  ],
-
-  "id": 1
-
-}
-```
-
-返回值: running/stop
-
-### cbyc_getCreatedAllChains
-
-#### 获取当前链创建的所有子链
-
-```json
-{
-    "jsonrpc": "2.0",
-    "method": "latc_getProtocols",
-    "params": [
-    ],
-    "id": 1
-}
-```
-
-### cbyc_selfJoinChain
-
-#### 让当前节点加入某条链
-
-参数：
-
-- 链id
-- 网络id
-- 已知已经有该链的节点的Inode
-
-```json
-{
-    "jsonrpc": "2.0",
-    "method": "cbyc_selfJoinChain",
-    "params": [
-        1213,
-        12,
-        "xxxx"
-    ],
-    "id": 1
-}
-```
-
-返回值：成功或错误信息
-
-### cbyc_stopSelfChain
-
-#### 停止当前节点的链服务
-
-```json
-{
-    "jsonrpc": "2.0",
-    "method": "cbyc_stopSelfChain",
-    "params": [
-    ],
-    "id": 1
-}
-```
-
-返回值：成功或错误信息
-
-### cbyc_startSelfChain
-
-#### 开启当前节点的链服务
-
-```json
-{
-    "jsonrpc": "2.0",
-    "method": "cbyc_startSelfChain",
-    "params": [
-    ],
-    "id": 1
-}
-```
-
-返回值：成功或错误信息
-
-### cbyc_restartSelfChain
-
-#### 重启当前节点的链服务
-
-```json
-{
-    "jsonrpc": "2.0",
-    "method": "cbyc_restartSelfChain",
-    "params": [
-    ],
-    "id": 1
-}
-```
-
-返回值：成功或错误信息
-
-### cbyc_delSelfChain
-
-#### 删除当前节点的链服务及数据
-
-> 不能撤销，成功请求后，节点关与此链的链账本会被删除。
-
-```json
-{
-    "jsonrpc": "2.0",
-    "method": "cbyc_delSelfChain",
-    "params": [
-    ],
-    "id": 1
-}
-```
-
-返回值：成功或错误信息
-
-### node_getAllChainId
-
-#### 返回该节点维护的链ID
-
-``` json
-{
-    "jsonrpc": "2.0",
-    "method": "node_getAllChainId",
-    "params": [
-    ],
-    "id": 1
-}
-```
-
-### latc_latcInfo
-
-``` json
-{
-    "jsonrpc": "2.0",
-    "method": "latc_latcInfo",
-    "params": [
-    ],
-    "id": 481
-}
-```
 
