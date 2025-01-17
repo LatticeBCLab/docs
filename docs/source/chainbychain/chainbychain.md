@@ -8,7 +8,7 @@
 
 ## 使用说明
 
-通过[以链建链合约ABI](#attachmentABI)向你运行的晶格链发起相关交易
+通过[以链建链合约ABI](/source/contract/precompile/contractsTable#chainbychainproposal)向你运行的晶格链发起相关交易
 
 以链建链合约提供的服务以及参数说明
 

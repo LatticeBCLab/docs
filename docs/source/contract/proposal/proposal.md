@@ -24,7 +24,7 @@
 
 ## 针对提案的每次投票会生成一笔投票记录
 
-1. 投票详情如[附件1](#attachVoteDetail)；
+1. 投票详情如[附件1](#voteDetail)；
 
 2. voteId包含的信息有：投票对应的提案类型，投票者地址，nonce，投票内容，投票时间
 
@@ -46,7 +46,7 @@
 >
 > hex: 0x6167655f70726f706F73616C5F61646472657373
 >
-> abi: 合约abi见 预编译合约地址列表
+> abi: 合约abi见 [预编译合约地址列表](/source/contract/precompile/contractsTable#contractinnermanagerproposal) 
 
 ## 配置文件
 
@@ -63,38 +63,8 @@
 
 contractPermission： true 开启调用合约时的权限检查， false关闭调用合约时的权限检查
 
-## 2.1 ABI
 
-```json
-[
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "Address",
-				"type": "address"
-			},
-			{
-				"internalType": "string",
-				"name": "operation",
-				"type": "string"
-			}
-		],
-		"name": "launch",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			}
-		],
-		"stateMutability": "pure",
-		"type": "function"
-	}
-]
-```
-
-## 2.2 发起提案
+## 2.1 发起提案
 
 参数说明
 
@@ -105,7 +75,7 @@ contractPermission： true 开启调用合约时的权限检查， false关闭�
 |                 |         | {C/R/U/R}{W/B/M/T/P}{contractAddress/Threshold/mode[0,1]}[1-10], 没有空格 |
 |                 |         | CWzltc_TbMJndAHmi4Z8WDnCEQX2uPzNctNFqPJd   向白名单中加入zltc... |
 
-1. 通过[获取发起合约内部管理决策的Code接口](#1)获取发起提案的code，用该code发送TBlock
+1. 通过[获取发起合约内部管理决策的Code接口](/source/api/proposal#wallet-getcontractinnermanagercode)获取发起提案的code，用该code发送TBlock
 2. 得到返回值：提案ID
 
 返回值：
@@ -150,7 +120,7 @@ contractPermission： true 开启调用合约时的权限检查， false关闭�
 >
 > hex: 0x636c655f70726F706f73616C5F61646472657373
 >
-> abi: 合约abi见 预编译合约地址列表
+> abi: 合约abi见 [预编译合约地址列表](/source/contract/precompile/contractsTable#contractlifecycleproposal)
 
 ## 3.1 吊销，冻结，解冻
 
@@ -209,7 +179,7 @@ const unsignedTx = Object.assign(latest, {
 >
 > hex: 0x6966795f70726F706f73616c5F61646472657373
 >
-> abi: 合约abi见 预编译合约地址列表
+> abi: 合约abi见 [预编译合约地址列表](/source/contract/precompile/contractsTable#modifyconfigproposal)
 
 ## 提案详情
 
@@ -249,7 +219,7 @@ changePeriod
 
 参数：period 正整数 出块间隔
 
-[code接口](#3)
+[code接口](/source/api/proposal#wallet-getchangeperiodcode)
 
 ## 4.2 更改共识节点
 
@@ -257,17 +227,19 @@ changePeriod
 
 添加共识节点
 
-[code接口](#4)
+[code接口](/source/api/proposal#wallet-getAddLatcSaintCode)
 
- "delLatcSaint"
+"delLatcSaint"
 
 删除共识节点
 
-[code接口](#5)
+[code接口](/source/api/proposal#wallet-getDelLatcSaintCode)
+
+"repalceLatcSaint"
 
 替换共识节点
 
-[code接口](#apiGetReplaceLatcSaintCode)
+[code接口](/source/api/proposal#apiGetReplaceLatcSaintCode)
 
 **对5.3 addLatcSaint生成的提案进行投票时，除需要满足共识节点投票规则之外，还需满足加入的共识节点必须先启动后才能加入，否则会造成链失活。**
 
@@ -277,17 +249,17 @@ changePeriod
 
 参数：  `bool`，true开启盟主一票制，false关闭盟主一票制
 
-[code接口](#6)
+[code接口](/source/api/proposal#wallet-getchangeisdictatorshipcode)
 
 更改部署规则 deployRule
 
-参数： deployRule ，0/1/2 具体见附件1[DeployRule](#dcDeployRule ) 
+参数： deployRule ，0/1/2 具体见附件1[DeployRule](/source/contract/proposal/proposal#dcDeployRule) 
 
-[code接口](#6)
+[code接口](/source/api/proposal#wallet-getChangeDeployRuleCode)
 
 ## 4.4 更改无交易区块打包间隔
 
-[code接口](#apiGetChangeNoEmptyAnchor)
+[code接口](/source/api/proposal#apiGetChangeNoEmptyAnchor)
 
 NoEmptyAnchor
 
@@ -295,7 +267,7 @@ NoEmptyAnchor
 
 ## 4.5 开关合约生命周期
 
-[code接口](#apiGetSwitchIdContractVote)
+[code接口](/source/api/proposal#apiGetSwitchIdContractVote)
 
 isContractVote
 
@@ -303,7 +275,7 @@ isContractVote
 
 ## 4.6 开关合约内部管理
 
-[code接口](#apiGetSwitchContractPermission)
+[code接口](/source/api/proposal#apiGetSwitchContractPermission)
 
 contractPermission
 
@@ -311,19 +283,25 @@ contractPermission
 
 ## 4.7 更改盟主节点
 
-[code接口](#apiGetReplaceLatcSaintCode)
+[code接口](/source/api/proposal#apiGetReplaceLatcSaintCode)
 
 preacher
 
 ## 4.8 更改无交易不打包的间隔
 
+[code接口](/source/api/proposal#wallet_getChangeEmptyAnchorPeriodMul)
+
 EmptyAnchorPeriodMul
 
 ## 4.9 更改交易过期时间
 
+[code接口](/source/api/proposal#wallet_getChangeProposalExpireTime)
+
 proposalExpireTime
 
 ## 4.10 更改以链建链投票规则
+
+[code接口](/source/api/proposal#wallet_getChangeChainByChainVote)
 
 chainByChainVote
 
@@ -339,17 +317,17 @@ chainByChainVote
 
 ## 5.2 投票
 
-1. [获取投票code](#7)
+1. [获取投票code](/source/api/proposal#wallet_getVoteCode)
 2. 发送TBlock完成投票
 
 ## 5.3 提案刷新
 
-1. [获取提案刷新code](#8)
+1. [获取提案刷新code](/source/api/proposal#wallet_getRefreshVote)
 1. 发送TBlock刷新提案
 
 ## 5.4 提案取消
 
-1. [获取取消提案的code](#apiGetCancelCode)
+1. [获取取消提案的code](/source/api/proposal#wallet_getCancelVote)
 2. 发送TBlock取消提案
 3. 可以取消的提案
 
@@ -571,7 +549,7 @@ chainByChainVote
 >AgreeCollection   []common.Address `json:"agreeCollection"`
 >AgainstCollection []common.Address `json:"againstCollection"`
 
-## 3 提案详情字段
+## 3 <span id="voteDetail"> 投票详情 </span>
 
 | 字段           | 含义                    |
 | -------------- | ----------------------- |

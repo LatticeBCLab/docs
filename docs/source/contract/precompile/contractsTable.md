@@ -24,8 +24,7 @@
 | 20 |  | Tpre | []() |  | zltc_QLbz7JHiBTspVQ2d8UCmyL1PGWzZnrVHJ | 0x0000000000000000007470726541646472657373 |
 | 21          |              | NodeCertContract             | 节点证书合约       | 有       | zltc_QLbz7JHxYJDL9LAguz9rKrwNtmfY2UoAZ | 0x00000000004e6f64654365727441646472657373 |
 
-## Credibility合约
-
+## Credibility
 
 ```
 				"internalType": "bytes32",
@@ -64,8 +63,7 @@
 
 
 
-## Identity合约
-
+## Identity
 
 
 ```
@@ -98,9 +96,7 @@
 
 
 
-## Peekaboo合约
-
-
+## Peekaboo
 
 ```
 [
@@ -133,7 +129,7 @@
 ]
 ```
 
-## ContractInnerManagerProposal合约
+## ContractInnerManagerProposal
 
 ```json
 [
@@ -221,7 +217,7 @@
 ]
 ```
 
-## ContractLifecycleProposal合约
+## ContractLifecycleProposal
 
 ```json
 [
@@ -252,7 +248,7 @@
 ]
 ```
 
-## ModifyConfigProposal合约
+## ModifyConfigProposal
 
 ```json
 [
@@ -536,7 +532,7 @@
 ]
 ```
 
-## ProposalVote合约
+## ProposalVote
 
 ```json
 [
@@ -651,7 +647,7 @@
 ]
 ```
 
-## ChainByChainProposal合约
+## ChainByChainProposal
 
 ```json
 [
@@ -822,7 +818,7 @@
 ]
 ```
 
-## NodeCertContract合约
+## NodeCertContract
 
 ```json
 [

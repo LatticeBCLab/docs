@@ -67,7 +67,7 @@ export default defineConfig({
                 },
                 {
                   text: '提案',
-                  link: '/source/contract/proposal/proposalDetail',
+                  link: '/source/contract/proposal/proposal',
                   items: [
                     {
                       text: '合约内部管理指令参考',

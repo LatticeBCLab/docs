@@ -35,16 +35,16 @@
 
 新增合约以及新增的合约方法
 
-| 合约地址                                                     | 新增方法            | 方法描述             |
-| ------------------------------------------------------------ | ------------------- | -------------------- |
-| [zltc_QLbz7JHxYJDL9LAguz9rKrwNtmfY2UoAZ](#desginNodeCert) 节点证书合约 | apply               | 申请证书             |
-|                                                              | revoke              | 申请吊销证书         |
-|                                                              | revokeClient        | 申请吊销节点         |
-|                                                              | uploadKey           | 上传公钥             |
-|                                                              | upAndApply          | 上传公钥并申请证书   |
-| [zltc_ZwuhH4dudz2Md2h6NFgHc8yrFUhKy2UUZ]()链配置更改合约     | addLatcSaintNew     | 通过公钥添加共识节点 |
-|                                                              | replaceLatcSaintNew | 通过公钥替换共识节点 |
-| [zltc_amgWuhifLRUoZc3GSbv9wUUz6YUfTuWy5]()提案投票合约       | signVote            | 签名投票             |
+| 合约地址                                                                                                             | 新增方法            | 方法描述             |
+|------------------------------------------------------------------------------------------------------------------| ------------------- | -------------------- |
+| [zltc_QLbz7JHxYJDL9LAguz9rKrwNtmfY2UoAZ](#desginNodeCert) 节点证书合约                                                 | apply               | 申请证书             |
+|                                                                                                                  | revoke              | 申请吊销证书         |
+|                                                                                                                  | revokeClient        | 申请吊销节点         |
+|                                                                                                                  | uploadKey           | 上传公钥             |
+|                                                                                                                  | upAndApply          | 上传公钥并申请证书   |
+| [zltc_ZwuhH4dudz2Md2h6NFgHc8yrFUhKy2UUZ](/source/contract/precompile/contractsTable#modifyconfigproposal)链配置更改合约 | addLatcSaintNew     | 通过公钥添加共识节点 |
+|                                                                                                                  | replaceLatcSaintNew | 通过公钥替换共识节点 |
+| [zltc_amgWuhifLRUoZc3GSbv9wUUz6YUfTuWy5](/source/contract/precompile/contractsTable#proposalvote)提案投票合约                                                                | signVote            | 签名投票             |
 
 ### 关于证书类型
 
