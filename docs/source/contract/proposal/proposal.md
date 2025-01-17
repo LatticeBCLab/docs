@@ -32,11 +32,11 @@
 
  proposalId生成规则：
 
- ![image-20240809142201684](proposalDetail.assets/image-20240809142201684.png)
+ ![image-20240809142201684](proposal.assets/image-20240809142201684.png)
 
  voteId生成规则：
 
- ![image-20250116170020287](proposalDetail.assets/image-20250116170020287.png)
+ ![image-20250116170020287](proposal.assets/image-20250116170020287.png)
 
 # 2. 合约内部管理
 
@@ -563,4 +563,4 @@ chainByChainVote
 
 ## 4 链数据目录调整
 
-![image-20250116173131194](proposalDetail.assets/image-20250116173131194.png)
+![image-20250116173131194](proposal.assets/image-20250116173131194.png)
