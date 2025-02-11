@@ -183,8 +183,28 @@ export default defineConfig({
               collapsed: true,
               items: [
                 {
+                  text: '区块接口',
+                  link: '/source/api/block'
+                },
+                {
+                  text: '共识接口',
+                  link: '/source/api/block'
+                },
+                {
+                  text: '账户接口',
+                  link: '/source/api/block'
+                },
+                {
+                  text: '交易接口',
+                  link: '/source/api/block'
+                },
+                {
                   text: '网络API',
-                  link: '/source/api/netApi'
+                  link: '/source/api/net'
+                },
+                {
+                  text: '节点管理',
+                  link: '/source/api/block'
                 },
                 {
                   text: '节点证书API',
@@ -201,6 +221,10 @@ export default defineConfig({
                 {
                   text: '提案API',
                   link: '/source/api/proposal'
+                },
+                {
+                  text: '区块链SDK服务',
+                  link: '/source/api/block'
                 },
               ]
             }
