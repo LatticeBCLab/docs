@@ -62,6 +62,10 @@ export default defineConfig({
               collapsed: true,
               items: [
                 {
+                  text: '合约手续费',
+                  link: '/source/contract/gas'
+                },
+                {
                   text: '合约生命周期',
                   link: '/source/contract/contractLifecycle'
                 },
