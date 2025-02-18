@@ -28,7 +28,7 @@ export default defineConfig({
     logo: 'logo.png',
     nav: [
       { text: 'Home', link: '/' },
-      { text: '晶格链', link: '/source/'},
+      { text: '晶格链', link: '/source/start/'},
       { text: '跨链', link: '/cross/'}
     ],
     editLink: {
