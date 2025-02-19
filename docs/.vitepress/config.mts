@@ -187,20 +187,12 @@ export default defineConfig({
               collapsed: true,
               items: [
                 {
-                  text: '区块接口',
-                  link: '/source/api/block'
-                },
-                {
-                  text: '共识接口',
-                  link: '/source/api/block'
-                },
-                {
                   text: '账户接口',
-                  link: '/source/api/block'
+                  link: '/source/api/account'
                 },
                 {
                   text: '交易接口',
-                  link: '/source/api/block'
+                  link: '/source/api/transaction'
                 },
                 {
                   text: '网络API',
@@ -208,27 +200,31 @@ export default defineConfig({
                 },
                 {
                   text: '节点管理',
-                  link: '/source/api/block'
+                  link: '/source/api/node'
                 },
                 {
                   text: '节点证书API',
                   link: '/source/api/nodeCert'
                 },
                 {
-                  text: '合约API',
-                  link: '/source/api/contract'
+                  text: '区块接口',
+                  link: '/source/api/block'
                 },
                 {
-                  text: '以链建链API',
-                  link: '/source/api/cbyc'
+                  text: '合约API',
+                  link: '/source/api/contract'
                 },
                 {
                   text: '提案API',
                   link: '/source/api/proposal'
                 },
                 {
+                  text: '以链建链API',
+                  link: '/source/api/cbyc'
+                },
+                {
                   text: '区块链SDK服务',
-                  link: '/source/api/block'
+                  link: '/source/api/sdk'
                 },
               ]
             }
