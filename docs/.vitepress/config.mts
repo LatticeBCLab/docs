@@ -199,8 +199,12 @@ export default defineConfig({
                   link: '/source/api/net'
                 },
                 {
-                  text: '节点管理',
+                  text: '节点管理API',
                   link: '/source/api/node'
+                },
+                {
+                  text: '链管理API',
+                  link: '/source/api/latc'
                 },
                 {
                   text: '节点证书API',
