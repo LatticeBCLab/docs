@@ -34,31 +34,32 @@
 
 ```
 
-|             |                      |               | 类型       | 可选值                        |
-| ----------- |----------------------|---------------|----------| ----------------------------- |
-| config      | latcId               | 链ID           | int      |                               |
-|             | latcSaints           | 共识节点          | address  |                               |
-|             | consensus            | 共识机制          | string   | PoA，Raft，PBFT（区分大小写） |
-|             | noRecursion          | 合约递归调用        | bool     |                               |
-|             | tokenless            | 无币链           | bool     |                               |
-|             | period               | 出块间隔          | int      |                               |
-|             | NoEmptyAnchor        | 不出空块          | bool     |                               |
-|             | EmptyAnchorPeriodMul | 不出空块的间隔       | int      |                               |
-|             | GM                   | 国密            | bool     |                               |
-|             | isContractVote       | 合约生命周期        | bool     |                               |
-|             | isDictatorship       | 生命周期盟主独裁      | bool     |                               |
-|             | deployRule           | 合约部署规则        | int      | 0,1,2                         |
-|             | contractPermission   | 合约内部管理        | bool     |                               |
-|             | chainByChainVote     | 以链建链投票        | int      | 0,1,2                         |
-|             | proposalExpireTime   | 提案过期时间        | int      |                               |
-|             | configModifyRule     | 链配置更改规则       | int      | 0,1,2                         |
-|             | enableCert           | 是否开启节点证书      | bool     |                         |
-| parentHash  |                      | 创世区块的父hash    | hex hash |                               |
-| number      |                      | 创世区块高度        | int      |                               |
-| preacher    |                      | 联盟链盟主         | address  |                               |
-| godAmount   |                      | 盟主初始余额        | int      |                               |
-| initVersion |                      | 链版本（区块有变动的版本） | int      | 1,2,3,（4 在测试中）          |
-| timestamp   |                      | 创世区块时间戳       | hex      |                               |
+|             |                      |               | 类型        | 可选值                        |
+| ----------- |----------------------|---------------|-----------| ----------------------------- |
+| config      | latcId               | 链ID           | int       |                               |
+|             | latcSaints           | 共识节点          | []address |                               |
+|             | observers           | 见证节点          | []address |                               |
+|             | consensus            | 共识机制          | string    | PoA，Raft，PBFT（区分大小写） |
+|             | noRecursion          | 合约递归调用        | bool      |                               |
+|             | tokenless            | 无币链           | bool      |                               |
+|             | period               | 出块间隔          | int       |                               |
+|             | NoEmptyAnchor        | 不出空块          | bool      |                               |
+|             | EmptyAnchorPeriodMul | 不出空块的间隔       | int       |                               |
+|             | GM                   | 国密            | bool      |                               |
+|             | isContractVote       | 合约生命周期        | bool      |                               |
+|             | isDictatorship       | 生命周期盟主独裁      | bool      |                               |
+|             | deployRule           | 合约部署规则        | int       | 0,1,2                         |
+|             | contractPermission   | 合约内部管理        | bool      |                               |
+|             | chainByChainVote     | 以链建链投票        | int       | 0,1,2                         |
+|             | proposalExpireTime   | 提案过期时间        | int       |                               |
+|             | configModifyRule     | 链配置更改规则       | int       | 0,1,2                         |
+|             | enableCert           | 是否开启节点证书      | bool      |                         |
+| parentHash  |                      | 创世区块的父hash    | hex hash  |                               |
+| number      |                      | 创世区块高度        | int       |                               |
+| preacher    |                      | 联盟链盟主         | address   |                               |
+| godAmount   |                      | 盟主初始余额        | int       |                               |
+| initVersion |                      | 链版本（区块有变动的版本） | int       | 1,2,3,（4 在测试中）          |
+| timestamp   |                      | 创世区块时间戳       | hex       |                               |
 
 
 
