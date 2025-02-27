@@ -22,6 +22,10 @@ d. 调用加入 [cbyc_selfJoinChain](../../api/cbyc#cbyc-selfjoinchain) 。
 
 ### 方法2，通过合约
 
-a. 通过以链建链合约申请加入通道，具体方法参考 [加入链合约](../../chainbychain/chainbychain#加入链);
+a. 先为节点颁发证书，可以通过链上或链下的方式;
 
-b. 步骤a的加入过程会因为通道没有响应的证书而失败，申请证书并按方法1.c的步骤存储证书后，调用 [latc_startZLattice](../../api/latc#latc_startZLattice)。
+> 通过链下的方式，在发起加入通道提案时必须指定颁发证书的节点的inode，否则引发两个问题
+> 1. 有可能会因同步不到证书而建链失败（新节点与颁发证书的节点未连接）
+> 2. 建链过程会拉长，新节点需要向每个邻近节点请求证书
+
+b. 通过以链建链合约申请加入通道，具体方法参考 [加入链合约](../../chainbychain/chainbychain#加入链);
