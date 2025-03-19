@@ -1,3 +1,4 @@
-Makefile
+jMakefile
 build/
 /docs/.vitepress/cache/
+node_modules
