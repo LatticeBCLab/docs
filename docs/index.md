@@ -13,6 +13,8 @@ hero:
     - theme: brand
       text: 快速开始
       link: /source/start/
-      
+    - theme: brand
+      text: 接口验证码
+      link: /source/auth/captcha/index
 ---
 

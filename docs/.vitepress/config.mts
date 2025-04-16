@@ -114,6 +114,16 @@ const sidebarConfig = {
                 },
               ],
             },
+            {
+              text: "认证",
+              collapsed: true,
+              items: [
+                {
+                  text: "接口验证码",
+                  link: "/source/auth/captcha/",
+                }
+              ],
+            }
           ],
         },
         {
