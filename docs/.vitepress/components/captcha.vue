@@ -1,12 +1,24 @@
 <template>
   <div class="container">
-    <h2>验证码生成器</h2>
     <input
-        type="password"
+        type="text"
         v-model="password"
         placeholder="请输入密码"
         @keyup.enter="generateCode"
     />
+    <br />
+    <label>
+      <input type="checkbox" v-model="useCustomTime" />
+      选择时间
+    </label>
+    <br />
+    <input
+        v-if="useCustomTime"
+        type="datetime-local"
+        v-model="customTime"
+        step="60"
+    />
+    <br />
     <button @click="generateCode">生成验证码</button>
     <div v-if="result" :class="{ error: isError }" class="result">
       {{ result }}
@@ -18,13 +30,12 @@
 import { ref } from 'vue';
 
 const password = ref('');
+const useCustomTime = ref(false);
+const customTime = ref('');
 const result = ref('');
 const isError = ref(false);
-
-async function generateVerificationCode(password) {
-  // 获取当前分钟时间戳
-  const minuteTimestamp = Math.floor(Date.now() / 1000 / 60);
-
+const precision = 120
+async function generateVerificationCode(password, minuteTimestamp) {
   // 将分钟时间戳转换为8字节数组
   const timestampBytes = new ArrayBuffer(8);
   const view = new DataView(timestampBytes);
@@ -52,6 +63,7 @@ async function generateVerificationCode(password) {
   return code.toString().padStart(6, '0');
 }
 
+
 async function generateCode() {
   if (!password.value) {
     result.value = '请输入密码！';
@@ -59,8 +71,23 @@ async function generateCode() {
     return;
   }
 
+  let minuteTimestamp;
+  if (useCustomTime.value) {
+    if (!customTime.value) {
+      result.value = '请选择自定义时间！';
+      isError.value = true;
+      return;
+    }
+    // 将选择的时间转换为分钟级时间戳
+    const selectedDate = new Date(customTime.value);
+    minuteTimestamp = Math.floor(selectedDate.getTime() / 1000 / precision);
+  } else {
+    // 使用当前分钟时间戳
+    minuteTimestamp = Math.floor(Date.now() / 1000 / precision);
+  }
+
   try {
-    const code = await generateVerificationCode(password.value);
+    const code = await generateVerificationCode(password.value, minuteTimestamp);
     result.value = `验证码: ${code}`;
     isError.value = false;
   } catch (error) {
@@ -81,7 +108,8 @@ async function generateCode() {
   margin: 20px auto;
 }
 
-input {
+input[type="text"],
+input[type="datetime-local"] {
   padding: 10px;
   margin: 10px 0;
   width: 200px;
