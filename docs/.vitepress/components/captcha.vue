@@ -28,6 +28,7 @@
 
 <script setup>
 import { ref } from 'vue';
+import CryptoJS from 'crypto-js';
 
 const password = ref('');
 const useCustomTime = ref(false);
@@ -41,16 +42,23 @@ async function generateVerificationCode(password, minuteTimestamp) {
   const view = new DataView(timestampBytes);
   view.setBigUint64(0, BigInt(minuteTimestamp), false);
 
-  // 使用 Web Crypto API 进行 HMAC-SHA256
-  const key = await crypto.subtle.importKey(
-      'raw',
-      new TextEncoder().encode(password),
-      { name: 'HMAC', hash: 'SHA-256' },
-      false,
-      ['sign']
+  // 将 ArrayBuffer 转换为 WordArray（crypto-js 使用的格式）
+  const buffer = new Uint8Array(timestampBytes);
+  const wordArray = CryptoJS.lib.WordArray.create(buffer);
+
+  // 使用 crypto-js 进行 HMAC-SHA256
+  const hash = CryptoJS.HmacSHA256(wordArray, password);
+  const hashArray = new Uint8Array(
+      hash.words.reduce((bytes, word, i) => {
+        const offset = i * 4;
+        bytes[offset] = (word >>> 24) & 0xff;
+        bytes[offset + 1] = (word >>> 16) & 0xff;
+        bytes[offset + 2] = (word >>> 8) & 0xff;
+        bytes[offset + 3] = word & 0xff;
+        return bytes;
+      }, new Uint8Array(hash.words.length * 4))
   );
-  const hash = await crypto.subtle.sign('HMAC', key, timestampBytes);
-  const hashArray = new Uint8Array(hash);
+
 
   // 取哈希值最后4字节并转换为整数
   const offset = hashArray[hashArray.length - 1] & 0x0F;
