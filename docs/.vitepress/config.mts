@@ -279,6 +279,18 @@ export default defineConfig({
             }
           ]
         }
+      ],
+      "/design/": [
+        {
+          text: "重构",
+          collapsed: true,
+          items: [
+            {
+              text: "evm",
+              link: "/design/refactor/evm"
+            }
+          ]
+        }
       ]
     },
     socialLinks: [{ icon: "github", link: "https://github.com/LatticeBCLab" }],
