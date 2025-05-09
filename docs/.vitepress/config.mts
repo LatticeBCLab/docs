@@ -7,6 +7,7 @@ import VersionSwitcher from "./components/VersionSwitcher.vue"; // 导入组件
 export default defineConfig({
   vite: {
     server: {
+      host: '0.0.0.0',
       port: 5173,
     },
     // 确保Vue组件可以被识别和使用
