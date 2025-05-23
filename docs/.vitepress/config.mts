@@ -291,6 +291,16 @@ export default defineConfig({
               link: "/design/refactor/evm"
             }
           ]
+        },
+        {
+          text: "迭代",
+          collapsed: true,
+          items: [
+            {
+              text: "合约生命周期",
+              link: "/design/contract/lifecycle"
+            }
+          ]
         }
       ]
     },
