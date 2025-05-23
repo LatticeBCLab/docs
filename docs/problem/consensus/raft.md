@@ -6,7 +6,7 @@
 
 <img src="./raft.assets/img.png" alt="img" style="zoom:25%;" />
 
-## Raft共识所有节点连接正常，但是不出块
+## <span id="1" >1:Raft共识所有节点连接正常，但是不出块 </span>
 
 ### 特征：
 
