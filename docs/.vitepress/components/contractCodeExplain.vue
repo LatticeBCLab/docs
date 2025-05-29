@@ -194,7 +194,12 @@ function executeOperation() {
   const stateInt = parseInt(state.value, 2);
   const ruleInt = parseInt(rule.value, 2);
   const opInt = parseInt(op.value, 2);
-  
+  // 检查opInt的高四位是否大于0
+  const highFourBits = (opInt >> 4) & 0x0F;
+  if (highFourBits === 0) {
+    alert('操作码高四位不能全为0，请重新选择操作码');
+    return;
+  }
   // 表达式①的计算
   // 注意：在二进制表示中，位是从右到左编号的，即最右边是第0位
   // op>>7<<7 表示将op右移7位再左移7位，实际上是保留最高位，其他位置0
