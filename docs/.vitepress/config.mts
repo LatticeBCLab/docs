@@ -81,6 +81,10 @@ export default defineConfig({
                   link: "/source/contract/contractLifecycle",
                 },
                 {
+                  text: "合约代码解释器",
+                  link: "/source/contract/contractCode",
+                },
+                {
                   text: "提案",
                   link: "/source/contract/proposal/proposal",
                   items: [
