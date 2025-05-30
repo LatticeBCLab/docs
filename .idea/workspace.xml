@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="95de771f-1ee5-4788-ab3a-6426a42308d0" name="Changes" comment="合约生命周期迭代v3 项目工时评估" />
+    <list default="true" id="95de771f-1ee5-4788-ab3a-6426a42308d0" name="Changes" comment="feat: 合约生命周期v3">
+      <change afterPath="$PROJECT_DIR$/docs/problem/cert/heightUnexpect.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/.vitepress/components/contractCodeExplain.vue" beforeDir="false" afterPath="$PROJECT_DIR$/docs/.vitepress/components/contractCodeExplain.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/.vitepress/config.mts" beforeDir="false" afterPath="$PROJECT_DIR$/docs/.vitepress/config.mts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/source/contract/contractCode.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/source/contract/contractStateExplain.md" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -96,11 +102,11 @@
       <recent name="E:\0BBBBB\zkjg\zlatticedoc\source\cert" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\0BBBBB\zkjg\zlatticedoc\docs\problem\cert" />
       <recent name="E:\0BBBBB\zkjg\zlatticedoc\docs\design\refactor\evm.assets" />
       <recent name="E:\0BBBBB\zkjg\zlatticedoc\docs\design\refactor\evm.asset" />
       <recent name="E:\0BBBBB\zkjg\zlatticedoc\docs\problem" />
       <recent name="E:\0BBBBB\zkjg\zlatticedoc\docs" />
-      <recent name="E:\0BBBBB\zkjg\zlatticedoc\docs\source\contract\proposal\proposal.assets" />
     </key>
   </component>
   <component name="RunManager">
@@ -178,7 +184,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="github socialLinks" />
     <MESSAGE value="github edit pages" />
     <MESSAGE value="fast start" />
     <MESSAGE value="api" />
@@ -203,7 +208,8 @@
     <MESSAGE value="add eip pic" />
     <MESSAGE value="enrich evm refactor" />
     <MESSAGE value="合约生命周期迭代v3 项目工时评估" />
-    <option name="LAST_COMMIT_MESSAGE" value="合约生命周期迭代v3 项目工时评估" />
+    <MESSAGE value="feat: 合约生命周期v3" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 合约生命周期v3" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>

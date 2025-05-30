@@ -81,8 +81,8 @@ export default defineConfig({
                   link: "/source/contract/contractLifecycle",
                 },
                 {
-                  text: "合约代码解释器",
-                  link: "/source/contract/contractCode",
+                  text: "合约状态码解释",
+                  link: "/source/contract/contractStateExplain",
                 },
                 {
                   text: "提案",
@@ -281,6 +281,15 @@ export default defineConfig({
             {
               text: "Raft",
               link: "/problem/consensus/raft"
+            }
+          ],
+        },
+        {
+          text: "证书",
+          items: [
+            {
+              text: "证书高度异常",
+              link: "/problem/cert/heightUnexpect"
             }
           ]
         }

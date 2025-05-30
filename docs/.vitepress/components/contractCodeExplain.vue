@@ -3,7 +3,7 @@
     <h3>合约状态验证工具</h3>
     
     <div class="state-display">
-      <div class="code-label">当前状态 (state):</div>
+      <div class="code-label">当前状态 (state): <span class="state-explanation">{{ getStateExplanation() }}</span></div>
       <div class="binary-visualization">
         <div 
           v-for="(bit, index) in stateBits" 
@@ -155,6 +155,31 @@ const freezeButtonText = computed(() => {
   // 根据当前状态判断是冻结还是解冻
   return state.value.charAt(5) === '1' ? '解冻' : '冻结';
 });
+
+// 获取状态代码的解释
+function getStateExplanation() {
+  const stateInt = parseInt(state.value, 2);
+  const explanations = [];
+ 
+  // 检查权限位
+  const permissions = [];
+  if ((stateInt & 0x10) !== 0) permissions.push('owner');
+  if ((stateInt & 0x20) !== 0) permissions.push('盟主');
+  if ((stateInt & 0x40) !== 0) permissions.push('共识');
+  
+  // 检查各个状态位
+  explanations.push('合约状态：');
+  if ((stateInt & 0x04) !== 0) explanations.push('已冻结');
+  if ((stateInt & 0x02) !== 0) explanations.push('升级中');
+  if ((stateInt & 0x01) !== 0) explanations.push('部署中');
+  if ((stateInt & 0x0F) === 0) explanations.push('可执行');
+
+  if (permissions.length > 0) {
+    explanations.push('，有特殊权限：' + permissions.join('、'));
+  }
+  
+  return explanations.length > 0 ? explanations.join(' ') : '无特殊状态';
+}
 
 // 方法
 function updateRule() {
@@ -323,6 +348,13 @@ onMounted(() => {
   font-weight: bold;
   margin-bottom: 10px;
   font-size: 16px;
+}
+
+.state-explanation {
+  font-weight: normal;
+  color: #2196f3;
+  margin-left: 10px;
+  font-size: 14px;
 }
 
 .formula {
