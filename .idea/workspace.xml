@@ -5,11 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="95de771f-1ee5-4788-ab3a-6426a42308d0" name="Changes" comment="feat: 合约生命周期v3">
-      <change afterPath="$PROJECT_DIR$/docs/problem/cert/heightUnexpect.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/.vitepress/components/contractCodeExplain.vue" beforeDir="false" afterPath="$PROJECT_DIR$/docs/.vitepress/components/contractCodeExplain.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/.vitepress/config.mts" beforeDir="false" afterPath="$PROJECT_DIR$/docs/.vitepress/config.mts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/source/contract/contractCode.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/source/contract/contractStateExplain.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

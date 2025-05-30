@@ -9,10 +9,13 @@
           v-for="(bit, index) in stateBits" 
           :key="index" 
           class="bit-box"
-          :class="{ active: bit === '1' }"
+          :class="{ 
+            active: bit === '1',
+            'bit-separator': (stateBits.length - index) % 4 === 1 && index !== stateBits.length - 1
+          }"
         >
           <div class="bit-value">{{ bit }}</div>
-          <div class="bit-position">{{ 7-index }}</div>
+          <div class="bit-position">{{ 8-index }}</div>
         </div>
       </div>
     </div>
@@ -36,7 +39,10 @@
           v-for="(bit, index) in ruleBits" 
           :key="index" 
           class="bit-box"
-          :class="{ active: index === 1 }"
+          :class="{ 
+            active: index === 1,
+            'bit-separator': (ruleBits.length - index) % 4 === 1 && index !== ruleBits.length - 1
+          }"
         >
           <div class="bit-value">{{ bit }}</div>
           <div class="bit-position">{{ 8-index }}</div>
@@ -52,6 +58,7 @@
             v-for="i in 4" 
             :key="i" 
             class="bit-input"
+            :class="{ 'bit-input-separator': i % 4 === 0 }"
           >
             <select v-model="opEditableBits[i-1]" @change="updateOp(i)" :disabled="i === 1">
               <option value="0">0</option>
@@ -63,10 +70,7 @@
         <div class="fixed-bits">
           <span>固定部分: 0100</span>
           <div class="bit-positions">
-            <span>3</span>
-            <span>2</span>
-            <span>1</span>
-            <span>0</span>
+            <span :class="{ 'bit-pos-separator': i % 4 === 0 }" v-for="i in 4" :key="i">{{ 4-i }}</span>
           </div>
         </div>
       </div>
@@ -75,7 +79,10 @@
           v-for="(bit, index) in opBits" 
           :key="index" 
           class="bit-box"
-          :class="{ active: bit === '1' }"
+          :class="{ 
+            active: bit === '1',
+            'bit-separator': (opBits.length - index) % 4 === 1 && index !== opBits.length - 1
+          }"
         >
           <div class="bit-value">{{ bit }}</div>
           <div class="bit-position">{{ 7-index }}</div>
@@ -108,7 +115,10 @@
             v-for="(bit, index) in stateBits" 
             :key="index" 
             class="bit-box"
-            :class="{ active: bit === '1' }"
+            :class="{ 
+              active: bit === '1',
+              'bit-separator': (stateBits.length - index) % 4 === 1 && index !== stateBits.length - 1
+            }"
           >
             <div class="bit-value">{{ bit }}</div>
             <div class="bit-position">{{ 7-index }}</div>
@@ -188,18 +198,14 @@ function updateRule() {
   const selectedOptionInt = parseInt(selectedOption, 10);
   const shiftedValue = selectedOptionInt << 7;
   rule.value = shiftedValue.toString(2).padStart(9, '0');
-  console.log(rule.value);
 }
 
 function updateOp(index) {
   // 确保i=2,3,4中只能有一个的value是1
-  console.log(index);
   const count = opEditableBits.value.slice(1, 4).filter(bit => bit === '1').length;
-  console.log(count);
   if (count > 1) {
     for (let i = 2; i <= 4; i++) {
       if (i !== index) {
-        console.log("i"+i);
         opEditableBits.value[i-1] = '0';
       }
     }
@@ -217,7 +223,7 @@ function updateOp(index) {
 function executeOperation() {
   // 执行表达式①验证: (state|rule|(op>>7<<7)) &(op|1000,0000) >>4 == op|1000,0000 >>4
   const stateInt = parseInt(state.value, 2);
-  const ruleInt = parseInt(rule.value, 2);
+  const ruleInt = parseInt(rule.value, 2) & 0xFF;
   const opInt = parseInt(op.value, 2);
   // 检查opInt的高四位是否大于0
   const highFourBits = (opInt >> 4) & 0x0F;
@@ -274,7 +280,8 @@ function executeOperation() {
   const maskedShiftedOp = mergedOp & 0x34; // 00110100二进制
   const maskedState = stateInt & 0x0F; // 1111二进制
   var newState = maskedShiftedOp ^ maskedState;
-  if (maskedState == 0x04){
+  console.log("maskedState",maskedState);
+  if (maskedState == 4){
     newState = 0x30;
     debugInfo.value += `
         新状态: ${newState.toString(2).padStart(8, '0')}
@@ -386,6 +393,10 @@ onMounted(() => {
   background-color: #f5f5f5;
 }
 
+.bit-separator {
+  margin-right: 15px;
+}
+
 .bit-box.active {
   background-color: #e1f5fe;
   border-color: #2196f3;
@@ -430,6 +441,11 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 0 3px;
+}
+
+.bit-input-separator {
+  margin-right: 15px;
 }
 
 .bit-input select {
@@ -456,6 +472,10 @@ onMounted(() => {
   gap: 25px;
   margin-top: 5px;
   font-size: 12px;
+}
+
+.bit-pos-separator {
+  margin-right: 15px;
 }
 
 .action-button {
