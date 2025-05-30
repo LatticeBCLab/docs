@@ -36,10 +36,10 @@
           v-for="(bit, index) in ruleBits" 
           :key="index" 
           class="bit-box"
-          :class="{ active: bit === '1' }"
+          :class="{ active: index === 1 }"
         >
           <div class="bit-value">{{ bit }}</div>
-          <div class="bit-position">{{ 7-index }}</div>
+          <div class="bit-position">{{ 8-index }}</div>
         </div>
       </div>
     </div>
@@ -131,7 +131,7 @@ import { ref, computed, onMounted } from 'vue';
 
 // 状态变量
 const state = ref('00110000');
-const rule = ref('00000000');
+const rule = ref('000000000');
 const op = ref('00000100');
 const selectedRule = ref(0);
 const opEditableBits = ref(['0', '0', '0', '0']); // 用户可编辑的op位 (第6-4位)
@@ -183,11 +183,11 @@ function getStateExplanation() {
 
 // 方法
 function updateRule() {
-  // 选择规则后右移7位
+  // 选择规则后左移7位
   const selectedOption = ruleOptions[selectedRule.value];
-  const selectedOptionInt = parseInt(selectedOption, 2);
+  const selectedOptionInt = parseInt(selectedOption, 10);
   const shiftedValue = selectedOptionInt << 7;
-  rule.value = shiftedValue.toString(2).padStart(8, '0');
+  rule.value = shiftedValue.toString(2).padStart(9, '0');
   console.log(rule.value);
 }
 
