@@ -1,5 +1,6 @@
 import { defineConfig } from "vitepress";
 import VersionSwitcher from "./components/VersionSwitcher.vue"; // 导入组件
+import { getHighlighter } from 'shiki'
 
 // 处理侧边栏配置，添加默认链接
 
@@ -14,6 +15,13 @@ export default defineConfig({
     resolve: {
       dedupe: ["vue"],
     },
+  },
+  
+  markdown: {
+    theme: {
+      light: 'github-light',
+      dark: 'github-dark'
+    }
   },
   
   head: [

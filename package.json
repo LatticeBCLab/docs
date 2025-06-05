@@ -8,6 +8,7 @@
     "preview": "vitepress preview docs"
   },
   "dependencies": {
-    "crypto-js": "^4.2.0"
+    "crypto-js": "^4.2.0",
+    "golang": "^0.1.5-stable"
   }
 }
