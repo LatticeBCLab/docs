@@ -81,10 +81,6 @@ export default defineConfig({
                   link: "/source/contract/contractLifecycle",
                 },
                 {
-                  text: "合约状态码解释",
-                  link: "/source/contract/contractStateExplain",
-                },
-                {
                   text: "提案",
                   link: "/source/contract/proposal/proposal",
                   items: [
@@ -306,12 +302,24 @@ export default defineConfig({
           ]
         },
         {
-          text: "迭代",
+          text: "合约生命周期迭代",
           collapsed: true,
           items: [
             {
-              text: "合约生命周期",
-              link: "/design/contract/lifecycle"
+              text: "需求",
+              link: "/design/contractLC/lifecycle"
+            },
+            {
+              text: "详细设计",
+              link: "/design/contractLC/desgin"
+            },
+            {
+              text: "合约状态码解释",
+              link: "/design/contractLC/contractStateExplain"
+            },
+            {
+              text: "提测信息",
+              link: "/design/contractLC/testReady"
             }
           ]
         }
