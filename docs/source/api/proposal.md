@@ -969,6 +969,88 @@
 
     - 无错误码
 
+### <span id="apiGetChangeContractLifecycleRule">wallet_getChangeContractLifecycleRule</span>
+
+#### 获取修改合约生命周期规则的code
+
+- 请求参数
+
+    - 规则值（整数）
+
+- 返回值
+
+    - code
+
+- 实例
+
+  ```bash
+  curl --location --request GET 'http://192.168.2.12:5001' \
+  --header 'Content-Type: application/json' \
+  --data '{
+      "jsonrpc": "2.0",
+      "method": "wallet_getChangeContractLifecycleRule",
+      "params": [
+          2
+      ],
+      "id": 481
+  }'
+  ```
+
+- 返回结果
+
+  ```json
+  {
+      "jsonRpc": "2.0",
+      "id": 481,
+      "result": "0x12345678000000000000000000000000000000000000000000000000000000000000002"
+  }
+  ```
+
+- 错误码
+
+    - 无错误码
+
+### <span id="apiGetChangeContractFreezeRule">wallet_getChangeContractFreezeRule</span>
+
+#### 获取修改合约冻结规则的code
+
+- 请求参数
+
+    - 规则值（整数）
+
+- 返回值
+
+    - code
+
+- 实例
+
+  ```bash
+  curl --location --request GET 'http://192.168.2.12:5001' \
+  --header 'Content-Type: application/json' \
+  --data '{
+      "jsonrpc": "2.0",
+      "method": "wallet_getChangeContractFreezeRule",
+      "params": [
+          1
+      ],
+      "id": 481
+  }'
+  ```
+
+- 返回结果
+
+  ```json
+  {
+      "jsonRpc": "2.0",
+      "id": 481,
+      "result": "0x87654321000000000000000000000000000000000000000000000000000000000000001"
+  }
+  ```
+
+- 错误码
+
+    - 无错误码
+
 ## 1.3 提案决策
 
 ### <span id="7">wallet_getVoteCode</span>
