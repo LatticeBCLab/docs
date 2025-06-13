@@ -319,7 +319,7 @@ export default defineConfig({
             },
             {
               text: "详细设计",
-              link: "/design/contractLC/desgin"
+              link: "/design/contractLC/detail"
             },
             {
               text: "合约状态码解释",
