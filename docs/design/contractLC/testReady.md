@@ -60,7 +60,7 @@ def testMain():
 ## 附件/在线文档：
 
 1. [自测脚本](https://gitlab.zlattice.top/Tom_Zhou/zlattice/-/tree/develop-v2.2.0-clc/test/zvm/proposal_contract_lifecycle)
-2. 合约生命周期v3的详细设计
+2. [合约生命周期v3的详细设计](http://172.22.0.23:5173/docs/design/contractLC/detail)
 3. 合约生命周期v3的相关api
    1. 获取[冻结](http://172.22.0.23:5173/docs/source/api/contract#wallet-getfreezecode)/[解冻](http://172.22.0.23:5173/docs/source/api/contract#wallet-getunfreezecode)code的api：
    2. 获取[修改合约生命周期规则](http://172.22.0.23:5173/docs/source/api/proposal#wallet-getchangecontractlifecyclerule)、[修改合约冻结规则](http://172.22.0.23:5173/docs/source/api/proposal#wallet-getchangecontractfreezerule)code的api

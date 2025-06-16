@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="95de771f-1ee5-4788-ab3a-6426a42308d0" name="Changes" comment="feat: 合约生命周期v3">
+    <list default="true" id="95de771f-1ee5-4788-ab3a-6426a42308d0" name="Changes" comment="feat: 合约生命周期v3 提测">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/.vitepress/components/contractCodeExplain.vue" beforeDir="false" afterPath="$PROJECT_DIR$/docs/.vitepress/components/contractCodeExplain.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/design/contractLC/detail.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/design/contractLC/detail.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/design/contractLC/testReady.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/design/contractLC/testReady.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -181,7 +182,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="github edit pages" />
     <MESSAGE value="fast start" />
     <MESSAGE value="api" />
     <MESSAGE value="跳转" />
@@ -206,7 +206,8 @@
     <MESSAGE value="enrich evm refactor" />
     <MESSAGE value="合约生命周期迭代v3 项目工时评估" />
     <MESSAGE value="feat: 合约生命周期v3" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 合约生命周期v3" />
+    <MESSAGE value="feat: 合约生命周期v3 提测" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 合约生命周期v3 提测" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
