@@ -2,7 +2,7 @@
 
 合约生命周期的状态以及冻结解冻信息通过两个字节表示： ```type ContractManagerBits [2]byte```
 
-![image-20250613104751335](detail.assets/image-20250613104751335.png)
+![image-20250613104751335](./detail.assets/image-20250613104751335.png)
 
 - contractManagerBits[0]: 合约状态，以下简称state
 - contractManagerBits[1]: 合约冻结解冻是否需要投票的控制位（具体控制行为见合约冻结和解冻），以下简称freezeState
@@ -17,11 +17,11 @@
 >
 >
 
-![image-20250613105005244](detail.assets/image-20250613105005244.png)
+![image-20250613105005244](./detail.assets/image-20250613105005244.png)
 
 合约生命周期状态图：
 
-![image-20250613105223368](detail.assets/image-20250613105223368.png)
+![image-20250613105223368](./detail.assets/image-20250613105223368.png)
 
 ## 合约生命周期：升级和部署
 
@@ -65,7 +65,7 @@ eg.
 
 合约冻结解冻的投票逻辑较为复杂，下图为产品流程图：
 
-![image-20250613113649037](detail.assets/image-20250613113649037.png)
+![image-20250613113649037](./detail.assets/image-20250613113649037.png)
 
 ### 如何通过freezeState控制投票逻辑：
 
@@ -153,4 +153,4 @@ opFreezeState 与冻结一致，freezeState 控制是否需要投票。
 
 #### 结论
 
-![image-20250616103032880](detail.assets/image-20250616103032880.png)
+![image-20250616103032880](./detail.assets/image-20250616103032880.png)
