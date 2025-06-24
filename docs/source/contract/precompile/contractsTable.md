@@ -221,30 +221,30 @@
 
 ```json
 [
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "Address",
-				"type": "address"
-			},
-			{
-				"internalType": "uint8",
-				"name": "IsRevoke",
-				"type": "uint8"
-			}
-		],
-		"name": "launch",
-		"outputs": [
-			{
-				"internalType": "bytes",
-				"name": "",
-				"type": "bytes"
-			}
-		],
-		"stateMutability": "pure",
-		"type": "function"
-	}
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "Address",
+        "type": "address"
+      },
+      {
+        "internalType": "bool",
+        "name": "IsFreeze",
+        "type": "bool"
+      }
+    ],
+    "name": "launch",
+    "outputs": [
+      {
+        "internalType": "bytes",
+        "name": "",
+        "type": "bytes"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  }
 ]
 ```
 
