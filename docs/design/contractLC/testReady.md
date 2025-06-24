@@ -2,19 +2,23 @@
 
 baas新需求，要求合约生命周期做相关适配。
 
-1. **合约生命周期规则**:
-   - 合约升级只能有合约部署者发起
-   - 规则0: 部署/升级后直接允许调用
-   - 规则1: 部署/升级后需要盟主投票才能调用
-   - 规则2: 部署/升级后需要所有共识节点投票才能调用
-2. **合约冻结规则**:
-   - 规则0: 盟主执行冻结/解冻需要投票
-   - 规则1: 盟主执行冻结/解冻直接生效
-3. **操作执行角色**:
-   - 部署者(deployCaller)
-   - 升级者(upgradeCaller)
-   - 冻结者(freezeCaller)
-   - 解冻者(unfreezeCaller)
+需求如下：
+
+1. 合约生命周期始终开启
+
+2. 合约部署和升级使用统一的配置
+
+3. 合约冻结和解冻的投票规则变动为
+
+   1.  冻结
+      1. 合约部署者冻结合约无需投票
+      2. contractFreezeRule 为1 时盟主冻结合约无需投票
+   2. 解冻
+      1. 合约部署者解冻 被 合约部署者冻结的合约  ，无需投票
+      2. contractFreezeRule 为1时 盟主解冻被合约部署者冻结的合约，无需投票
+      3. contractFreezeRule 为1时 盟主解冻被盟主冻结的合约，无需投票
+
+   其他情况下需要投票，如果与产品原型图有出入，以产品原型图为准
 
 如有疑问可联系 @孙小龙 @齐拢
 
@@ -26,7 +30,39 @@ baas新需求，要求合约生命周期做相关适配。
 ## 3. 提测内容
 
 测试智能合约的生命周期管理功能，包括部署、升级、冻结和解冻等操作是否符合产品需求。
+1. 合约生命周期始终开启，IsContractVote 配置被删除 
 
+2. 是否盟主独裁的配置被细化，IsDictatorship 配置被删除，现盟主独裁的配置由其他配置管理。 
+
+3. 合约部署规则DeployRule删除，合约部署与升级改为统一配置 contractLifecycleRule 
+
+   - contractLifecycleRule可选项0,1,2分别对应不需要投票，盟主投票，共识节点投票
+
+4. 新增合约冻结和解冻的投票规则 contractFreezeRule 
+
+   - contractFreezeRule 可选项 1 和 非1 分别对应盟主独裁和共识节点投票。
+
+5. 新增合约冻结和解冻在以下情况时无需投票
+
+   -  冻结
+      1. 合约部署者冻结合约无需投票
+      2. contractFreezeRule 为1 时盟主冻结合约无需投票
+   - 解冻
+      1. 合约部署者解冻 被 合约部署者冻结的合约  ，无需投票
+      2. contractFreezeRule 为1时 盟主解冻被合约部署者冻结的合约，无需投票
+      3. contractFreezeRule 为1时 盟主解冻被盟主冻结的合约，无需投票
+
+   其他情况下需要投票，如果与产品原型图有出入，以产品原型图为准
+
+6. 新增配置修改提案
+
+   - 新增修改contractLifecycleRule 获取[修改合约生命周期规则code的api](http://172.22.0.23:5173/docs/source/api/proposal#wallet-getchangecontractlifecyclerule)
+   - 新增修改contractFreezeRule 获取[修改合约冻结规则code的api](http://172.22.0.23:5173/docs/source/api/proposal#wallet-getchangecontractfreezerule)
+
+7. 修改合约生命周期提案的合约冻结、解冻
+
+   - 修改后的[合约生命周期提案预置合约abi](http://172.22.0.23:5173/docs/source/contract/precompile/contractsTable#contractlifecycleproposal)
+   - 相关获取code的api：获取[冻结](http://172.22.0.23:5173/docs/source/api/contract#wallet-getfreezecode)/[解冻](http://172.22.0.23:5173/docs/source/api/contract#wallet-getunfreezecode)code的api
 ## 4. 自测内容
 
 安装需求分析的内容进行了如下测试：
