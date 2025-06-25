@@ -63,6 +63,10 @@ baas新需求，要求合约生命周期做相关适配。
 
    - 修改后的[合约生命周期提案预置合约abi](http://172.22.0.23:5173/docs/source/contract/precompile/contractsTable#contractlifecycleproposal)
    - 相关获取code的api：获取[冻结](http://172.22.0.23:5173/docs/source/api/contract#wallet-getfreezecode)/[解冻](http://172.22.0.23:5173/docs/source/api/contract#wallet-getunfreezecode)code的api
+
+8. 合约状态变更限制调整，不同合约状态可以同时存在，新的状态图如下：
+
+   ![image-20250613105223368](testReady.assets/image-20250613105223368.png)
 ## 4. 自测内容
 
 安装需求分析的内容进行了如下测试：
