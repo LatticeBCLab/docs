@@ -56,17 +56,33 @@ baas新需求，要求合约生命周期做相关适配。
 
 6. 新增配置修改提案
 
-   - 新增修改contractLifecycleRule 获取[修改合约生命周期规则code的api](http://172.22.0.23:5173/docs/source/api/proposal#wallet-getchangecontractlifecyclerule)
-   - 新增修改contractFreezeRule 获取[修改合约冻结规则code的api](http://172.22.0.23:5173/docs/source/api/proposal#wallet-getchangecontractfreezerule)
+   - 新增修改contractLifecycleRule的提案， 获取[修改合约生命周期规则code的api](http://172.22.0.23:5173/docs/source/api/proposal#wallet-getchangecontractlifecyclerule)
+   - 新增修改contractFreezeRule的提案， 获取[修改合约冻结规则code的api](http://172.22.0.23:5173/docs/source/api/proposal#wallet-getchangecontractfreezerule)
 
 7. 修改合约生命周期提案的合约冻结、解冻
 
-   - 修改后的[合约生命周期提案预置合约abi](http://172.22.0.23:5173/docs/source/contract/precompile/contractsTable#contractlifecycleproposal)
-   - 相关获取code的api：获取[冻结](http://172.22.0.23:5173/docs/source/api/contract#wallet-getfreezecode)/[解冻](http://172.22.0.23:5173/docs/source/api/contract#wallet-getunfreezecode)code的api
+   - 修改后的获取code的api：获取合约[冻结](http://172.22.0.23:5173/docs/source/api/contract#wallet-getfreezecode)/[解冻](http://172.22.0.23:5173/docs/source/api/contract#wallet-getunfreezecode)code的api，旧的获取冻结/解冻/吊销code的api被删除
+   - 修改后的合约生命周期提案预置[合约abi](http://172.22.0.23:5173/docs/source/contract/precompile/contractsTable#contractlifecycleproposal)
+
+   
 
 8. 合约状态变更限制调整，不同合约状态可以同时存在，新的状态图如下：
 
    ![image-20250613105223368](testReady.assets/image-20250613105223368.png)
+
+9. 接口变化：
+
+   1. 新增的接口
+      - 修改contractLifecycleRule的提案， 获取[修改合约生命周期规则code的api](http://172.22.0.23:5173/docs/source/api/proposal#wallet-getchangecontractlifecyclerule)
+      - 修改contractFreezeRule的提案， 获取[修改合约冻结规则code的api](http://172.22.0.23:5173/docs/source/api/proposal#wallet-getchangecontractfreezerule)
+      - 获取合约[冻结](http://172.22.0.23:5173/docs/source/api/contract#wallet-getfreezecode)code的api
+      - 获取合约[解冻](http://172.22.0.23:5173/docs/source/api/contract#wallet-getunfreezecode)code的api
+   2. 删除的接口
+      - 修改deployRule的相关接口
+      - 修改isDictatorship的相关接口
+      - 修改isContractVote的相关接口
+      - 合约生命周期v1,v2 版中 获取冻结/解冻/吊销code 的接口分别为 wallet_generateSuspendCode 和 wallet_getNewSuspendCode
+
 ## 4. 自测内容
 
 安装需求分析的内容进行了如下测试：
