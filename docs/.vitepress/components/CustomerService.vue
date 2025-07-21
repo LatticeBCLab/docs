@@ -1,0 +1,877 @@
+<template>
+  <div class="customer-service">
+    <!-- 聊天按钮 -->
+    <div 
+      class="chat-button" 
+      @click="toggleChat"
+      :class="{ 'active': isChatOpen }"
+    >
+      <svg v-if="!isChatOpen" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2ZM20 16H5.17L4 17.17V4H20V16Z" fill="currentColor"/>
+        <circle cx="8" cy="10" r="1" fill="currentColor"/>
+        <circle cx="12" cy="10" r="1" fill="currentColor"/>
+        <circle cx="16" cy="10" r="1" fill="currentColor"/>
+      </svg>
+      <svg v-else width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z" fill="currentColor"/>
+      </svg>
+    </div>
+
+    <!-- 聊天窗口 -->
+    <transition name="chat-slide">
+      <div v-if="isChatOpen" class="chat-window">
+        <div class="chat-header">
+          <h3>客服支持</h3>
+          <button @click="toggleChat" class="close-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z" fill="currentColor"/>
+            </svg>
+          </button>
+        </div>
+        
+        <div class="chat-messages" ref="messagesContainer">
+          <div 
+            v-for="message in messages" 
+            :key="message.id" 
+            :class="['message', message.type]"
+          >
+            <div class="message-content">
+              <p>{{ message.text }}</p>
+              <span class="message-time">{{ formatTime(message.timestamp) }}</span>
+              
+              <!-- 反馈按钮 (仅对机器人回复显示) -->
+              <div v-if="message.type === 'bot' && 
+                        message.id === messages.filter(m => m.type === 'bot').pop()?.id && 
+                        !message.text.includes('服务暂时不可用') && 
+                        !message.text.includes('欢迎使用')" 
+                   class="feedback-buttons">
+                <button @click="quickFeedback('positive')" class="feedback-btn positive" title="有帮助">
+                  👍
+                </button>
+                <button @click="quickFeedback('negative')" class="feedback-btn negative" title="没有帮助">
+                  👎
+                </button>
+                <button @click="showFeedbackOptions()" class="feedback-btn detailed" title="详细反馈">
+                  💬
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 正在输入指示器 -->
+          <div v-if="isTyping" class="message bot">
+            <div class="message-content typing">
+              <div class="typing-indicator">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="chat-input">
+          <div class="input-container">
+            <input 
+              v-model="newMessage" 
+              @keypress.enter="sendMessage"
+              placeholder="输入您的问题..."
+              :disabled="isTyping"
+            />
+            <button 
+              @click="sendMessage" 
+              :disabled="!newMessage.trim() || isTyping"
+              class="send-btn"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2.01 21L23 12L2.01 3L2 10L17 12L2 14L2.01 21Z" fill="currentColor"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+        
+        <!-- 快捷回复 -->
+        <div class="quick-replies" v-if="showQuickReplies">
+          <button 
+            v-for="reply in quickReplies" 
+            :key="reply.id"
+            @click="selectQuickReply(reply.text)"
+            class="quick-reply-btn"
+          >
+            {{ reply.text }}
+          </button>
+        </div>
+        
+        <!-- 详细反馈表单 -->
+        <div v-if="showFeedback" class="feedback-form">
+          <div class="feedback-header">
+            <h4>提供反馈</h4>
+            <button @click="showFeedback = false" class="close-feedback">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z" fill="currentColor"/>
+              </svg>
+            </button>
+          </div>
+          
+          <div class="feedback-options">
+            <label>
+              <input type="radio" v-model="feedbackType" value="positive" />
+              <span>👍 有帮助</span>
+            </label>
+            <label>
+              <input type="radio" v-model="feedbackType" value="negative" />
+              <span>👎 没有帮助</span>
+            </label>
+            <label>
+              <input type="radio" v-model="feedbackType" value="corrected" />
+              <span>✏️ 需要修正</span>
+            </label>
+          </div>
+          
+          <div v-if="feedbackType === 'corrected'" class="corrected-answer">
+            <label>正确答案：</label>
+            <textarea v-model="correctedAnswer" placeholder="请提供正确的答案..."></textarea>
+          </div>
+          
+          <div class="feedback-text">
+            <label>补充说明（可选）：</label>
+            <textarea v-model="feedbackText" placeholder="请提供更多详细信息..."></textarea>
+          </div>
+          
+          <div class="feedback-actions">
+            <button @click="showFeedback = false" class="cancel-btn">取消</button>
+            <button @click="submitDetailedFeedback()" :disabled="!feedbackType" class="submit-btn">提交反馈</button>
+          </div>
+        </div>
+      </div>
+    </transition>
+  </div>
+</template>
+
+<script setup>
+import { ref, nextTick, onMounted } from 'vue'
+import * as knowledgeServiceGrpc from './knowledge_service_grpc_web_pb.js'
+import * as knowledgeServicePb from './knowledge_service_pb.js'
+
+// 从gRPC和protobuf模块中提取类
+const { KnowledgeServicePromiseClient } = knowledgeServiceGrpc
+const { ChatRequest, ChatResponse, FeedbackRequest, FeedbackResponse } = knowledgeServicePb
+
+const isChatOpen = ref(false)
+const newMessage = ref('')
+const isTyping = ref(false)
+const showQuickReplies = ref(true)
+const messagesContainer = ref(null)
+const currentMessageId = ref(null)
+const showFeedback = ref(false)
+const feedbackType = ref('')
+const correctedAnswer = ref('')
+const feedbackText = ref('')
+
+// 知识服务API配置
+const KNOWLEDGE_SERVICE_URL = 'http://localhost:50051' // 根据实际服务器地址修改
+
+const messages = ref([
+  {
+    id: 1,
+    type: 'bot',
+    text: '您好！欢迎使用ZLattice文档客服。我可以帮助您解答关于晶格链的问题。',
+    timestamp: new Date()
+  }
+])
+
+const quickReplies = ref([
+  { id: 1, text: '如何快速开始？' },
+  { id: 2, text: '合约部署问题' },
+  { id: 3, text: '共识机制说明' },
+  { id: 4, text: 'API接口文档' }
+])
+
+const toggleChat = () => {
+  isChatOpen.value = !isChatOpen.value
+  if (isChatOpen.value) {
+    nextTick(() => {
+      scrollToBottom()
+    })
+  }
+}
+
+const sendMessage = async () => {
+  if (!newMessage.value.trim() || isTyping.value) return
+  
+  const userMessage = {
+    id: Date.now(),
+    type: 'user',
+    text: newMessage.value.trim(),
+    timestamp: new Date()
+  }
+  
+  messages.value.push(userMessage)
+  const question = newMessage.value.trim()
+  newMessage.value = ''
+  showQuickReplies.value = false
+  
+  // 滚动到底部
+  nextTick(() => {
+    scrollToBottom()
+  })
+  
+  // 显示正在输入状态
+  isTyping.value = true
+  
+  try {
+    const response = await getBotResponse(question)
+    
+    const botMessage = {
+      id: Date.now() + 1,
+      type: 'bot',
+      text: response.final_answer || response.original_answer || '抱歉，我无法回答这个问题。',
+      timestamp: new Date()
+    }
+    
+    messages.value.push(botMessage)
+    lastBotResponse.value = response // 保存响应用于反馈
+    currentMessageId.value = botMessage.id
+    
+  } catch (error) {
+    console.error('发送消息失败:', error)
+    const errorMessage = {
+      id: Date.now() + 1,
+      type: 'bot',
+      text: '抱歉，服务暂时不可用，请稍后再试。',
+      timestamp: new Date()
+    }
+    messages.value.push(errorMessage)
+  } finally {
+    isTyping.value = false
+    nextTick(() => {
+      scrollToBottom()
+    })
+  }
+}
+
+const selectQuickReply = (text) => {
+  newMessage.value = text
+  sendMessage()
+}
+// 创建gRPC客户端
+const client = new KnowledgeServicePromiseClient(KNOWLEDGE_SERVICE_URL, null, null)
+const lastBotResponse = ref(null) // 存储最后一次机器人回复，用于反馈
+
+const getBotResponse = async (message) => {
+  try {
+    // 创建聊天请求
+    const request = new ChatRequest()
+    request.setQuestion(message)
+    request.setUseFeedback(true) // 启用反馈优化
+    
+    // 发送请求
+    const response = await client.chat(request)
+    
+    if (response.getSuccess()) {
+      return {
+        question: response.getQuestion(),
+        original_answer: response.getOriginalAnswer(),
+        final_answer: response.getFinalAnswer(),
+        source_documents: response.getSourceDocumentsList(),
+        feedback_info: response.getFeedbackInfo()
+      }
+    } else {
+      throw new Error(response.getErrorMessage() || '服务器响应错误')
+    }
+  } catch (error) {
+    console.error('获取机器人回复失败:', error)
+    throw error
+  }
+}
+
+// 提交反馈
+const submitFeedback = async (type, corrected = '', text = '') => {
+  if (!lastBotResponse.value) {
+    console.warn('没有可反馈的消息')
+    return
+  }
+  
+  try {
+    // 创建反馈请求
+    const request = new FeedbackRequest()
+    request.setQuestion(lastBotResponse.value.question)
+    request.setOriginalAnswer(lastBotResponse.value.original_answer)
+    request.setFeedbackType(type)
+    
+    if (corrected) {
+      request.setCorrectedAnswer(corrected)
+    }
+    
+    if (text) {
+      request.setFeedbackText(text)
+    }
+    
+    // 设置来源文档
+    if (lastBotResponse.value.source_documents) {
+      request.setSourceDocumentsList(lastBotResponse.value.source_documents)
+    }
+    
+    // 发送反馈
+    const response = await client.submitFeedback(request)
+    
+    if (response.getSuccess()) {
+      // 显示反馈成功消息
+      const feedbackMessage = {
+        id: Date.now(),
+        type: 'system',
+        text: '感谢您的反馈！这将帮助我们改进服务质量。',
+        timestamp: new Date()
+      }
+      messages.value.push(feedbackMessage)
+      
+      // 重置反馈表单
+      showFeedback.value = false
+      feedbackType.value = ''
+      correctedAnswer.value = ''
+      feedbackText.value = ''
+      
+      nextTick(() => {
+        scrollToBottom()
+      })
+    } else {
+      throw new Error(response.getErrorMessage() || '反馈提交失败')
+    }
+  } catch (error) {
+    console.error('提交反馈失败:', error)
+    const errorMessage = {
+      id: Date.now(),
+      type: 'system',
+      text: '反馈提交失败，请稍后再试。',
+      timestamp: new Date()
+    }
+    messages.value.push(errorMessage)
+    
+    nextTick(() => {
+      scrollToBottom()
+    })
+  }
+}
+
+// 显示反馈选项
+const showFeedbackOptions = () => {
+  showFeedback.value = true
+}
+
+// 快速反馈
+const quickFeedback = (type) => {
+  feedbackType.value = type
+  if (type === 'positive') {
+    submitFeedback('positive')
+  } else if (type === 'negative') {
+    submitFeedback('negative')
+  }
+}
+
+// 提交详细反馈
+const submitDetailedFeedback = () => {
+  submitFeedback(feedbackType.value, correctedAnswer.value, feedbackText.value)
+}
+
+const scrollToBottom = () => {
+  if (messagesContainer.value) {
+    messagesContainer.value.scrollTop = messagesContainer.value.scrollHeight
+  }
+}
+
+const formatTime = (timestamp) => {
+  return new Date(timestamp).toLocaleTimeString('zh-CN', {
+    hour: '2-digit',
+    minute: '2-digit'
+  })
+}
+</script>
+
+<style scoped>
+.customer-service {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.chat-button {
+  width: 60px;
+  height: 60px;
+  background: var(--vp-c-brand-1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  color: white;
+}
+
+.chat-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.chat-button.active {
+  background: var(--vp-c-red-1);
+}
+
+.chat-window {
+  position: absolute;
+  bottom: 80px;
+  right: 0;
+  width: 350px;
+  height: 500px;
+  background: var(--vp-c-bg);
+  border: 1px solid var(--vp-c-border);
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.chat-header {
+  background: var(--vp-c-brand-1);
+  color: white;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chat-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.chat-messages {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.message {
+  display: flex;
+}
+
+.message.user {
+  justify-content: flex-end;
+}
+
+.message.bot {
+  justify-content: flex-start;
+}
+
+.message-content {
+  max-width: 80%;
+  padding: 12px 16px;
+  border-radius: 18px;
+  position: relative;
+}
+
+.message.user .message-content {
+  background: var(--vp-c-brand-1);
+  color: white;
+  border-bottom-right-radius: 4px;
+}
+
+.message.bot .message-content {
+  background: var(--vp-c-bg-alt);
+  color: var(--vp-c-text-1);
+  border-bottom-left-radius: 4px;
+}
+
+.message-content p {
+  margin: 0;
+  line-height: 1.4;
+  white-space: pre-line;
+}
+
+.message-time {
+  font-size: 11px;
+  opacity: 0.7;
+  margin-top: 4px;
+  display: block;
+}
+
+.chat-input {
+  padding: 16px;
+  border-top: 1px solid var(--vp-c-border);
+}
+
+.input-container {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.input-container input {
+  flex: 1;
+  padding: 12px 16px;
+  border: 1px solid var(--vp-c-border);
+  border-radius: 24px;
+  outline: none;
+  font-size: 14px;
+  background: var(--vp-c-bg);
+  color: var(--vp-c-text-1);
+}
+
+.input-container input:focus {
+  border-color: var(--vp-c-brand-1);
+}
+
+.send-btn {
+  width: 40px;
+  height: 40px;
+  background: var(--vp-c-brand-1);
+  border: none;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.send-btn:hover:not(:disabled) {
+  background: var(--vp-c-brand-2);
+  transform: scale(1.05);
+}
+
+.send-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.quick-replies {
+  padding: 0 16px 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.quick-reply-btn {
+  padding: 8px 12px;
+  background: var(--vp-c-bg-alt);
+  border: 1px solid var(--vp-c-border);
+  border-radius: 16px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--vp-c-text-2);
+}
+
+.quick-reply-btn:hover {
+  background: var(--vp-c-brand-1);
+  color: white;
+  border-color: var(--vp-c-brand-1);
+}
+
+/* 动画效果 */
+.chat-slide-enter-active,
+.chat-slide-leave-active {
+  transition: all 0.3s ease;
+}
+
+.chat-slide-enter-from {
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
+}
+
+.chat-slide-leave-to {
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .chat-window {
+    width: 300px;
+    height: 400px;
+  }
+  
+  .customer-service {
+    bottom: 15px;
+    right: 15px;
+  }
+  
+  .chat-button {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+/* 反馈按钮样式 */
+.feedback-buttons {
+  display: flex;
+  gap: 4px;
+  margin-top: 8px;
+  justify-content: flex-start;
+}
+
+.feedback-btn {
+  background: none;
+  border: 1px solid var(--vp-c-border);
+  border-radius: 12px;
+  padding: 4px 8px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.2s ease;
+  opacity: 0.7;
+}
+
+.feedback-btn:hover {
+  opacity: 1;
+  background: var(--vp-c-bg-alt);
+}
+
+.feedback-btn.positive:hover {
+  background: #f0f9ff;
+  border-color: #0ea5e9;
+}
+
+.feedback-btn.negative:hover {
+  background: #fef2f2;
+  border-color: #ef4444;
+}
+
+.feedback-btn.detailed:hover {
+  background: #f8fafc;
+  border-color: var(--vp-c-brand-1);
+}
+
+/* 输入指示器样式 */
+.typing {
+  background: var(--vp-c-bg-alt) !important;
+  color: var(--vp-c-text-1) !important;
+}
+
+.typing-indicator {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.typing-indicator span {
+  width: 6px;
+  height: 6px;
+  background: var(--vp-c-text-3);
+  border-radius: 50%;
+  animation: typing 1.4s infinite ease-in-out;
+}
+
+.typing-indicator span:nth-child(1) {
+  animation-delay: -0.32s;
+}
+
+.typing-indicator span:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+@keyframes typing {
+  0%, 80%, 100% {
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* 反馈表单样式 */
+.feedback-form {
+  border-top: 1px solid var(--vp-c-border);
+  padding: 16px;
+  background: var(--vp-c-bg-soft);
+}
+
+.feedback-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.feedback-header h4 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--vp-c-text-1);
+}
+
+.close-feedback {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  color: var(--vp-c-text-2);
+}
+
+.close-feedback:hover {
+  background: var(--vp-c-bg-alt);
+  color: var(--vp-c-text-1);
+}
+
+.feedback-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.feedback-options label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+}
+
+.feedback-options label:hover {
+  background: var(--vp-c-bg-alt);
+}
+
+.feedback-options input[type="radio"] {
+  margin: 0;
+}
+
+.feedback-options span {
+  font-size: 14px;
+  color: var(--vp-c-text-1);
+}
+
+.corrected-answer,
+.feedback-text {
+  margin-bottom: 12px;
+}
+
+.corrected-answer label,
+.feedback-text label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--vp-c-text-1);
+}
+
+.corrected-answer textarea,
+.feedback-text textarea {
+  width: 100%;
+  min-height: 60px;
+  padding: 8px 12px;
+  border: 1px solid var(--vp-c-border);
+  border-radius: 6px;
+  background: var(--vp-c-bg);
+  color: var(--vp-c-text-1);
+  font-size: 13px;
+  resize: vertical;
+  outline: none;
+}
+
+.corrected-answer textarea:focus,
+.feedback-text textarea:focus {
+  border-color: var(--vp-c-brand-1);
+}
+
+.feedback-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.cancel-btn,
+.submit-btn {
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cancel-btn {
+  background: none;
+  border: 1px solid var(--vp-c-border);
+  color: var(--vp-c-text-2);
+}
+
+.cancel-btn:hover {
+  background: var(--vp-c-bg-alt);
+  color: var(--vp-c-text-1);
+}
+
+.submit-btn {
+  background: var(--vp-c-brand-1);
+  border: 1px solid var(--vp-c-brand-1);
+  color: white;
+}
+
+.submit-btn:hover:not(:disabled) {
+  background: var(--vp-c-brand-2);
+}
+
+.submit-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* 系统消息样式 */
+.message.system {
+  justify-content: center;
+}
+
+.message.system .message-content {
+  background: var(--vp-c-bg-soft);
+  color: var(--vp-c-text-2);
+  font-size: 12px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  max-width: 90%;
+  text-align: center;
+}
+
+/* 滚动条样式 */
+.chat-messages::-webkit-scrollbar {
+  width: 4px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+  background: var(--vp-c-border);
+  border-radius: 2px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb:hover {
+  background: var(--vp-c-text-3);
+}
+</style>

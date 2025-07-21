@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="95de771f-1ee5-4788-ab3a-6426a42308d0" name="Changes" comment="feat: 合约生命周期v3 详细设计" />
+    <list default="true" id="95de771f-1ee5-4788-ab3a-6426a42308d0" name="Changes" comment="feat: 更新合约状态图">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/design/contractLC/testReady.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/design/contractLC/testReady.md" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -58,42 +61,42 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultGoTemplateProperty&quot;: &quot;Go File&quot;,
-    &quot;Makefile Target.build.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.modules.go.list.on.any.changes.was.set&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master-vue&quot;,
-    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
-    &quot;go.sdk.automatically.set&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/0FFFFF/notes&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_interpreter_path&quot;: &quot;D:/Code/nodejs/node&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;settings.nodejs&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;D:\\Program Files\\JetBrains\\GoLand 2024.3.2.1\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultGoTemplateProperty": "Go File",
+    "Makefile Target.build.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.go.formatter.settings.were.checked": "true",
+    "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "master-vue",
+    "go.import.settings.migrated": "true",
+    "go.sdk.automatically.set": "true",
+    "last_opened_file_path": "E:/0BBBBB/zkjg/zlatticedoc/docs/design/contractLC/testReady.assets",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "nodejs_interpreter_path": "D:/Code/nodejs/node",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "settings.nodejs",
+    "ts.external.directory.path": "D:\\Program Files\\JetBrains\\GoLand 2024.3.2.1\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;vue.recent.templates&quot;: [
-      &quot;Vue Composition API Component&quot;
+  "keyToStringList": {
+    "vue.recent.templates": [
+      "Vue Composition API Component"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\0BBBBB\zkjg\zlatticedoc\docs\design\contractLC\testReady.assets" />
       <recent name="E:\0BBBBB\zkjg\zlatticedoc" />
       <recent name="E:\0BBBBB\zkjg\zlatticedoc\docs\source" />
       <recent name="E:\0BBBBB\zkjg\zlatticedoc\docs\statics" />
       <recent name="E:\0BBBBB\zkjg\zlatticedoc\source\cert\nodeCert.assets" />
-      <recent name="E:\0BBBBB\zkjg\zlatticedoc\source\cert" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\0BBBBB\zkjg\zlatticedoc\docs\problem\cert" />
@@ -178,10 +181,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="api" />
-    <MESSAGE value="跳转" />
-    <MESSAGE value="assets" />
-    <MESSAGE value="feat(docs): 新增API文档并更新导航配置&#10;&#10;- 新增区块、共识、账户、交易、节点等API文档&#10;- 更新`.vitepress/config.mts`中的导航配置，添加相关链接" />
     <MESSAGE value="docs(net): 新增P2P网络连接相关API文档  &#10;新增`node_peers`、`node_connectNode`、`node_disconnectNode`、`latc_connectPeer`、`latc_disconnectPeer`接口说明及示例。" />
     <MESSAGE value="feat(docs): 更新导航栏中晶格链的链接路径&#10;&#10;将晶格链的链接路径从 `/source/` 修改为 `/source/start/`。" />
     <MESSAGE value="接口服务" />
@@ -203,7 +202,11 @@
     <MESSAGE value="feat: 合约生命周期v3" />
     <MESSAGE value="feat: 合约生命周期v3 提测" />
     <MESSAGE value="feat: 合约生命周期v3 详细设计" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 合约生命周期v3 详细设计" />
+    <MESSAGE value="feat: 合约生命周期abi" />
+    <MESSAGE value="feat: 合约生命周期v3提测" />
+    <MESSAGE value="feat: 链配置更改abi更新" />
+    <MESSAGE value="feat: 更新合约状态图" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 更新合约状态图" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>

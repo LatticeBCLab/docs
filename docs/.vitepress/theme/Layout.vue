@@ -1,7 +1,8 @@
 <script setup>
 import DefaultTheme from 'vitepress/theme'
-import VersionSwitch from './components/VersionSwitch.vue'
-import { useRoute，useData } from 'vitepress'
+import VersionSwitcher from '../components/VersionSwitcher.vue'
+import CustomerService from '../components/CustomerService.vue'
+import { useRoute, useData } from 'vitepress'
 const { page } = useData()
 import { computed } from 'vue'
 
@@ -17,7 +18,11 @@ const isConfigPage = computed(() => {
 <template>
   <Layout>
     <template #doc-before>
-      <VersionSwitch v-if="isConfigPage" />
+      <VersionSwitcher v-if="isConfigPage" />
+    </template>
+    <!-- 客服聊天组件 -->
+    <template #layout-bottom>
+      <CustomerService />
     </template>
   </Layout>
 </template>
