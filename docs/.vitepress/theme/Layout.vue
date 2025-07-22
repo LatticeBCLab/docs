@@ -1,7 +1,6 @@
 <script setup>
 import DefaultTheme from 'vitepress/theme'
 import VersionSwitcher from '../components/VersionSwitcher.vue'
-import CustomerService from '../components/CustomerService.vue'
 import { useRoute, useData } from 'vitepress'
 const { page } = useData()
 import { computed } from 'vue'
@@ -22,7 +21,7 @@ const isConfigPage = computed(() => {
     </template>
     <!-- 客服聊天组件 -->
     <template #layout-bottom>
-      <CustomerService />
+      <ChatBot />
     </template>
   </Layout>
 </template>

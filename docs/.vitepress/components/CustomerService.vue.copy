@@ -150,8 +150,8 @@
 
 <script setup>
 import { ref, nextTick, onMounted } from 'vue'
-import * as knowledgeServiceGrpc from './knowledge_service_grpc_web_pb.js'
-import * as knowledgeServicePb from './knowledge_service_pb.js'
+import knowledgeServiceGrpc from './generated/knowledge_service_grpc_web_pb.js'
+import knowledgeServicePb from './generated/knowledge_service_pb.js'
 
 // 从gRPC和protobuf模块中提取类
 const { KnowledgeServicePromiseClient } = knowledgeServiceGrpc
@@ -255,6 +255,7 @@ const selectQuickReply = (text) => {
   sendMessage()
 }
 // 创建gRPC客户端
+const c = KnowledgeServicePromiseClient
 const client = new KnowledgeServicePromiseClient(KNOWLEDGE_SERVICE_URL, null, null)
 const lastBotResponse = ref(null) // 存储最后一次机器人回复，用于反馈
 
