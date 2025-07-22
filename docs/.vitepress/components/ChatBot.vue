@@ -201,8 +201,8 @@ const isConnected = ref(true)
 const client = ref(null)
 const lastBotResponse = ref(null)
 
-// 知识服务API配置
-const KNOWLEDGE_SERVICE_URL = 'http://127.0.0.1:50051'
+// 知识服务API配置 - 通过Envoy代理连接
+const KNOWLEDGE_SERVICE_URL = 'http://localhost:8080'
 
 // 消息列表
 const messages = ref([
@@ -228,15 +228,22 @@ const quickReplies = ref([
 // 初始化gRPC客户端
 const initializeGrpcClient = async () => {
   try {
-    // 动态导入生成的gRPC文件
-
     // 创建客户端实例
     client.value = new KnowledgeServiceClient(KNOWLEDGE_SERVICE_URL, null, {
       unaryInterceptors: [],
       streamInterceptors: []
     })
     
-    console.log('gRPC客户端初始化成功')
+    // 测试连接
+    const healthRequest = new pbModule.HealthCheckRequest()
+    try {
+      await client.value.healthCheck(healthRequest)
+      isConnected.value = true
+      console.log('gRPC客户端初始化成功')
+    } catch (e) {
+      console.error('健康检查失败:', e)
+      isConnected.value = false
+    }
   } catch (error) {
     console.error('gRPC客户端初始化失败:', error)
     isConnected.value = false
@@ -356,25 +363,45 @@ const getBotResponse = async (message) => {
     request.setQuestion(message)
     request.setUseFeedback(true)
     
-    // 发送请求
-    const response = await client.value.chat(request)
-    console.log(response)
-    if (response.getSuccess()) {
-      isConnected.value = true
-      return {
-        question: response.getQuestion(),
-        original_answer: response.getOriginalAnswer(),
-        final_answer: response.getFinalAnswer(),
-        source_documents: response.getSourceDocumentsList().map(doc => ({
-          content: doc.getContent(),
-          source: doc.getSource(),
-          metadata: doc.getMetadataMap()
-        })),
-        feedback_info: response.getFeedbackInfo()
-      }
-    } else {
-      throw new Error(response.getErrorMessage() || '服务器响应错误')
-    }
+    // 发送请求 - 使用Promise方式调用
+    return new Promise((resolve, reject) => {
+      client.value.chat(request, {}, (err, response) => {
+        if (err) {
+          console.error('gRPC调用错误:', err)
+          isConnected.value = false
+          reject(err)
+          return
+        }
+        
+        console.log('收到响应:', response.toObject())
+        
+        if (response.getSuccess()) {
+          isConnected.value = true
+          resolve({
+            question: response.getQuestion(),
+            original_answer: response.getOriginalAnswer(),
+            final_answer: response.getFinalAnswer(),
+            source_documents: response.getSourceDocumentsList().map(doc => ({
+              content: doc.getContent(),
+              source: doc.getSource(),
+              metadata: doc.getMetadataMap().toObject()
+            })),
+            feedback_info: response.getFeedbackInfo() ? {
+              is_improved: response.getFeedbackInfo().getIsImproved(),
+              confidence_score: response.getFeedbackInfo().getConfidenceScore(),
+              feedback_count: response.getFeedbackInfo().getFeedbackCount(),
+              similar_questions: response.getFeedbackInfo().getSimilarQuestionsList().map(q => ({
+                question: q.getQuestion(),
+                similarity_score: q.getSimilarityScore(),
+                feedback_type: q.getFeedbackType()
+              }))
+            } : null
+          })
+        } else {
+          reject(new Error(response.getErrorMessage() || '服务器响应错误'))
+        }
+      })
+    })
   } catch (error) {
     console.error('获取机器人回复失败:', error)
     isConnected.value = false
@@ -490,18 +517,45 @@ const submitFeedback = async (type, corrected = '', text = '') => {
     }
     
     // 设置来源文档
-    if (lastBotResponse.value.source_documents) {
-      request.setSourceDocumentsList(lastBotResponse.value.source_documents)
+    if (lastBotResponse.value.source_documents && lastBotResponse.value.source_documents.length > 0) {
+      // 需要创建新的SourceDocument对象
+      const sourceDocsList = lastBotResponse.value.source_documents.map(doc => {
+        const sourceDoc = new pbModule.SourceDocument()
+        sourceDoc.setContent(doc.content)
+        sourceDoc.setSource(doc.source)
+        
+        // 处理metadata
+        if (doc.metadata) {
+          const metadataMap = sourceDoc.getMetadataMap()
+          Object.entries(doc.metadata).forEach(([key, value]) => {
+            metadataMap.set(key, value)
+          })
+        }
+        
+        return sourceDoc
+      })
+      
+      request.setSourceDocumentsList(sourceDocsList)
     }
     
-    // 发送反馈
-    const response = await client.value.submitFeedback(request)
-    
-    if (!response.getSuccess()) {
-      throw new Error(response.getErrorMessage() || '反馈提交失败')
-    }
-    
-    isConnected.value = true
+    // 发送反馈 - 使用Promise方式调用
+    return new Promise((resolve, reject) => {
+      client.value.submitFeedback(request, {}, (err, response) => {
+        if (err) {
+          console.error('提交反馈gRPC调用错误:', err)
+          isConnected.value = false
+          reject(err)
+          return
+        }
+        
+        if (response.getSuccess()) {
+          isConnected.value = true
+          resolve(response)
+        } else {
+          reject(new Error(response.getErrorMessage() || '反馈提交失败'))
+        }
+      })
+    })
   } catch (error) {
     console.error('提交反馈失败:', error)
     isConnected.value = false

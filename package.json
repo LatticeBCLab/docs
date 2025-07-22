@@ -1,14 +1,19 @@
 {
   "devDependencies": {
+    "concurrently": "^9.2.0",
     "vitepress": "^1.5.0"
   },
   "scripts": {
     "dev": "vitepress dev docs --host",
     "build": "vitepress build docs",
-    "preview": "vitepress preview docs"
+    "preview": "vitepress preview docs",
+    "start-envoy": "powershell -ExecutionPolicy Bypass -File .\\start-envoy.ps1",
+    "dev-with-proxy": "concurrently \"npm run start-envoy\" \"npm run dev\"",
+    "test-envoy": "node test-envoy-connection.js"
   },
   "dependencies": {
     "crypto-js": "^4.2.0",
+    "envoy": "^1.2.1",
     "golang": "^0.1.5-stable",
     "google-protobuf": "^3.21.4",
     "grpc-web": "^1.5.0"

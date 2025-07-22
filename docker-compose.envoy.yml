@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  envoy:
+    image: envoyproxy/envoy:v1.25-latest
+    volumes:
+      - ./envoy.yaml:/etc/envoy/envoy.yaml
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+    restart: always
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./:/app
+    networks:
+      - app-network
+    depends_on:
+      - envoy
+    environment:
+      - NODE_ENV=development
+
+networks:
+  app-network:
+    driver: bridge
