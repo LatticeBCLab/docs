@@ -6,7 +6,8 @@ services:
     volumes:
       - ./envoy.yaml:/etc/envoy/envoy.yaml
     ports:
-      - "8080:8080"
+      - "8088:8088"
+      - "9901:9901"
     networks:
       - app-network
     restart: always

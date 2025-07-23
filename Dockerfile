@@ -6,6 +6,7 @@ RUN apt update && \
 WORKDIR /app
 
 # 设置环境变量，可在docker-compose或docker run时覆盖
+# 此环境变量会被VitePress配置文件中的themeConfig.knowledgeServiceUrl使用
 ENV KNOWLEDGE_SERVICE_URL=http://localhost:8080
 
 COPY ./package.json /app/package.json
