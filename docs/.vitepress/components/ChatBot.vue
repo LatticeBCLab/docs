@@ -201,11 +201,13 @@ const isConnected = ref(true)
 const client = ref(null)
 const lastBotResponse = ref(null)
 
-// 知识服务API配置 - 从VitePress配置中获取
+// 知识服务API配置 - 从VitePress主题配置中获取
 import { useData } from 'vitepress'
-const { site } = useData()
-const KNOWLEDGE_SERVICE_URL = site.value.knowledgeServiceUrl || 'http://localhost:8080'
-
+const { theme } = useData()
+// 调试输出theme对象，查看是否包含knowledgeServiceUrl
+console.log('VitePress theme配置:', theme.value)
+// 使用可选链和默认值，确保即使配置不存在也能正常工作
+const KNOWLEDGE_SERVICE_URL = theme.value?.knowledgeServiceUrl || 'http://localhost:8080'
 // 消息列表
 const messages = ref([
   {
@@ -231,6 +233,7 @@ const quickReplies = ref([
 const initializeGrpcClient = async () => {
   try {
     // 创建客户端实例
+    console.log("KNOWLEDGE_SERVICE_URL",KNOWLEDGE_SERVICE_URL)
     client.value = new KnowledgeServiceClient(KNOWLEDGE_SERVICE_URL, null, {
       unaryInterceptors: [],
       streamInterceptors: []

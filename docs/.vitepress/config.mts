@@ -17,8 +17,6 @@ export default defineConfig({
   },
   
   // 自定义配置
-  knowledgeServiceUrl: process.env.KNOWLEDGE_SERVICE_URL || 'http://localhost:8080',
-  
   markdown: {
     theme: {
       light: 'github-light',
@@ -45,6 +43,8 @@ export default defineConfig({
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     logo: "logo.png",
+    // 自定义配置 - 知识服务URL
+    knowledgeServiceUrl: process.env.KNOWLEDGE_SERVICE_URL || 'http://localhost:8088',
     nav: [
       { text: "Home", link: "/" },
       { text: "晶格链", link: "/source/start/" },
