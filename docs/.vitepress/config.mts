@@ -5,6 +5,16 @@ import { getHighlighter } from 'shiki'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+  server: {
+    proxy: {
+      '/knowledge_service': {
+        target: 'http://172.22.0.23:8088',
+        changeOrigin: true,
+        secure: false,
+        ws: false
+      }
+    }
+  },
   vite: {
     server: {
       host: '0.0.0.0',
@@ -44,7 +54,7 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     logo: "logo.png",
     // 自定义配置 - 知识服务URL
-    knowledgeServiceUrl: process.env.KNOWLEDGE_SERVICE_URL || 'http://localhost:8088',
+    knowledgeServiceUrl: process.env.KNOWLEDGE_SERVICE_URL || 'http://172.22.0.23:8088',
     nav: [
       { text: "Home", link: "/" },
       { text: "晶格链", link: "/source/start/" },

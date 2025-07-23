@@ -101,7 +101,7 @@
               ref="messageInput"
             />
             <button 
-              @click="sendMessage" 
+              @click="test" 
               :disabled="!newMessage.trim() || isTyping"
               class="send-btn"
             >
@@ -207,7 +207,7 @@ const { theme } = useData()
 // 调试输出theme对象，查看是否包含knowledgeServiceUrl
 console.log('VitePress theme配置:', theme.value)
 // 使用可选链和默认值，确保即使配置不存在也能正常工作
-const KNOWLEDGE_SERVICE_URL = theme.value?.knowledgeServiceUrl || 'http://localhost:8080'
+const KNOWLEDGE_SERVICE_URL = theme.value?.knowledgeServiceUrl 
 // 消息列表
 const messages = ref([
   {
@@ -289,6 +289,21 @@ const clearChat = () => {
   nextTick(() => {
     scrollToBottom()
   })
+}
+const test = ()=>{
+  const client = new KnowledgeServiceClient('http://172.22.0.23:8088', null, null);
+  const request = new pbModule.HealthCheckRequest();
+
+  client.healthCheck(request, {}, (err, response) => {
+    if (err) {
+      this.status = `Error: ${err.message}`;
+      console.log("Error:", err.message);
+      return;
+    }
+    this.status = `Healthy: ${response.getHealthy()}, Status: ${response.getStatus()}, Version: ${response.getVersion()}`;
+    console.log("Healthy:", response.getHealthy());
+    console.log(this.status)
+  });
 }
 
 // 发送消息

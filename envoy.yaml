@@ -45,6 +45,7 @@ static_resources:
   - name: grpc_backend
     type: STATIC
     lb_policy: ROUND_ROBIN
+    http2_protocol_options: {}
     load_assignment:
       cluster_name: grpc_backend
       endpoints:
