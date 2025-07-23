@@ -6,6 +6,8 @@ services:
     volumes:
       - ./docs:/app/docs
       - ./:/app
+    environment:
+      - KNOWLEDGE_SERVICE_URL=${KNOWLEDGE_SERVICE_URL:-http://localhost:8080}
     network_mode: host
   sync:
     image: sync:docs

@@ -5,8 +5,11 @@ RUN apt update && \
 
 WORKDIR /app
 
+# 设置环境变量，可在docker-compose或docker run时覆盖
+ENV KNOWLEDGE_SERVICE_URL=http://localhost:8080
+
 COPY ./package.json /app/package.json
 COPY ./package-lock.json /app/package-lock.json
 
-ENTRYPOINT ["npm","run","docs:dev"]
+ENTRYPOINT ["npm","run","dev"]
 

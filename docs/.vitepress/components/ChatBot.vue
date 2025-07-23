@@ -201,8 +201,10 @@ const isConnected = ref(true)
 const client = ref(null)
 const lastBotResponse = ref(null)
 
-// 知识服务API配置 - 通过Envoy代理连接
-const KNOWLEDGE_SERVICE_URL = 'http://localhost:8080'
+// 知识服务API配置 - 从VitePress配置中获取
+import { useData } from 'vitepress'
+const { site } = useData()
+const KNOWLEDGE_SERVICE_URL = site.value.knowledgeServiceUrl || 'http://localhost:8080'
 
 // 消息列表
 const messages = ref([

@@ -16,6 +16,9 @@ export default defineConfig({
     },
   },
   
+  // 自定义配置
+  knowledgeServiceUrl: process.env.KNOWLEDGE_SERVICE_URL || 'http://localhost:8080',
+  
   markdown: {
     theme: {
       light: 'github-light',
