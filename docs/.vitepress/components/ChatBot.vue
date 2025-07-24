@@ -61,9 +61,7 @@
               
               <!-- 反馈按钮 (仅对机器人回复显示) -->
               <div v-if="message.type === 'bot' && 
-                        message.id === getLastBotMessage()?.id && 
-                        !message.text.includes('服务暂时不可用') && 
-                        !message.text.includes('欢迎使用') &&
+                        message.id === getLastBotMessage()?.id  &&
                         !message.feedbackSubmitted" 
                    class="feedback-buttons">
                 <button @click="quickFeedback('positive', message.id)" class="feedback-btn positive" title="有帮助">
@@ -101,7 +99,7 @@
               ref="messageInput"
             />
             <button 
-              @click="test" 
+              @click="sendMessage" 
               :disabled="!newMessage.trim() || isTyping"
               class="send-btn"
             >
@@ -209,10 +207,12 @@ console.log('VitePress theme配置:', theme.value)
 // 使用可选链和默认值，确保即使配置不存在也能正常工作
 const KNOWLEDGE_SERVICE_URL = theme.value?.knowledgeServiceUrl 
 // 消息列表
+const Prompt_MSG_TYPE = 'prompt'
+const Bot_MSG_TYPE = 'bot'
 const messages = ref([
   {
     id: 1,
-    type: 'bot',
+    type: Prompt_MSG_TYPE,
     text: '您好！我是ZLattice智能助手，可以帮助您解答关于晶格链的问题。请随时向我提问！',
     timestamp: new Date(),
     sources: []
@@ -231,7 +231,7 @@ const quickReplies = ref([
    
 // 初始化gRPC客户端
 const initializeGrpcClient = async () => {
-  try {
+try {
     // 创建客户端实例
     console.log("KNOWLEDGE_SERVICE_URL",KNOWLEDGE_SERVICE_URL)
     client.value = new KnowledgeServiceClient(KNOWLEDGE_SERVICE_URL, null, {
@@ -239,18 +239,32 @@ const initializeGrpcClient = async () => {
       streamInterceptors: []
     })
     
-    // 测试连接
+    // Initial health check
     const healthRequest = new pbModule.HealthCheckRequest()
-    try {
-      await client.value.healthCheck(healthRequest)
-      isConnected.value = true
-      console.log('gRPC客户端初始化成功')
-    } catch (e) {
-      console.error('健康检查失败:', e)
-      isConnected.value = false
+    const checkHealth = async () => {
+      try {
+        await client.value.healthCheck(healthRequest)
+        isConnected.value = true
+      } catch (e) {
+        console.error('Health check failed:', e)
+        isConnected.value = false
+      }
     }
+
+    // Perform initial health check
+    await checkHealth()
+    console.log('gRPC client initialized successfully')
+
+    // Set up periodic health checks every 30 seconds
+    const healthCheckInterval = setInterval(checkHealth, 30000)
+
+    // Clean up interval on component unmount
+    onUnmounted(() => {
+      clearInterval(healthCheckInterval)
+    })
+
   } catch (error) {
-    console.error('gRPC客户端初始化失败:', error)
+    console.error('Failed to initialize gRPC client:', error)
     isConnected.value = false
   }
 }
@@ -278,7 +292,7 @@ const clearChat = () => {
   messages.value = [
     {
       id: Date.now(),
-      type: 'bot',
+      type: Prompt_MSG_TYPE,  
       text: '对话已清空。有什么我可以帮助您的吗？',
       timestamp: new Date(),
       sources: []
@@ -289,21 +303,6 @@ const clearChat = () => {
   nextTick(() => {
     scrollToBottom()
   })
-}
-const test = ()=>{
-  const client = new KnowledgeServiceClient('http://172.22.0.23:8088', null, null);
-  const request = new pbModule.HealthCheckRequest();
-
-  client.healthCheck(request, {}, (err, response) => {
-    if (err) {
-      this.status = `Error: ${err.message}`;
-      console.log("Error:", err.message);
-      return;
-    }
-    this.status = `Healthy: ${response.getHealthy()}, Status: ${response.getStatus()}, Version: ${response.getVersion()}`;
-    console.log("Healthy:", response.getHealthy());
-    console.log(this.status)
-  });
 }
 
 // 发送消息
@@ -335,7 +334,7 @@ const sendMessage = async () => {
     
     const botMessage = {
       id: Date.now() + 1,
-      type: 'bot',
+      type: Bot_MSG_TYPE,
       text: response.final_answer || response.original_answer || '抱歉，我无法回答这个问题。',
       timestamp: new Date(),
       sources: response.source_documents || [],
@@ -351,7 +350,7 @@ const sendMessage = async () => {
     
     const errorMessage = {
       id: Date.now() + 1,
-      type: 'bot',
+      type: Prompt_MSG_TYPE,
       text: '抱歉，服务暂时不可用。请检查网络连接或稍后再试。',
       timestamp: new Date(),
       sources: []
@@ -547,8 +546,9 @@ const submitFeedback = async (type, corrected = '', text = '') => {
         // 处理metadata
         if (doc.metadata) {
           const metadataMap = sourceDoc.getMetadataMap()
+          // 确保metadata是字符串类型
           Object.entries(doc.metadata).forEach(([key, value]) => {
-            metadataMap.set(key, value)
+            metadataMap.set(key, String(value))
           })
         }
         
