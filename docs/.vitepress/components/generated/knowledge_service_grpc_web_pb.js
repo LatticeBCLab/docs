@@ -17,11 +17,11 @@
 
 
 const grpc = {};
-import grpc_web from 'grpc-web';
-grpc.web = grpc_web;
+import gw from 'grpc-web';
+grpc.web = gw;
 
 const proto = {};
-import ks from './knowledge_service_pb.js'
+import ks from './knowledge_service_pb.js';
 proto.knowledge_service = ks;
 
 /**
@@ -134,6 +134,372 @@ proto.knowledge_service.KnowledgeServicePromiseClient.prototype.chat =
       request,
       metadata || {},
       methodDescriptor_KnowledgeService_Chat);
+};
+
+
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.knowledge_service.ConversationChatRequest,
+ *   !proto.knowledge_service.ChatResponse>}
+ */
+const methodDescriptor_KnowledgeService_ChatConversation = new grpc.web.MethodDescriptor(
+  '/knowledge_service.KnowledgeService/ChatConversation',
+  grpc.web.MethodType.UNARY,
+  proto.knowledge_service.ConversationChatRequest,
+  proto.knowledge_service.ChatResponse,
+  /**
+   * @param {!proto.knowledge_service.ConversationChatRequest} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.knowledge_service.ChatResponse.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.knowledge_service.ConversationChatRequest} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.RpcError, ?proto.knowledge_service.ChatResponse)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.knowledge_service.ChatResponse>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.knowledge_service.KnowledgeServiceClient.prototype.chatConversation =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/knowledge_service.KnowledgeService/ChatConversation',
+      request,
+      metadata || {},
+      methodDescriptor_KnowledgeService_ChatConversation,
+      callback);
+};
+
+
+/**
+ * @param {!proto.knowledge_service.ConversationChatRequest} request The
+ *     request proto
+ * @param {?Object<string, string>=} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.knowledge_service.ChatResponse>}
+ *     Promise that resolves to the response
+ */
+proto.knowledge_service.KnowledgeServicePromiseClient.prototype.chatConversation =
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
+      '/knowledge_service.KnowledgeService/ChatConversation',
+      request,
+      metadata || {},
+      methodDescriptor_KnowledgeService_ChatConversation);
+};
+
+
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.knowledge_service.CreateConversationRequest,
+ *   !proto.knowledge_service.ConversationResponse>}
+ */
+const methodDescriptor_KnowledgeService_CreateConversation = new grpc.web.MethodDescriptor(
+  '/knowledge_service.KnowledgeService/CreateConversation',
+  grpc.web.MethodType.UNARY,
+  proto.knowledge_service.CreateConversationRequest,
+  proto.knowledge_service.ConversationResponse,
+  /**
+   * @param {!proto.knowledge_service.CreateConversationRequest} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.knowledge_service.ConversationResponse.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.knowledge_service.CreateConversationRequest} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.RpcError, ?proto.knowledge_service.ConversationResponse)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.knowledge_service.ConversationResponse>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.knowledge_service.KnowledgeServiceClient.prototype.createConversation =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/knowledge_service.KnowledgeService/CreateConversation',
+      request,
+      metadata || {},
+      methodDescriptor_KnowledgeService_CreateConversation,
+      callback);
+};
+
+
+/**
+ * @param {!proto.knowledge_service.CreateConversationRequest} request The
+ *     request proto
+ * @param {?Object<string, string>=} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.knowledge_service.ConversationResponse>}
+ *     Promise that resolves to the response
+ */
+proto.knowledge_service.KnowledgeServicePromiseClient.prototype.createConversation =
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
+      '/knowledge_service.KnowledgeService/CreateConversation',
+      request,
+      metadata || {},
+      methodDescriptor_KnowledgeService_CreateConversation);
+};
+
+
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.knowledge_service.ConversationHistoryRequest,
+ *   !proto.knowledge_service.ConversationHistoryResponse>}
+ */
+const methodDescriptor_KnowledgeService_GetConversationHistory = new grpc.web.MethodDescriptor(
+  '/knowledge_service.KnowledgeService/GetConversationHistory',
+  grpc.web.MethodType.UNARY,
+  proto.knowledge_service.ConversationHistoryRequest,
+  proto.knowledge_service.ConversationHistoryResponse,
+  /**
+   * @param {!proto.knowledge_service.ConversationHistoryRequest} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.knowledge_service.ConversationHistoryResponse.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.knowledge_service.ConversationHistoryRequest} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.RpcError, ?proto.knowledge_service.ConversationHistoryResponse)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.knowledge_service.ConversationHistoryResponse>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.knowledge_service.KnowledgeServiceClient.prototype.getConversationHistory =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/knowledge_service.KnowledgeService/GetConversationHistory',
+      request,
+      metadata || {},
+      methodDescriptor_KnowledgeService_GetConversationHistory,
+      callback);
+};
+
+
+/**
+ * @param {!proto.knowledge_service.ConversationHistoryRequest} request The
+ *     request proto
+ * @param {?Object<string, string>=} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.knowledge_service.ConversationHistoryResponse>}
+ *     Promise that resolves to the response
+ */
+proto.knowledge_service.KnowledgeServicePromiseClient.prototype.getConversationHistory =
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
+      '/knowledge_service.KnowledgeService/GetConversationHistory',
+      request,
+      metadata || {},
+      methodDescriptor_KnowledgeService_GetConversationHistory);
+};
+
+
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.knowledge_service.ListConversationsRequest,
+ *   !proto.knowledge_service.ListConversationsResponse>}
+ */
+const methodDescriptor_KnowledgeService_ListConversations = new grpc.web.MethodDescriptor(
+  '/knowledge_service.KnowledgeService/ListConversations',
+  grpc.web.MethodType.UNARY,
+  proto.knowledge_service.ListConversationsRequest,
+  proto.knowledge_service.ListConversationsResponse,
+  /**
+   * @param {!proto.knowledge_service.ListConversationsRequest} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.knowledge_service.ListConversationsResponse.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.knowledge_service.ListConversationsRequest} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.RpcError, ?proto.knowledge_service.ListConversationsResponse)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.knowledge_service.ListConversationsResponse>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.knowledge_service.KnowledgeServiceClient.prototype.listConversations =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/knowledge_service.KnowledgeService/ListConversations',
+      request,
+      metadata || {},
+      methodDescriptor_KnowledgeService_ListConversations,
+      callback);
+};
+
+
+/**
+ * @param {!proto.knowledge_service.ListConversationsRequest} request The
+ *     request proto
+ * @param {?Object<string, string>=} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.knowledge_service.ListConversationsResponse>}
+ *     Promise that resolves to the response
+ */
+proto.knowledge_service.KnowledgeServicePromiseClient.prototype.listConversations =
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
+      '/knowledge_service.KnowledgeService/ListConversations',
+      request,
+      metadata || {},
+      methodDescriptor_KnowledgeService_ListConversations);
+};
+
+
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.knowledge_service.UpdateConversationRequest,
+ *   !proto.knowledge_service.ConversationResponse>}
+ */
+const methodDescriptor_KnowledgeService_UpdateConversation = new grpc.web.MethodDescriptor(
+  '/knowledge_service.KnowledgeService/UpdateConversation',
+  grpc.web.MethodType.UNARY,
+  proto.knowledge_service.UpdateConversationRequest,
+  proto.knowledge_service.ConversationResponse,
+  /**
+   * @param {!proto.knowledge_service.UpdateConversationRequest} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.knowledge_service.ConversationResponse.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.knowledge_service.UpdateConversationRequest} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.RpcError, ?proto.knowledge_service.ConversationResponse)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.knowledge_service.ConversationResponse>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.knowledge_service.KnowledgeServiceClient.prototype.updateConversation =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/knowledge_service.KnowledgeService/UpdateConversation',
+      request,
+      metadata || {},
+      methodDescriptor_KnowledgeService_UpdateConversation,
+      callback);
+};
+
+
+/**
+ * @param {!proto.knowledge_service.UpdateConversationRequest} request The
+ *     request proto
+ * @param {?Object<string, string>=} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.knowledge_service.ConversationResponse>}
+ *     Promise that resolves to the response
+ */
+proto.knowledge_service.KnowledgeServicePromiseClient.prototype.updateConversation =
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
+      '/knowledge_service.KnowledgeService/UpdateConversation',
+      request,
+      metadata || {},
+      methodDescriptor_KnowledgeService_UpdateConversation);
+};
+
+
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.knowledge_service.DeleteConversationRequest,
+ *   !proto.knowledge_service.DeleteConversationResponse>}
+ */
+const methodDescriptor_KnowledgeService_DeleteConversation = new grpc.web.MethodDescriptor(
+  '/knowledge_service.KnowledgeService/DeleteConversation',
+  grpc.web.MethodType.UNARY,
+  proto.knowledge_service.DeleteConversationRequest,
+  proto.knowledge_service.DeleteConversationResponse,
+  /**
+   * @param {!proto.knowledge_service.DeleteConversationRequest} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.knowledge_service.DeleteConversationResponse.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.knowledge_service.DeleteConversationRequest} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.RpcError, ?proto.knowledge_service.DeleteConversationResponse)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.knowledge_service.DeleteConversationResponse>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.knowledge_service.KnowledgeServiceClient.prototype.deleteConversation =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/knowledge_service.KnowledgeService/DeleteConversation',
+      request,
+      metadata || {},
+      methodDescriptor_KnowledgeService_DeleteConversation,
+      callback);
+};
+
+
+/**
+ * @param {!proto.knowledge_service.DeleteConversationRequest} request The
+ *     request proto
+ * @param {?Object<string, string>=} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.knowledge_service.DeleteConversationResponse>}
+ *     Promise that resolves to the response
+ */
+proto.knowledge_service.KnowledgeServicePromiseClient.prototype.deleteConversation =
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
+      '/knowledge_service.KnowledgeService/DeleteConversation',
+      request,
+      metadata || {},
+      methodDescriptor_KnowledgeService_DeleteConversation);
 };
 
 
@@ -439,6 +805,128 @@ proto.knowledge_service.KnowledgeServicePromiseClient.prototype.healthCheck =
       request,
       metadata || {},
       methodDescriptor_KnowledgeService_HealthCheck);
+};
+
+
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.knowledge_service.EmailVerificationRequest,
+ *   !proto.knowledge_service.EmailVerificationResponse>}
+ */
+const methodDescriptor_KnowledgeService_VerifyEmail = new grpc.web.MethodDescriptor(
+  '/knowledge_service.KnowledgeService/VerifyEmail',
+  grpc.web.MethodType.UNARY,
+  proto.knowledge_service.EmailVerificationRequest,
+  proto.knowledge_service.EmailVerificationResponse,
+  /**
+   * @param {!proto.knowledge_service.EmailVerificationRequest} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.knowledge_service.EmailVerificationResponse.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.knowledge_service.EmailVerificationRequest} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.RpcError, ?proto.knowledge_service.EmailVerificationResponse)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.knowledge_service.EmailVerificationResponse>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.knowledge_service.KnowledgeServiceClient.prototype.verifyEmail =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/knowledge_service.KnowledgeService/VerifyEmail',
+      request,
+      metadata || {},
+      methodDescriptor_KnowledgeService_VerifyEmail,
+      callback);
+};
+
+
+/**
+ * @param {!proto.knowledge_service.EmailVerificationRequest} request The
+ *     request proto
+ * @param {?Object<string, string>=} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.knowledge_service.EmailVerificationResponse>}
+ *     Promise that resolves to the response
+ */
+proto.knowledge_service.KnowledgeServicePromiseClient.prototype.verifyEmail =
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
+      '/knowledge_service.KnowledgeService/VerifyEmail',
+      request,
+      metadata || {},
+      methodDescriptor_KnowledgeService_VerifyEmail);
+};
+
+
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.knowledge_service.EmailChatRequest,
+ *   !proto.knowledge_service.ChatResponse>}
+ */
+const methodDescriptor_KnowledgeService_ChatWithEmailVerification = new grpc.web.MethodDescriptor(
+  '/knowledge_service.KnowledgeService/ChatWithEmailVerification',
+  grpc.web.MethodType.UNARY,
+  proto.knowledge_service.EmailChatRequest,
+  proto.knowledge_service.ChatResponse,
+  /**
+   * @param {!proto.knowledge_service.EmailChatRequest} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.knowledge_service.ChatResponse.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.knowledge_service.EmailChatRequest} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.RpcError, ?proto.knowledge_service.ChatResponse)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.knowledge_service.ChatResponse>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.knowledge_service.KnowledgeServiceClient.prototype.chatWithEmailVerification =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/knowledge_service.KnowledgeService/ChatWithEmailVerification',
+      request,
+      metadata || {},
+      methodDescriptor_KnowledgeService_ChatWithEmailVerification,
+      callback);
+};
+
+
+/**
+ * @param {!proto.knowledge_service.EmailChatRequest} request The
+ *     request proto
+ * @param {?Object<string, string>=} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.knowledge_service.ChatResponse>}
+ *     Promise that resolves to the response
+ */
+proto.knowledge_service.KnowledgeServicePromiseClient.prototype.chatWithEmailVerification =
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
+      '/knowledge_service.KnowledgeService/ChatWithEmailVerification',
+      request,
+      metadata || {},
+      methodDescriptor_KnowledgeService_ChatWithEmailVerification);
 };
 
 
