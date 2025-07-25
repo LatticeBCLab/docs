@@ -37,7 +37,7 @@
             <div class="header-actions">
               <button @click="toggleEmailInput" class="email-btn" :title="isEmailVerified ? '已验证邮箱' : '邮箱验证'">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M20 4H4C2.9 4 2.01 4.9 2.01 6L2 18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4ZM20 8L12 13L4 8V6L12 11L20 6V8Z" :fill="isEmailVerified ? '#4CAF50' : 'currentColor'"/>
+                  <path d="M20 4H4C2.9 4 2.01 4.9 2.01 6L2 18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4ZM20 8L12 13L4 8V6L12 11L20 6V8Z" :fill="isEmailVerified ? '#4CAF50' : '#FFFFFF'"/>
                 </svg>
               </button>
               <button @click="startNewConversation" class="new-chat-btn" title="新对话">
@@ -998,7 +998,7 @@ const sendMessage = async () => {
             if (!currentConversationId.value && response.getConversationId) {
               currentConversationId.value = response.getConversationId()
             }
-            
+            console.log(response)
             resolve({
               question: question,
               original_answer: response.getAnswer(),
