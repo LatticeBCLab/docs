@@ -593,9 +593,21 @@ const verifyEmail = async () => {
 
 // 继续临时会话
 const continueWithTemporarySession = () => {
+
+  messages.value = [
+    {
+      id: Date.now(),
+      type: Prompt_MSG_TYPE,  
+      text: '有什么我可以帮助您的吗？',
+      timestamp: new Date(),
+      sources: []
+    }
+  ]
+
   isTemporarySession.value = true
   isEmailVerified.value = false
   userEmail.value = ''
+  userid = ''
   emailVerificationMessage.value = ''
   showEmailInput.value = false
   clearEmailStorage()
@@ -617,7 +629,7 @@ const createConversation = async (title) => {
     // 创建请求
     const request = new CreateConversationRequest()
     request.setTitle(title || '新对话')
-    request.setUserId('web-user-' + Date.now())
+    request.setUserId(userid||'web-user-' + Date.now())
     
     // 设置请求超时
     const deadline = new Date();
