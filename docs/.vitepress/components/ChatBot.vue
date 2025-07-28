@@ -324,13 +324,13 @@ const showConversationList = ref(false)
 const newConversationTitle = ref('')
 
 // 邮箱验证相关
-const userEmail = ref('')
+let userEmail = ref('')
 const isEmailVerified = ref(false)
 const showEmailInput = ref(false)
 const emailVerificationMessage = ref('')
 const isVerifyingEmail = ref(false)
 const isTemporarySession = ref(true) // 默认为临时会话
-
+let userid = ""
 // 知识服务API配置 - 从VitePress主题配置中获取
 import { useData } from 'vitepress'
 const { theme } = useData()
@@ -341,6 +341,7 @@ const KNOWLEDGE_SERVICE_URL = theme.value?.knowledgeServiceUrl
 // 消息列表
 const Prompt_MSG_TYPE = 'prompt'
 const Bot_MSG_TYPE = 'bot'
+const Err_Msg = 'error'
 const messages = ref([
   {
     id: 1,
@@ -464,6 +465,7 @@ onMounted(() => {
   // 初始化gRPC客户端
   // 注意：对话列表获取已经移到initializeGrpcClient函数中
   initializeGrpcClient()
+  loadEmailFromStorage()
 })
 
 // 切换聊天窗口
@@ -484,7 +486,34 @@ const toggleEmailInput = () => {
   showEmailInput.value = !showEmailInput.value
   showConversationList.value = false
 }
+// Save email info to localStorage
+const saveEmailToStorage = (email) => {
+  try {
+    localStorage.setItem('userEmail', email)
+  } catch (e) {
+    console.error('Failed to save email to localStorage:', e)
+  }
+}
 
+const clearEmailStorage = () => {
+  try {
+    localStorage.removeItem('userEmail')
+  } catch (e) {
+    console.error('Failed to clear email from localStorage:', e)
+  }
+}
+// Load email info from localStorage
+const loadEmailFromStorage = () => {
+  try {
+    const email = localStorage.getItem('userEmail')
+    if (email!==''&&email!=null ){
+      userEmail.value = email
+      verifyEmail()
+    }
+  } catch (e) {
+    console.error('Failed to load userEmail from localStorage:', e)
+  }
+}
 // 验证邮箱
 const verifyEmail = async () => {
   if (!userEmail.value.trim()) {
@@ -527,6 +556,7 @@ const verifyEmail = async () => {
         
         try {
           isConnected.value = true
+          userid = response.getUserId()
           const isValid = response.getIsValid()
           const success = response.getSuccess()
           const errorMessage = response.getErrorMessage()
@@ -546,6 +576,7 @@ const verifyEmail = async () => {
           }
           
           resolve(isValid)
+          saveEmailToStorage(userEmail.value)
         } catch (error) {
           console.error('处理验证响应时出错:', error)
           emailVerificationMessage.value = '处理验证结果时出错'
@@ -567,10 +598,11 @@ const continueWithTemporarySession = () => {
   userEmail.value = ''
   emailVerificationMessage.value = ''
   showEmailInput.value = false
-  
+  clearEmailStorage()
   // 清空对话列表（临时会话不保存）
   conversations.value = []
   currentConversationId.value = ''
+  createConversation("临时会话")
 }
 
 // 创建新对话
@@ -646,7 +678,7 @@ const createConversation = async (title) => {
 const getConversationList = async () => {
   return new Promise((resolve, reject) => {
     const request = new ListConversationsRequest()
-    request.setUserId('web-user')
+    request.setUserId(userid)
     request.setLimit(20)
     request.setOffset(0)
     request.setIncludeArchived(false)
@@ -1001,8 +1033,8 @@ const sendMessage = async () => {
             console.log(response)
             resolve({
               question: question,
-              original_answer: response.getAnswer(),
-              final_answer: response.getAnswer(),
+              original_answer: response.getOriginalAnswer(),
+              final_answer: response.getFinalAnswer(),
               source_documents: response.getSourceDocumentsList ? response.getSourceDocumentsList().map(doc => {
                 try {
                   return {
@@ -1092,15 +1124,18 @@ const sendMessage = async () => {
     }
     
     // 创建机器人回复消息
-    const botMessage = {
+    let botMessage = {
       id: Date.now() + 1,
       type: Bot_MSG_TYPE,
-      text: response.final_answer || response.original_answer || '抱歉，我无法回答这个问题。',
+      text: response.final_answer || response.original_answer,
       timestamp: new Date(),
       sources: response.source_documents || [],
       feedbackSubmitted: false
     }
-    
+    if (response.error_message){
+      botMessage.type = Err_Msg 
+      botMessage.text = response.error_message
+    }
     // 添加机器人回复到消息列表
     messages.value.push(botMessage)
     lastBotResponse.value = response
