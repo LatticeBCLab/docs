@@ -108,6 +108,10 @@ export default defineConfig({
                       text: "合约内部管理指令参考",
                       link: "/source/contract/proposal/contractInnerManCommand.md",
                     },
+                    {
+                      text: "链配置更改提案",
+                      link: "/source/contract/proposal/configModify.md"
+                    }
                   ],
                 },
                 {
