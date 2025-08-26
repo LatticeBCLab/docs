@@ -891,9 +891,9 @@
 
     - 无错误码
 
-### <span id="apiGetChangeContractFreezeRule">wallet_getChangeContractFreezeRule</span>
+### wallet_getChangeChainByChainVote
 
-#### 获取修改合约冻结规则的code
+#### 获取修改以链建链规则的code
 
 - 请求参数
 
@@ -910,7 +910,7 @@
   --header 'Content-Type: application/json' \
   --data '{
       "jsonrpc": "2.0",
-      "method": "wallet_getChangeContractFreezeRule",
+      "method": "wallet_getChangeChainByChainVote",
       "params": [
           1
       ],
@@ -931,6 +931,8 @@
 - 错误码
 
     - 无错误码
+
+
 
 ## 1.3 提案决策
 
